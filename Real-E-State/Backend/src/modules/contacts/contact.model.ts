@@ -1,0 +1,68 @@
+import { type Document, model, Schema, type Types } from 'mongoose';
+
+export interface IContact extends Document {
+  companyId: Types.ObjectId;
+  name: string;
+  type: 'customer' | 'supplier';
+  email: string;
+  mobileNo: string;
+  gender: 'male' | 'female' | 'other';
+  dob?: Date;
+  address?: string;
+  notes?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const contactSchema = new Schema<IContact>(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    type: {
+      type: String,
+      enum: ['customer', 'supplier'],
+      required: true,
+      default: 'customer',
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+    },
+    mobileNo: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other'],
+      required: true,
+    },
+    dob: {
+      type: Date,
+    },
+    address: {
+      type: String,
+      trim: true,
+    },
+    notes: {
+      type: String,
+      trim: true,
+    },
+    companyId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Company',
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const Contact = model<IContact>('Contact', contactSchema);

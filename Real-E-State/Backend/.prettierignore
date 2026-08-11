@@ -1,0 +1,14 @@
+# Docker files
+Dockerfile
+Dockerfile.*
+docker-compose.yml
+docker-compose.yaml
+*.dockerfile
+
+# Markdown
+**/*.md
+**/*.mdx
+
+dist/
+node_modules/
+pnpm-lock.yaml
