@@ -76,22 +76,22 @@ export default function CategoryFormDrawer({
 
   return (
     <Sheet open={open} onOpenChange={(val) => !val && onClose()}>
-       <SheetContent
+      <SheetContent
         side="right"
         className="w-full sm:max-w-2xl overflow-y-auto p-0 flex flex-col"
       >
-               <SheetHeader className="sticky top-0 z-10 bg-card border-b border-border px-6 py-3 shadow-sm">
-<div className="flex items-center justify-between">
+        <SheetHeader className="sticky top-0 z-10 bg-card border-b border-border px-6 py-3 shadow-sm">
+          <div className="flex items-center justify-between">
             <div>
-          <SheetTitle className="text-lg font-semibold">
-            {editCategoryId ? "Edit Category" : "Add Category"}
-          </SheetTitle>
-          <SheetDescription className="text-xs text-muted-foreground mt-0.5">
-            {editCategoryId
-              ? "Update the details of your category below."
-              : "Create a new category for your inventory system."}
-          </SheetDescription>
-          </div>
+              <SheetTitle className="text-lg font-semibold">
+                {editCategoryId ? "Edit Category" : "Add Category"}
+              </SheetTitle>
+              <SheetDescription className="text-xs text-muted-foreground mt-0.5">
+                {editCategoryId
+                  ? "Update the details of your category below."
+                  : "Create a new category for your Real-E-State CRM system."}
+              </SheetDescription>
+            </div>
           </div>
         </SheetHeader>
 
@@ -156,8 +156,8 @@ export default function CategoryFormDrawer({
               {formik.isSubmitting || isCategoryLoading
                 ? "Saving..."
                 : editCategoryId
-                ? "Update Category"
-                : "Add Category"}
+                  ? "Update Category"
+                  : "Add Category"}
             </Button>
           </div>
         </form>

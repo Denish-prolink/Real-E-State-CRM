@@ -112,7 +112,7 @@ export function AppSidebar() {
             <Warehouse className="h-5 w-5" />
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-md leading-tight">Inventory<span className="text-blue-500">HUB</span></span>
+            <span className="font-extrabold text-md leading-tight">Real-E-State <span className="text-blue-500">CRM</span></span>
           </div>
         </div>
       </SidebarHeader>
@@ -125,7 +125,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-2">
             <SidebarMenu className="px-2">
-               {navItems.map((item) => {
+              {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
                 return (
@@ -133,11 +133,10 @@ export function AppSidebar() {
                     <SidebarMenuButton
                       render={<Link to={item.path} />}
                       isActive={isActive}
-                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
-                          : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
+                        ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
+                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
                       <span>{item.title}</span>
@@ -152,11 +151,10 @@ export function AppSidebar() {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       onClick={() => setOrdersOpen(!ordersOpen)}
-                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                        location.pathname.startsWith("/orders")
-                          ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
-                          : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${location.pathname.startsWith("/orders")
+                        ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
+                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       <ShoppingCart className={`h-4 w-4 shrink-0 ${location.pathname.startsWith("/orders") ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
                       <span className="flex-1 text-left">Order</span>
@@ -169,11 +167,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/orders/sell" />}
                           isActive={location.pathname === "/orders/sell"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/orders/sell"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/orders/sell"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <ShoppingCart className="h-3.5 w-3.5 shrink-0" />
                           <span>Sell</span>
@@ -183,11 +180,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/orders/purchase" />}
                           isActive={location.pathname === "/orders/purchase"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/orders/purchase"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/orders/purchase"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <ShoppingBag className="h-3.5 w-3.5 shrink-0" />
                           <span>Purchase</span>
@@ -204,11 +200,10 @@ export function AppSidebar() {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       onClick={() => setReportsOpen(!reportsOpen)}
-                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                        location.pathname.startsWith("/reports")
-                          ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
-                          : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${location.pathname.startsWith("/reports")
+                        ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
+                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       <TrendingUp className={`h-4 w-4 shrink-0 ${location.pathname.startsWith("/reports") ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
                       <span className="flex-1 text-left">Reports</span>
@@ -221,11 +216,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/reports/profit-loss" />}
                           isActive={location.pathname === "/reports/profit-loss"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/reports/profit-loss"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/profit-loss"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <TrendingUp className="h-3.5 w-3.5 shrink-0" />
                           <span>Profit/Loss</span>
@@ -235,11 +229,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/reports/products" />}
                           isActive={location.pathname === "/reports/products"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/reports/products"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/products"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <Package className="h-3.5 w-3.5 shrink-0" />
                           <span>Products</span>
@@ -249,11 +242,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/reports/sell" />}
                           isActive={location.pathname === "/reports/sell"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/reports/sell"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/sell"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <ShoppingCart className="h-3.5 w-3.5 shrink-0" />
                           <span>Sell Reports</span>
@@ -263,11 +255,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           render={<Link to="/reports/buy" />}
                           isActive={location.pathname === "/reports/buy"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${
-                            location.pathname === "/reports/buy"
-                              ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/buy"
+                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
                         >
                           <ShoppingBag className="h-3.5 w-3.5 shrink-0" />
                           <span>Buy Reports</span>

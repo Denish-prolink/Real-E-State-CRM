@@ -2,6 +2,8 @@ import { connectDatabase } from '../config/database';
 import logger from '../config/logger';
 
 import { seedCompanies } from './seeders/company.seeder';
+import { seedRoles } from './seeders/roles.seeder';
+import { seedPermissions } from './seeders/permissions.seeder';
 import { seedUsers } from './seeders/user.seeder';
 import { seedCategories } from './seeders/category.seeder';
 import { seedContacts } from './seeders/contact.seeder';
@@ -19,6 +21,10 @@ const seedDatabase = async () => {
     logger.info('Starting Database Seeding Process...');
 
     // 1. Core independent entities
+    // Seed role/permission constants first
+    await seedRoles();
+    await seedPermissions();
+
     const companies = await seedCompanies();
     
     // 2. Entities dependent on Companies

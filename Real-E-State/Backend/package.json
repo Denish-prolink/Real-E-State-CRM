@@ -1,5 +1,5 @@
 {
-  "name": "inventory-management-system",
+  "name": "Real-E-State-CRM-management-system",
   "version": "1.0.0",
   "description": "",
   "main": "src/app.ts",
@@ -8,6 +8,7 @@
     "dev": "ts-node-dev --respawn src/server.ts",
     "build": "pnpm run format:check && pnpm run lint && tsc",
     "start": "node dist/server.js",
+    "seed": "ts-node src/database/seed.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

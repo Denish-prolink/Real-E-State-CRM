@@ -31,6 +31,10 @@ import SkusPage from "../../pages/skus/pages/SkusPage";
 import OrdersPage from "../../pages/orders/pages/OrdersPage";
 import CreateOrderPage from "../../pages/orders/pages/CreateOrderPage";
 import OrderDetailsPage from "../../pages/orders/pages/OrderDetailsPage";
+import LeadsPage from "../../pages/leads/LeadsPage";
+import PropertiesPage from "../../pages/properties/PropertiesPage";
+import DealsPage from "../../pages/deals/DealsPage";
+import SiteVisitsPage from "../../pages/site-visits/SiteVisitsPage";
 
 // Placeholder Pages
 
@@ -79,6 +83,38 @@ const router = createBrowserRouter([
         element: (
           <RoleGuard allowedRoles={["company", "employee"]}>
             <DashboardOverview />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/leads",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <LeadsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/properties",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <PropertiesPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/deals",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <DealsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/site-visits",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <SiteVisitsPage />
           </RoleGuard>
         ),
       },

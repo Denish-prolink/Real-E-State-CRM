@@ -90,7 +90,7 @@ export default function SkuFormDrawer({
 
   return (
     <Sheet open={open} onOpenChange={(val) => !val && onClose()}>
-       <SheetContent
+      <SheetContent
         side="right"
         className="w-full sm:max-w-2xl overflow-y-auto p-0 flex flex-col"
       >
@@ -103,7 +103,7 @@ export default function SkuFormDrawer({
               <SheetDescription className="text-xs text-muted-foreground mt-0.5">
                 {editSkuId
                   ? "Update the details of your SKU below."
-                  : "Create a new SKU for your inventory system."}
+                  : "Create a new SKU for your Real-E-State CRM system."}
               </SheetDescription>
             </div>
           </div>
@@ -214,8 +214,8 @@ export default function SkuFormDrawer({
               {formik.isSubmitting || isSkuLoading
                 ? "Saving..."
                 : editSkuId
-                ? "Update SKU"
-                : "Add SKU"}
+                  ? "Update SKU"
+                  : "Add SKU"}
             </Button>
           </div>
         </form>

@@ -1,7 +1,7 @@
-# InventoryHUB - Complete Inventory Management System
+# Real-E-State CRM
 
 ## Project Overview
-InventoryHUB is a comprehensive, modern, and highly scalable inventory management system built to handle daily operations smoothly. It offers features like product management, sales, purchases, and advanced reporting.
+Real-E-State is a comprehensive, modern, and highly scalable Real-E-State CRM built to handle daily operations smoothly. It offers features like product management, sales, purchases, and advanced reporting.
 
 ## Features
 - Dashboard
@@ -26,7 +26,7 @@ InventoryHUB is a comprehensive, modern, and highly scalable inventory managemen
 
 ## Folder Structure
 ```text
-InventoryHUB/
+Real-E-State/
 ├── README.md
 ├── LICENSE
 ├── CHANGELOG.md
@@ -46,7 +46,7 @@ InventoryHUB/
 - **Password:** admin123
 
 ## Database Configuration
-Make sure your MongoDB server is running. Create a new database for InventoryHUB and keep the connection string ready.
+Make sure your MongoDB server is running. Create a new database for Real-E-State and keep the connection string ready.
 
 ## Environment Variables
 The `.env.example` file is provided in both `Frontend` and `Backend` folders. Rename it to `.env` and fill in the required variables.
@@ -54,7 +54,7 @@ The `.env.example` file is provided in both `Frontend` and `Backend` folders. Re
 Example Backend `.env`:
 ```env
 PORT=5000
-DATABASE_URL=mongodb://localhost:27017/inventoryhub
+DATABASE_URL=mongodb://localhost:27017/Real-E-State
 JWT_SECRET=your_jwt_secret_key
 ```
 

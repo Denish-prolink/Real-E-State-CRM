@@ -136,10 +136,10 @@ export default function DashboardOverview() {
   // Process category distribution data
   const categoryData = useMemo(() => {
     if (!productsReportData?.byCategory) return [];
-    
+
     // Check if there is any actual stock across categories
     const hasStock = productsReportData.byCategory.some((cat) => (cat.totalQuantity || 0) > 0);
-    
+
     const mapped = productsReportData.byCategory
       .map((cat: CategoryReportItem) => ({
         name: cat._id || "Uncategorized",
@@ -180,7 +180,7 @@ export default function DashboardOverview() {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 backdrop-blur-sm">
             ✨ Control Center
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Inventory<span className="text-blue-500">HUB</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Real-E-State<span className="text-blue-500">CRM</span></h2>
           <p className="text-indigo-200/80 text-sm leading-relaxed">
             Welcome back! Here is a live summary of your company's sales analytics, purchases, and catalog status. Use the buttons on the right to trigger rapid operations.
           </p>
@@ -255,9 +255,8 @@ export default function DashboardOverview() {
               <span className="text-sm font-semibold text-slate-500 dark:text-zinc-400">
                 {netProfit >= 0 ? "Net Profit" : "Net Loss"}
               </span>
-              <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
-                netProfit >= 0 ? "bg-emerald-50 dark:bg-emerald-950/30" : "bg-rose-50 dark:bg-rose-950/30"
-              }`}>
+              <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${netProfit >= 0 ? "bg-emerald-50 dark:bg-emerald-950/30" : "bg-rose-50 dark:bg-rose-950/30"
+                }`}>
                 {netProfit >= 0 ? (
                   <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                 ) : (
@@ -265,32 +264,29 @@ export default function DashboardOverview() {
                 )}
               </div>
             </div>
-            <h3 className={`text-2xl sm:text-2xl font-bold mt-4 ${
-              netProfit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
-            }`}>
+            <h3 className={`text-2xl sm:text-2xl font-bold mt-4 ${netProfit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
+              }`}>
               {netProfit >= 0 ? "+" : "-"}₹{Math.abs(netProfit).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
             </h3>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-900 flex justify-between items-center text-xs">
             <span className="text-slate-400 dark:text-zinc-500">Margin ratio</span>
-            <span className={`px-2 py-0.5 rounded font-medium ${
-              netProfit >= 0 
-                ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400" 
-                : "bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400"
-            }`}>
+            <span className={`px-2 py-0.5 rounded font-medium ${netProfit >= 0
+              ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400"
+              : "bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400"
+              }`}>
               {(totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0).toFixed(1)}% Margin
             </span>
           </div>
         </div>
 
-        {/* Inventory Status Card */}
+        {/* Real-E-State CRM Status Card */}
         <div className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-500 dark:text-zinc-400">Inventory Status</span>
-              <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
-                lowStock > 0 ? "bg-amber-50 dark:bg-amber-950/30" : "bg-indigo-50 dark:bg-indigo-950/30"
-              }`}>
+              <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${lowStock > 0 ? "bg-amber-50 dark:bg-amber-950/30" : "bg-indigo-50 dark:bg-indigo-950/30"
+                }`}>
                 {lowStock > 0 ? (
                   <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 ) : (
@@ -304,11 +300,10 @@ export default function DashboardOverview() {
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-900 flex justify-between items-center text-xs">
             <span className="text-slate-400 dark:text-zinc-500">Out of {totalProducts} items cataloged</span>
-            <span className={`px-2 py-0.5 rounded font-medium ${
-              lowStock > 0 
-                ? "bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400" 
-                : "bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400"
-            }`}>
+            <span className={`px-2 py-0.5 rounded font-medium ${lowStock > 0
+              ? "bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400"
+              : "bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400"
+              }`}>
               {lowStock > 0 ? "Warning" : "Good"}
             </span>
           </div>
@@ -339,17 +334,17 @@ export default function DashboardOverview() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-slate-100 dark:stroke-zinc-800" />
                   <XAxis dataKey="monthName" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis 
-                    width={80} 
-                    tick={{ fill: "#94a3b8", fontSize: 11 }} 
-                    axisLine={false} 
-                    tickLine={false} 
+                  <YAxis
+                    width={80}
+                    tick={{ fill: "#94a3b8", fontSize: 11 }}
+                    axisLine={false}
+                    tickLine={false}
                     tickFormatter={(val) => {
                       if (val >= 10000000) return `₹${(val / 10000000).toFixed(1)} Cr`;
                       if (val >= 100000) return `₹${(val / 100000).toFixed(1)} L`;
                       if (val >= 1000) return `₹${(val / 1000).toFixed(0)} K`;
                       return `₹${val}`;
-                    }} 
+                    }}
                   />
                   <Tooltip
                     contentStyle={{ backgroundColor: "var(--card)", borderColor: "var(--border)", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgba(0,0,0,0.05)" }}
@@ -374,8 +369,8 @@ export default function DashboardOverview() {
           <div className="flex flex-col gap-1 mb-6">
             <h2 className="text-lg font-bold tracking-tight text-slate-800 dark:text-zinc-100">Stock distribution</h2>
             <p className="text-xs text-slate-400 dark:text-zinc-500">
-              {categoryData[0]?.isStockBased 
-                ? "Distribution of stock units by product category." 
+              {categoryData[0]?.isStockBased
+                ? "Distribution of stock units by product category."
                 : "Distribution of unique products cataloged by category."}
             </p>
           </div>
@@ -398,11 +393,11 @@ export default function DashboardOverview() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip 
+                    <Tooltip
                       formatter={(value: unknown) => [
                         value as number,
                         categoryData[0]?.isStockBased ? "Quantity" : "Products Count"
-                      ]} 
+                      ]}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -455,9 +450,8 @@ export default function DashboardOverview() {
                     <tr key={order._id} className="hover:bg-slate-50/40 dark:hover:bg-zinc-800/10 transition-colors">
                       <td className="p-4 font-semibold text-slate-800 dark:text-zinc-200">{order.contact?.name || "N/A"}</td>
                       <td className="p-4">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                          order.orderType === "sell" ? "bg-emerald-50 text-emerald-700 border border-emerald-100/50" : "bg-indigo-50 text-indigo-700 border border-indigo-100/50"
-                        }`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${order.orderType === "sell" ? "bg-emerald-50 text-emerald-700 border border-emerald-100/50" : "bg-indigo-50 text-indigo-700 border border-indigo-100/50"
+                          }`}>
                           {order.orderType === "sell" ? "Sell" : "Purchase"}
                         </span>
                       </td>
@@ -500,9 +494,8 @@ export default function DashboardOverview() {
                     <p className="font-semibold text-sm text-slate-800 dark:text-zinc-200 truncate">{prod.title}</p>
                     <p className="text-[10px] text-slate-400 dark:text-zinc-500 truncate">{prod.category}</p>
                   </div>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${
-                    prod.quantity <= 2 ? "bg-red-50 text-red-700 border border-red-100" : "bg-amber-50 text-amber-700 border border-amber-100"
-                  }`}>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${prod.quantity <= 2 ? "bg-red-50 text-red-700 border border-red-100" : "bg-amber-50 text-amber-700 border border-amber-100"
+                    }`}>
                     {prod.quantity} units left
                   </span>
                 </div>

@@ -23,7 +23,7 @@ export default function GoogleLoginModal({
 
   const demoAccounts = [
     { email: "shrusti.prolink@gmail.com", firstName: "Shrusti", lastName: "Prolink" },
-    { email: "admin.inventory@gmail.com", firstName: "Admin", lastName: "Inventory" },
+    { email: "admin.inventory@gmail.com", firstName: "Admin", lastName: "Real-E-State CRM" },
     { email: "guest.user@gmail.com", firstName: "Guest", lastName: "User" },
   ];
 
@@ -43,7 +43,7 @@ export default function GoogleLoginModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 backdrop-blur-xs p-4 animate-fade-in">
       <div className="bg-white dark:bg-zinc-950 w-full max-w-md rounded-2xl shadow-2xl border border-zinc-100 dark:border-zinc-800 overflow-hidden flex flex-col transition-all duration-300 transform scale-100 scale-in">
-        
+
         {/* Header with Google Logo */}
         <div className="p-8 pb-4 flex flex-col items-center text-center">
           <svg className="h-8 w-8 mb-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@ export default function GoogleLoginModal({
             Sign in with Google
           </h2>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-            to continue to Inventory Management
+            to continue to Real-E-State CRM
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export default function GoogleLoginModal({
               <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
                 Enter account details
               </span>
-              
+
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400">First Name</label>
