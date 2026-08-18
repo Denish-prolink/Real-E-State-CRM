@@ -31,10 +31,18 @@ import SkusPage from "../../pages/skus/pages/SkusPage";
 import OrdersPage from "../../pages/orders/pages/OrdersPage";
 import CreateOrderPage from "../../pages/orders/pages/CreateOrderPage";
 import OrderDetailsPage from "../../pages/orders/pages/OrderDetailsPage";
-import LeadsPage from "../../pages/leads/LeadsPage";
+import LeadsPage from "../../pages/leads/pages/LeadsPage";
+import LeadDetailsPage from "../../pages/leads/pages/LeadDetailsPage";
 import PropertiesPage from "../../pages/properties/PropertiesPage";
+import ProjectsPage from "../../pages/projects/pages/ProjectsPage";
+import TowersPage from "../../pages/towers/pages/TowersPage";
+import UnitsPage from "../../pages/units/pages/UnitsPage";
 import DealsPage from "../../pages/deals/DealsPage";
 import SiteVisitsPage from "../../pages/site-visits/SiteVisitsPage";
+import BuyersPage from "../../pages/buyers/pages/BuyersPage";
+import SellersPage from "../../pages/sellers/pages/SellersPage";
+import CalendarPage from "../../pages/calendar/pages/CalendarPage";
+import TasksPage from "../../pages/tasks/pages/TasksPage";
 
 // Placeholder Pages
 
@@ -95,10 +103,58 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/leads/:id",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <LeadDetailsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/buyers",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <BuyersPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/sellers",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <SellersPage />
+          </RoleGuard>
+        ),
+      },
+      {
         path: "/properties",
         element: (
           <RoleGuard allowedRoles={["company", "employee"]}>
             <PropertiesPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/projects",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <ProjectsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/towers",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <TowersPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/units",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <UnitsPage />
           </RoleGuard>
         ),
       },
@@ -291,6 +347,22 @@ const router = createBrowserRouter([
         element: (
           <RoleGuard allowedRoles={["company", "employee"]}>
             <SettingsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/calendar",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <CalendarPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/tasks",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <TasksPage />
           </RoleGuard>
         ),
       },

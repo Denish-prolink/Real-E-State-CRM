@@ -13,7 +13,13 @@ export const createLead = async (req: AuthenticatedRequest, res: Response) => {
 
 export const getLeads = async (req: AuthenticatedRequest, res: Response) => {
   const companyId = getCompanyId(req);
-  const leads = await service.getLeadsService(companyId, req.query);
+  const page = req.query.page ? Math.max(1, parseInt(req.query.page as string)) : undefined;
+  const perPage = req.query.perPage
+    ? Math.max(1, parseInt(req.query.perPage as string))
+    : undefined;
+  const search = (req.query.search as string) || undefined;
+
+  const leads = await service.getLeadsService(companyId, page, perPage, search);
   return successResponse(res, 'Leads retrieved successfully', leads);
 };
 

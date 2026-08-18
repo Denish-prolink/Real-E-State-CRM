@@ -1,16 +1,13 @@
 import {
-  Boxes,
+  Building,
   Building2,
-  ChevronDown,
-  Layers,
+  Home,
   LayoutDashboard,
-  Package,
-  ShoppingBag,
-  ShoppingCart,
-  TrendingUp,
-  User,
+  UserCheck,
   Users,
-  Warehouse
+  Warehouse,
+  Calendar,
+  CheckSquare
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -23,9 +20,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { useAppSelector } from "@/app/hooks";
 
@@ -34,8 +28,6 @@ import { useState } from "react";
 export function AppSidebar() {
   const location = useLocation();
   const user = useAppSelector((state) => state.auth.user);
-  const [ordersOpen, setOrdersOpen] = useState(location.pathname.startsWith("/orders"));
-  const [reportsOpen, setReportsOpen] = useState(location.pathname.startsWith("/reports"));
 
   const allNavItems = [
     {
@@ -45,10 +37,22 @@ export function AppSidebar() {
       roles: ["company", "employee"],
     },
     {
-      title: "Company",
-      path: "/companies",
-      icon: Building2,
-      roles: ["super_admin"],
+      title: "Calendar",
+      path: "/calendar",
+      icon: Calendar,
+      roles: ["company", "employee"],
+    },
+    {
+      title: "Tasks",
+      path: "/tasks",
+      icon: CheckSquare,
+      roles: ["company", "employee"],
+    },
+    {
+      title: "Leads",
+      path: "/leads",
+      icon: UserCheck,
+      roles: ["company", "employee"],
     },
     {
       title: "Contact",
@@ -57,34 +61,28 @@ export function AppSidebar() {
       roles: ["company"],
     },
     {
-      title: "Employee",
-      path: "/employees",
-      icon: User,
-      roles: ["company"],
-    },
-    {
-      title: "Category",
-      path: "/categories",
-      icon: Layers,
+      title: "Properties",
+      path: "/properties",
+      icon: Home,
       roles: ["company", "employee"],
     },
     {
-      title: "Product",
-      path: "/products",
-      icon: Package,
+      title: "Projects",
+      path: "/projects",
+      icon: Building2,
       roles: ["company", "employee"],
     },
     {
-      title: "Sku (stock)",
-      path: "/skus",
-      icon: Boxes,
+      title: "Towers",
+      path: "/towers",
+      icon: Building,
       roles: ["company", "employee"],
     },
     {
-      title: "Warehouse",
-      path: "/warehouses",
-      icon: Warehouse,
-      roles: ["company"],
+      title: "Company",
+      path: "/companies",
+      icon: Building2,
+      roles: ["super_admin"],
     },
     // {
     //   title: "Reports",
@@ -146,7 +144,7 @@ export function AppSidebar() {
               })}
 
               {/* Order — Collapsible with sub-items */}
-              {(userRole === "company") && (
+              {/* {(userRole === "company") && (
                 <div className="flex flex-col gap-1">
                   <SidebarMenuItem>
                     <SidebarMenuButton
@@ -192,82 +190,9 @@ export function AppSidebar() {
                     </SidebarMenuSub>
                   )}
                 </div>
-              )}
+              )} */}
 
-              {/* Reports — Collapsible with sub-items */}
-              {(userRole === "company") && (
-                <div className="flex flex-col gap-1">
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setReportsOpen(!reportsOpen)}
-                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${location.pathname.startsWith("/reports")
-                        ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
-                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                        }`}
-                    >
-                      <TrendingUp className={`h-4 w-4 shrink-0 ${location.pathname.startsWith("/reports") ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
-                      <span className="flex-1 text-left">Reports</span>
-                      <ChevronDown className={`h-4 w-4 shrink-0 transition-transform duration-200 ${reportsOpen ? "rotate-180" : ""}`} />
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  {reportsOpen && (
-                    <SidebarMenuSub>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          render={<Link to="/reports/profit-loss" />}
-                          isActive={location.pathname === "/reports/profit-loss"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/profit-loss"
-                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                        >
-                          <TrendingUp className="h-3.5 w-3.5 shrink-0" />
-                          <span>Profit/Loss</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          render={<Link to="/reports/products" />}
-                          isActive={location.pathname === "/reports/products"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/products"
-                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                        >
-                          <Package className="h-3.5 w-3.5 shrink-0" />
-                          <span>Products</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          render={<Link to="/reports/sell" />}
-                          isActive={location.pathname === "/reports/sell"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/sell"
-                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                        >
-                          <ShoppingCart className="h-3.5 w-3.5 shrink-0" />
-                          <span>Sell Reports</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          render={<Link to="/reports/buy" />}
-                          isActive={location.pathname === "/reports/buy"}
-                          className={`gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === "/reports/buy"
-                            ? "bg-indigo-50/70 text-indigo-700 font-medium dark:bg-indigo-950/30 dark:text-indigo-400"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                        >
-                          <ShoppingBag className="h-3.5 w-3.5 shrink-0" />
-                          <span>Buy Reports</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    </SidebarMenuSub>
-                  )}
-                </div>
-              )}
+
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

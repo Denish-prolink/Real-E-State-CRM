@@ -16,6 +16,14 @@ import reportRoutes from '../modules/reports/report.routes';
 import skuRoutes from '../modules/skus/sku.routes';
 import supplierRoutes from '../modules/suppliers/supplier.routes';
 import warehouseRoutes from '../modules/warehouses/warehouse.routes';
+import buyerRoutes from '../modules/buyers/buyer.routes';
+import sellerRoutes from '../modules/sellers/seller.routes';
+import roleRoutes from '../modules/roles/role.routes';
+import permissionRoutes from '../modules/permissions/permission.routes';
+import projectRoutes from '../modules/projects/project.routes';
+import towerRoutes from '../modules/towers/tower.routes';
+import unitRoutes from '../modules/units/unit.routes';
+import agentRoutes from '../modules/agents/agent.routes';
 
 const router = Router();
 
@@ -34,6 +42,14 @@ router.use('/leads', leadRoutes);
 router.use('/properties', propertyRoutes);
 router.use('/deals', dealRoutes);
 router.use('/site-visits', siteVisitRoutes);
+router.use('/buyers', buyerRoutes);
+router.use('/sellers', sellerRoutes);
+router.use('/roles', roleRoutes);
+router.use('/permissions', permissionRoutes);
+router.use('/projects', projectRoutes);
+router.use('/towers', towerRoutes);
+router.use('/units', unitRoutes);
+router.use('/agents', agentRoutes);
 router.use('/notifications', notificationRoutes);
 
 router.get('/', (_req, res) => {

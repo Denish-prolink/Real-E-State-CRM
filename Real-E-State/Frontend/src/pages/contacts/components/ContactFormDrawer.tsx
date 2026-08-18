@@ -158,8 +158,8 @@ export default function ContactFormDrawer({
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="customer">Customer</SelectItem>
-                  <SelectItem value="supplier">Supplier</SelectItem>
+                  <SelectItem value="Buyer">Buyer</SelectItem>
+                  <SelectItem value="Seller">Seller</SelectItem>
                 </SelectContent>
               </Select>
               <FieldError error={formik.errors.type} touched={formik.touched.type} submitCount={formik.submitCount} />
@@ -291,8 +291,8 @@ export default function ContactFormDrawer({
               {formik.isSubmitting || isSubmitting
                 ? "Saving..."
                 : contactToEdit
-                ? "Update Contact"
-                : "Add Contact"}
+                  ? "Update Contact"
+                  : "Add Contact"}
             </Button>
           </div>
         </form>

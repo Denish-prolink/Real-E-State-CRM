@@ -18,6 +18,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { logout } from "@/pages/auth/slices/auth.slice";
 import { useGetLowStockNotifications } from "@/pages/dashboard/hooks/useGetNotifications";
 import { markNotificationAsRead, markAllNotificationsAsRead } from "@/pages/dashboard/services/notification.service";
+import { ModeToggle } from "@/components/mode-toggle";
 
 interface LowStockProduct {
   _id: string;
@@ -175,6 +176,10 @@ export default function DashboardLayout() {
     const path = location.pathname;
 
     if (path === "/dashboard") return "Dashboard";
+    if (path === "/properties") return "Properties";
+    if (path === "/projects") return "Projects";
+    if (path === "/towers") return "Towers";
+    if (path === "/units") return "Units";
     if (path === "/inventory") return "Inventory";
     if (path === "/products") return "Products";
     if (path.startsWith("/products/")) return "Product View";
@@ -219,6 +224,7 @@ export default function DashboardLayout() {
 
               {/* Right */}
               <div className="flex items-center gap-4">
+                <ModeToggle />
                 {user?.role !== "super_admin" && <NotificationBell />}
 
                 <DropdownMenu>

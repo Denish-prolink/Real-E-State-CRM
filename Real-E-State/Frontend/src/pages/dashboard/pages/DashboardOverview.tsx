@@ -180,7 +180,7 @@ export default function DashboardOverview() {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 backdrop-blur-sm">
             ✨ Control Center
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Real-E-State<span className="text-blue-500">CRM</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Real-E-State <span className="text-blue-500">CRM</span></h2>
           <p className="text-indigo-200/80 text-sm leading-relaxed">
             Welcome back! Here is a live summary of your company's sales analytics, purchases, and catalog status. Use the buttons on the right to trigger rapid operations.
           </p>

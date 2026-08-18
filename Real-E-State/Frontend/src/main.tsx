@@ -7,12 +7,15 @@ import { createRoot } from 'react-dom/client'
 import { queryClient } from './services/query/query-client'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
+import { ThemeProvider } from './components/theme-provider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+          <App />
+        </ThemeProvider>
       </QueryClientProvider>
     </Provider>
   </StrictMode>,

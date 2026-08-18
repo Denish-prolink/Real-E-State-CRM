@@ -5,8 +5,41 @@ export const createLead = async (data: Partial<ILead>) => {
   return Lead.create(data);
 };
 
-export const findLeadsByCompany = async (companyId: string, filters: any = {}) => {
-  return Lead.find({ companyId, ...filters }).populate('assignedAgent', 'firstName lastName email').sort({ createdAt: -1 });
+const buildFilter = (companyId: string, search?: string) => {
+  return search
+    ? {
+        companyId,
+        $or: [
+          { firstName: { $regex: search, $options: 'i' } },
+          { lastName: { $regex: search, $options: 'i' } },
+          { phone: { $regex: search, $options: 'i' } },
+          { email: { $regex: search, $options: 'i' } },
+        ],
+      }
+    : { companyId };
+};
+
+export const findLeadsByCompany = async (
+  companyId: string,
+  page: number | undefined,
+  perPage: number | undefined,
+  search?: string,
+) => {
+  const filter = buildFilter(companyId, search);
+  const query = Lead.find(filter)
+    .populate('assignedAgent', 'firstName lastName email')
+    .sort({ createdAt: -1 });
+
+  if (page === undefined || perPage === undefined) {
+    return query;
+  }
+
+  const skip = (page - 1) * perPage;
+  return query.skip(skip).limit(perPage);
+};
+
+export const countLeadsByCompany = async (companyId: string, search?: string) => {
+  return Lead.countDocuments(buildFilter(companyId, search));
 };
 
 export const findLeadById = async (id: string, companyId: string) => {
