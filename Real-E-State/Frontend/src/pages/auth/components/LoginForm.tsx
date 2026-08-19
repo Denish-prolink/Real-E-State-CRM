@@ -96,18 +96,46 @@ export default function LoginForm({
             <p className="text-sm text-red-500">{formik.errors.password}</p>
           )}
         </Field>
-        <div className="rounded-md border border-dashed border-muted-foreground/30 bg-muted/20 p-3 text-sm text-muted-foreground">
-          <p className="font-medium text-foreground">Demo credentials</p>
-          <ul className="mt-2 space-y-1">
-            <li>
-              <span className="font-medium text-foreground">Super admin:</span>{" "}
-              superadmin@example.com / password123
-            </li>
-            <li>
-              <span className="font-medium text-foreground">User:</span>{" "}
-              admin@acme.com / password123
-            </li>
-          </ul>
+        <div className="rounded-md border border-dashed border-muted-foreground/30 bg-muted/20 p-4 text-sm">
+          <p className="font-medium text-foreground mb-3">Quick Login (Demo)</p>
+          <div className="flex flex-col gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                formik.setFieldValue("email", "superadmin@example.com");
+                formik.setFieldValue("password", "password123");
+              }}
+            >
+              <span className="font-semibold w-24 text-left">Super Admin:</span> superadmin@example.com
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                formik.setFieldValue("email", "admin@acme.com");
+                formik.setFieldValue("password", "password123");
+              }}
+            >
+              <span className="font-semibold w-24 text-left">Acme Agency:</span> admin@acme.com
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                formik.setFieldValue("email", "admin@stark.com");
+                formik.setFieldValue("password", "password123");
+              }}
+            >
+              <span className="font-semibold w-24 text-left">Stark Agency:</span> admin@stark.com
+            </Button>
+          </div>
         </div>
         <Field>
           <Button type="submit" disabled={isPending} className="w-full">

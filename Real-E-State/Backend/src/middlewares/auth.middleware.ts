@@ -2,10 +2,10 @@ import type { NextFunction, Request, Response } from 'express';
 
 import { ApiError } from '../common/exceptions/ApiError';
 import { verifyAccessToken } from '../common/helpers/token.helper';
-import type { JwtPayload } from '../common/interfaces/jwt-payload.interface';
+import type { JwtPayload as CustomJwtPayload } from '../common/interfaces/jwt-payload.interface';
 
 export interface AuthenticatedRequest extends Request {
-  user?: JwtPayload;
+  user?: CustomJwtPayload;
 }
 
 export const getCompanyId = (req: AuthenticatedRequest): string => {
