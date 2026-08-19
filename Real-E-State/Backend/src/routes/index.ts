@@ -5,7 +5,7 @@ import categoryRoutes from '../modules/categories/category.routes';
 import companyRoutes from '../modules/companies/company.routes';
 import contactRoutes from '../modules/contacts/contact.routes';
 import employeeRoutes from '../modules/employees/employee.routes';
-import notificationRoutes from '../modules/notification/notification.routes';
+
 import leadRoutes from '../modules/leads/lead.routes';
 import propertyRoutes from '../modules/properties/property.routes';
 import dealRoutes from '../modules/deals/deal.routes';
@@ -61,7 +61,7 @@ router.use('/projects', projectRoutes);
 router.use('/towers', towerRoutes);
 router.use('/units', unitRoutes);
 router.use('/agents', agentRoutes);
-router.use('/notifications', notificationRoutes);
+
 
 // New Modules
 router.use('/follow-ups', followUpsRoutes);

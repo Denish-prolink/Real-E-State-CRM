@@ -25,7 +25,7 @@ const rbacTable = {
   Payments: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'View', User: 'Own' },
   Installments: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'View', User: 'Own' },
   Documents: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'Own', User: 'Own' },
-  Notifications: { 'Super Admin': 'Full', Staff: 'Full', Agency: 'Own', Agent: 'Own', User: 'Own' },
+
   Reports: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'Own', User: 'Own' },
   'Audit Logs': { 'Super Admin': 'Full', Staff: 'View', Agency: 'None', Agent: 'None', User: 'None' },
   Settings: { 'Super Admin': 'Full', Staff: 'None', Agency: 'Own Agency', Agent: 'Own Profile', User: 'Own Profile' },

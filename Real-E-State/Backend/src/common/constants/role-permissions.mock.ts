@@ -21,8 +21,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Payments: 'Full',
     Installments: 'Full',
     Documents: 'Full',
-    Notifications: 'Full',
-    Reports: 'Full',
+        Reports: 'Full',
     AuditLogs: 'Full',
     Settings: 'Full',
     Profile: 'Full'
@@ -49,8 +48,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Payments: 'Manage',
     Installments: 'Manage',
     Documents: 'Manage',
-    Notifications: 'Full',
-    Reports: 'Manage',
+        Reports: 'Manage',
     AuditLogs: 'View',
     Settings: 'None',
     Profile: 'Full'
@@ -77,8 +75,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Payments: 'Own Agency',
     Installments: 'Own Agency',
     Documents: 'Own Agency',
-    Notifications: 'Own',
-    Reports: 'Own Agency',
+        Reports: 'Own Agency',
     AuditLogs: 'None',
     Settings: 'Own Agency',
     Profile: 'Full'
@@ -105,8 +102,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Payments: 'View',
     Installments: 'View',
     Documents: 'Own',
-    Notifications: 'Own',
-    Reports: 'Own',
+        Reports: 'Own',
     AuditLogs: 'None',
     Settings: 'Own Profile',
     Profile: 'Full'
@@ -133,8 +129,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Payments: 'Own',
     Installments: 'Own',
     Documents: 'Own',
-    Notifications: 'Own',
-    Reports: 'Own',
+        Reports: 'Own',
     AuditLogs: 'None',
     Settings: 'Own Profile',
     Profile: 'Full'

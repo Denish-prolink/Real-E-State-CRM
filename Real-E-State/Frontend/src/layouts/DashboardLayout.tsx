@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, User, Bell, AlertTriangle } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
@@ -14,114 +14,9 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { AppSidebar } from "./components/AppSidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { logout } from "@/pages/auth/slices/auth.slice";
-import { useGetLowStockNotifications } from "@/pages/dashboard/hooks/useGetNotifications";
-import { markNotificationAsRead, markAllNotificationsAsRead } from "@/pages/dashboard/services/notification.service";
 import { ModeToggle } from "@/components/mode-toggle";
 
-interface LowStockProduct {
-  _id: string;
-  title: string;
-  category: string;
-  quantity: number;
-  isRead?: boolean;
-}
 
-function NotificationBell() {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { data } = useGetLowStockNotifications();
-  const products = (data?.products || []) as LowStockProduct[];
-  const count = data?.count || 0;
-
-  const handleMarkAsRead = async (id: string) => {
-    try {
-      await markNotificationAsRead(id);
-      queryClient.invalidateQueries({ queryKey: ["lowStockNotifications"] });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      navigate(`/products/${id}`);
-    }
-  };
-
-  const handleMarkAllAsRead = async () => {
-    try {
-      await markAllNotificationsAsRead();
-      queryClient.invalidateQueries({ queryKey: ["lowStockNotifications"] });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border hover:bg-muted text-muted-foreground transition-colors cursor-pointer outline-none">
-        <Bell className="h-4 w-4" />
-        {count > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white ring-2 ring-card animate-pulse">
-            {count}
-          </span>
-        )}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 rounded-xl p-0 overflow-hidden bg-card border border-border shadow-md">
-        <div className="px-4 py-3 border-b border-border bg-muted/20 flex items-center justify-between">
-          <span className="font-semibold text-sm text-foreground">Notifications</span>
-          <div className="flex items-center gap-2">
-            {count > 0 && (
-              <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-400">
-                {count} Low Stock
-              </span>
-            )}
-            {products.length > 0 && count > 0 && (
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleMarkAllAsRead();
-                }}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-medium focus:outline-none"
-              >
-                Mark all as read
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="max-h-72 overflow-y-auto divide-y divide-border">
-          {products.length > 0 ? (
-            products.map((product) => (
-              <DropdownMenuItem
-                key={product._id}
-                onClick={() => handleMarkAsRead(product._id)}
-                className={`flex items-start gap-3 p-3 cursor-pointer focus:bg-muted/50 transition-colors ${product.isRead ? 'opacity-60' : 'bg-muted/10'}`}
-              >
-                <div className="h-8 w-8 rounded-lg bg-amber-50 dark:bg-amber-950/30 flex items-center justify-center shrink-0 mt-0.5">
-                  <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm text-foreground truncate">{product.title}</p>
-                  <p className="text-xs text-muted-foreground truncate">{product.category}</p>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    {!product.isRead && <span className="h-1.5 w-1.5 rounded-full bg-red-500" />}
-                    <span className={`text-xs font-semibold ${product.isRead ? 'text-muted-foreground' : 'text-red-600 dark:text-red-400'}`}>
-                      {product.quantity} units remaining
-                    </span>
-                  </div>
-                </div>
-              </DropdownMenuItem>
-            ))
-          ) : (
-            <div className="px-4 py-8 text-center flex flex-col items-center justify-center text-muted-foreground">
-              <div className="h-10 w-10 rounded-full bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center mb-2">
-                <Bell className="h-5 w-5 text-indigo-500" />
-              </div>
-              <p className="text-sm font-medium text-foreground">All stocks healthy</p>
-              <p className="text-xs mt-0.5 text-muted-foreground">No low stock warnings.</p>
-            </div>
-          )}
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -188,7 +83,6 @@ export default function DashboardLayout() {
               {/* Right */}
               <div className="flex items-center gap-4">
                 <ModeToggle />
-                {user?.role !== "super_admin" && <NotificationBell />}
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center  rounded-full px-1 py-1 hover:border-2 transition-colors  cursor-pointer">
