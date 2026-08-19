@@ -1,28 +1,42 @@
 import { model, Schema } from 'mongoose';
-import { IDealDocument } from './deal.types';
+
+import type { IDealDocument } from './deal.types';
 
 const dealSchema = new Schema<IDealDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
-    dealNumber: { type: String },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
+    dealId: { type: String },
     leadId: { type: Schema.Types.ObjectId, ref: 'Lead', required: true },
+    buyerId: { type: Schema.Types.ObjectId, ref: 'Buyer' },
+    sellerId: { type: Schema.Types.ObjectId, ref: 'Seller' },
     propertyId: { type: Schema.Types.ObjectId, ref: 'Property' },
+    projectId: { type: Schema.Types.ObjectId, ref: 'Project' },
+    unitId: { type: Schema.Types.ObjectId, ref: 'Unit' },
     agentId: { type: Schema.Types.ObjectId, ref: 'User' },
-    dealValue: { type: Number, required: true },
+    dealAmount: { type: Number, required: true },
+    commission: { type: Number },
     discount: { type: Number, default: 0 },
     expectedClosingDate: { type: Date },
-    stage: {
+    closingDate: { type: Date },
+    status: {
       type: String,
-      enum: ['New', 'Qualified', 'Site Visit', 'Negotiation', 'Booking', 'Won', 'Lost'],
-      default: 'New',
+      enum: [
+        'Lead',
+        'Qualified',
+        'Site Visit',
+        'Negotiation',
+        'Booking',
+        'Agreement',
+        'Closed',
+        'Lost',
+      ],
+      default: 'Lead',
     },
-    probability: { type: Number, default: 50 },
     notes: { type: String },
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 export const Deal = model<IDealDocument>('Deal', dealSchema);

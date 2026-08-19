@@ -5,10 +5,10 @@ export const createLead = async (data: Partial<ILead>) => {
   return Lead.create(data);
 };
 
-const buildFilter = (companyId: string, search?: string) => {
+const buildFilter = (agencyId: string, search?: string) => {
   return search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { firstName: { $regex: search, $options: 'i' } },
           { lastName: { $regex: search, $options: 'i' } },
@@ -16,16 +16,16 @@ const buildFilter = (companyId: string, search?: string) => {
           { email: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
 };
 
 export const findLeadsByCompany = async (
-  companyId: string,
+  agencyId: string,
   page: number | undefined,
   perPage: number | undefined,
   search?: string,
 ) => {
-  const filter = buildFilter(companyId, search);
+  const filter = buildFilter(agencyId, search);
   const query = Lead.find(filter)
     .populate('assignedAgent', 'firstName lastName email')
     .sort({ createdAt: -1 });
@@ -38,18 +38,18 @@ export const findLeadsByCompany = async (
   return query.skip(skip).limit(perPage);
 };
 
-export const countLeadsByCompany = async (companyId: string, search?: string) => {
-  return Lead.countDocuments(buildFilter(companyId, search));
+export const countLeadsByCompany = async (agencyId: string, search?: string) => {
+  return Lead.countDocuments(buildFilter(agencyId, search));
 };
 
-export const findLeadById = async (id: string, companyId: string) => {
-  return Lead.findOne({ _id: id, companyId }).populate('assignedAgent', 'firstName lastName email');
+export const findLeadById = async (id: string, agencyId: string) => {
+  return Lead.findOne({ _id: id, agencyId }).populate('assignedAgent', 'firstName lastName email');
 };
 
-export const updateLeadById = async (id: string, companyId: string, data: Partial<ILead>) => {
-  return Lead.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
+export const updateLeadById = async (id: string, agencyId: string, data: Partial<ILead>) => {
+  return Lead.findOneAndUpdate({ _id: id, agencyId }, data, { new: true });
 };
 
-export const deleteLeadById = async (id: string, companyId: string) => {
-  return Lead.findOneAndDelete({ _id: id, companyId });
+export const deleteLeadById = async (id: string, agencyId: string) => {
+  return Lead.findOneAndDelete({ _id: id, agencyId });
 };

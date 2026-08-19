@@ -1,35 +1,43 @@
-import { Document, Types } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export interface IProperty {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   propertyId?: string;
-  title: string;
-  description?: string;
-  propertyType: 'Apartment' | 'Villa' | 'House' | 'Plot' | 'Office' | 'Shop' | 'Warehouse' | 'Land' | 'Commercial';
-  purpose: 'Sale' | 'Rent' | 'Lease';
+  propertyName: string;
+  propertyType:
+    | 'Apartment'
+    | 'Villa'
+    | 'House'
+    | 'Office'
+    | 'Shop'
+    | 'Warehouse'
+    | 'Land'
+    | 'Plot'
+    | 'Commercial';
+  category?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  pincode?: string;
+  latitude?: number;
+  longitude?: number;
   price: number;
   area: number;
+  areaUnit?: string;
   bedrooms?: number;
   bathrooms?: number;
   parking?: number;
-  location?: {
-    address?: string;
-    city?: string;
-    state?: string;
-    country?: string;
-    latitude?: number;
-    longitude?: number;
-  };
-  projectId?: Types.ObjectId;
-  tower?: string;
-  floor?: string;
-  unitNumber?: string;
+  furnishedStatus?: string;
+  constructionStatus?: string;
+  ownership?: string;
+  facing?: string;
+  description?: string;
+  amenities?: string[];
+  images?: string[];
+  documents?: string[];
   agentId?: Types.ObjectId;
-  status: 'Available' | 'Reserved' | 'Blocked' | 'Booked' | 'Sold';
-  media?: Array<{
-    url: string;
-    fileType: string;
-  }>;
+  status: 'Available' | 'Reserved' | 'Sold' | 'Rented' | 'Inactive';
   createdAt: Date;
   updatedAt: Date;
 }

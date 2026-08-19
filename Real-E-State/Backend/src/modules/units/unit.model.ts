@@ -2,15 +2,16 @@ import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IUnit extends Document {
   projectId?: Types.ObjectId;
-  towerId?: Types.ObjectId;
-  unitNumber: string;
+  towerId?: Types.ObjectId; // keep towerId or tower string
+  tower?: string;
   floor?: number | string;
-  size?: number;
+  unitNumber: string;
+  unitType?: string;
+  bhk?: string;
+  area?: number;
   price?: number;
-  bedrooms?: number;
-  bathrooms?: number;
-  status?: 'Available' | 'Reserved' | 'Booked' | 'Sold';
-  metadata?: Record<string, any>;
+  facing?: string;
+  status?: 'Available' | 'Hold' | 'Booked' | 'Sold' | 'Blocked';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,14 +20,19 @@ const unitSchema = new Schema<IUnit>(
   {
     projectId: { type: Schema.Types.ObjectId, ref: 'Project' },
     towerId: { type: Schema.Types.ObjectId, ref: 'Tower' },
-    unitNumber: { type: String, required: true, trim: true },
+    tower: { type: String },
     floor: { type: Schema.Types.Mixed },
-    size: { type: Number },
+    unitNumber: { type: String, required: true, trim: true },
+    unitType: { type: String },
+    bhk: { type: String },
+    area: { type: Number },
     price: { type: Number },
-    bedrooms: { type: Number },
-    bathrooms: { type: Number },
-    status: { type: String, enum: ['Available', 'Reserved', 'Booked', 'Sold'], default: 'Available' },
-    metadata: { type: Schema.Types.Mixed },
+    facing: { type: String },
+    status: {
+      type: String,
+      enum: ['Available', 'Hold', 'Booked', 'Sold', 'Blocked'],
+      default: 'Available',
+    },
   },
   { timestamps: true },
 );

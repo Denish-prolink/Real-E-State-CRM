@@ -9,7 +9,7 @@ import { createSellerSchema, updateSellerSchema } from './seller.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/', validate(createSellerSchema), controller.createSeller);
 router.get('/', controller.getSellers);

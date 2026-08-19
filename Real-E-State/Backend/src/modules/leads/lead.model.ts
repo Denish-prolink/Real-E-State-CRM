@@ -1,16 +1,29 @@
 import { model, Schema } from 'mongoose';
-import { ILeadDocument } from './lead.types';
+
+import type { ILeadDocument } from './lead.types';
 
 const leadSchema = new Schema<ILeadDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     firstName: { type: String, required: true },
     lastName: { type: String },
     phone: { type: String, required: true },
     email: { type: String },
+    leadType: { type: String },
     source: {
       type: String,
-      enum: ['Website', 'Referral', 'Social Media', 'Cold Call', 'WhatsApp', 'Other'],
+      enum: [
+        'Website',
+        'Facebook',
+        'Instagram',
+        'Google',
+        'WhatsApp',
+        'Referral',
+        'Property Portal',
+        'Walk-in',
+        'Phone',
+        'Other',
+      ],
       default: 'Other',
     },
     status: {
@@ -25,16 +38,14 @@ const leadSchema = new Schema<ILeadDocument>(
     },
     budget: { type: Number },
     propertyType: { type: String },
-    location: { type: String },
-    bedrooms: { type: Number },
-    area: { type: Number },
+    preferredLocation: { type: String },
     assignedAgent: { type: Schema.Types.ObjectId, ref: 'User' },
-    expectedPurchaseDate: { type: Date },
+    nextFollowUp: { type: Date },
     notes: { type: String },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Lead = model<ILeadDocument>('Lead', leadSchema);

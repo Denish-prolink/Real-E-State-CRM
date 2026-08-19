@@ -43,11 +43,10 @@ const EMPTY_VALUES: AddLeadPayload = {
   priority: "Medium",
   budget: undefined,
   propertyType: "",
-  location: "",
-  bedrooms: undefined,
-  area: undefined,
+  preferredLocation: "",
+  leadType: "",
   assignedAgent: "",
-  expectedPurchaseDate: "",
+  nextFollowUp: "",
   notes: "",
 };
 
@@ -78,10 +77,11 @@ export default function LeadFormDrawer({
         if (!payload.lastName) delete payload.lastName;
         if (!payload.email) delete payload.email;
         if (!payload.assignedAgent) delete payload.assignedAgent;
-        if (!payload.expectedPurchaseDate) delete payload.expectedPurchaseDate;
+        if (!payload.nextFollowUp) delete payload.nextFollowUp;
         if (!payload.notes) delete payload.notes;
         if (!payload.propertyType) delete payload.propertyType;
-        if (!payload.location) delete payload.location;
+        if (!payload.preferredLocation) delete payload.preferredLocation;
+        if (!payload.leadType) delete payload.leadType;
 
         await onSubmit(payload);
         helpers.resetForm();
@@ -106,11 +106,10 @@ export default function LeadFormDrawer({
             priority: leadData.priority || "Medium",
             budget: leadData.budget || undefined,
             propertyType: leadData.propertyType || "",
-            location: leadData.location || "",
-            bedrooms: leadData.bedrooms || undefined,
-            area: leadData.area || undefined,
+            preferredLocation: leadData.preferredLocation || "",
+            leadType: leadData.leadType || "",
             assignedAgent: leadData.assignedAgent?._id || (typeof leadData.assignedAgent === 'string' ? leadData.assignedAgent : ""),
-            expectedPurchaseDate: leadData.expectedPurchaseDate ? new Date(leadData.expectedPurchaseDate).toISOString().split('T')[0] : "",
+            nextFollowUp: leadData.nextFollowUp ? new Date(leadData.nextFollowUp).toISOString().split('T')[0] : "",
             notes: leadData.notes || "",
           },
         });
@@ -315,48 +314,31 @@ export default function LeadFormDrawer({
             </div>
 
             <div>
-              <FormLabel htmlFor="location">Preferred Location</FormLabel>
+              <FormLabel htmlFor="preferredLocation">Preferred Location</FormLabel>
               <Input
-                id="location"
-                name="location"
+                id="preferredLocation"
+                name="preferredLocation"
                 placeholder="e.g. SG Highway, Ahmedabad"
-                value={formik.values.location}
+                value={formik.values.preferredLocation}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("location")}
+                className={inputCls("preferredLocation")}
               />
-              <FieldError error={formik.errors.location} touched={formik.touched.location} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.preferredLocation} touched={formik.touched.preferredLocation} submitCount={formik.submitCount} />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <FormLabel htmlFor="bedrooms">Bedrooms</FormLabel>
-                <Input
-                  id="bedrooms"
-                  name="bedrooms"
-                  type="number"
-                  placeholder="e.g. 3"
-                  value={formik.values.bedrooms || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  className={inputCls("bedrooms")}
-                />
-                <FieldError error={formik.errors.bedrooms} touched={formik.touched.bedrooms} submitCount={formik.submitCount} />
-              </div>
-              <div>
-                <FormLabel htmlFor="area">Area (sq.ft)</FormLabel>
-                <Input
-                  id="area"
-                  name="area"
-                  type="number"
-                  placeholder="e.g. 1500"
-                  value={formik.values.area || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  className={inputCls("area")}
-                />
-                <FieldError error={formik.errors.area} touched={formik.touched.area} submitCount={formik.submitCount} />
-              </div>
+            <div>
+              <FormLabel htmlFor="leadType">Lead Type</FormLabel>
+              <Input
+                id="leadType"
+                name="leadType"
+                placeholder="e.g. Hot, Warm, Cold"
+                value={formik.values.leadType}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("leadType")}
+              />
+              <FieldError error={formik.errors.leadType} touched={formik.touched.leadType} submitCount={formik.submitCount} />
             </div>
           </div>
 
@@ -383,17 +365,17 @@ export default function LeadFormDrawer({
             </div>
 
             <div>
-              <FormLabel htmlFor="expectedPurchaseDate">Expected Purchase Date</FormLabel>
+              <FormLabel htmlFor="nextFollowUp">Next Follow Up Date</FormLabel>
               <Input
-                id="expectedPurchaseDate"
-                name="expectedPurchaseDate"
+                id="nextFollowUp"
+                name="nextFollowUp"
                 type="date"
-                value={formik.values.expectedPurchaseDate}
+                value={formik.values.nextFollowUp}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("expectedPurchaseDate")}
+                className={inputCls("nextFollowUp")}
               />
-              <FieldError error={formik.errors.expectedPurchaseDate} touched={formik.touched.expectedPurchaseDate} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.nextFollowUp} touched={formik.touched.nextFollowUp} submitCount={formik.submitCount} />
             </div>
           </div>
 

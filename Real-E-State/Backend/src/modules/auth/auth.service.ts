@@ -41,7 +41,7 @@ export const registerUser = async (payload: {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId: undefined,
+    agencyId: undefined,
   };
 
   const accessToken = generateAccessToken(tokenPayload);
@@ -73,21 +73,21 @@ export const loginUser = async (email: string, password: string) => {
     throw new ApiError('Invalid credentials', 401);
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
-    throw new ApiError('Your company account is inactive. Please contact support.', 403);
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'AGENCY' && company && company.status === 'inactive') {
+    throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const payload = {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId,
+    agencyId,
   };
 
   const accessToken = generateAccessToken(payload);
@@ -131,21 +131,21 @@ export const refreshAccessToken = async (refreshToken: string) => {
     throw new ApiError('User not found', 404);
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
-    throw new ApiError('Your company account is inactive. Please contact support.', 403);
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'AGENCY' && company && company.status === 'inactive') {
+    throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const accessToken = generateAccessToken({
     userId: payload.userId,
     email: payload.email,
     role: payload.role,
-    companyId,
+    agencyId,
   });
 
   return {
@@ -178,21 +178,21 @@ export const loginOrCreateGoogleUser = async (payload: {
     });
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
-    throw new ApiError('Your company account is inactive. Please contact support.', 403);
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'AGENCY' && company && company.status === 'inactive') {
+    throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const tokenPayload = {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId,
+    agencyId,
   };
 
   const accessToken = generateAccessToken(tokenPayload);

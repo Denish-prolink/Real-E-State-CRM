@@ -1,5 +1,5 @@
-import { Sku } from '../../modules/skus/sku.model';
 import logger from '../../config/logger';
+import { Sku } from '../../modules/skus/sku.model';
 
 export const seedSkus = async (companies: any[]) => {
   logger.info('Seeding SKUs...');
@@ -13,21 +13,21 @@ export const seedSkus = async (companies: any[]) => {
       unit: 'BOX',
       skuCode: 'BX01',
       description: 'Standard box packaging',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       name: 'Pieces',
       unit: 'PIECES',
       skuCode: 'PC01',
       description: 'Individual piece',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       name: 'Kilograms',
       unit: 'KILOGRAMS',
       skuCode: 'KG01',
       description: 'Weight in kg',
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

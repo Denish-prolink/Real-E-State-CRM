@@ -1,16 +1,16 @@
 import { Employee, type IEmployee } from './employee.model';
 
 export const createEmployee = async (
-  data: Partial<IEmployee> & { companyId: string },
+  data: Partial<IEmployee> & { agencyId: string },
 ): Promise<IEmployee> => {
   const employee = new Employee(data);
   return await employee.save();
 };
 
-export const getEmployees = async (companyId: string, search?: string): Promise<IEmployee[]> => {
+export const getEmployees = async (agencyId: string, search?: string): Promise<IEmployee[]> => {
   const filter = search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { firstName: { $regex: search, $options: 'i' } },
           { lastName: { $regex: search, $options: 'i' } },
@@ -18,29 +18,29 @@ export const getEmployees = async (companyId: string, search?: string): Promise<
           { mobileNo: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
   return await Employee.find(filter).sort({ createdAt: -1 });
 };
 
-export const getEmployeeById = async (id: string, companyId: string): Promise<IEmployee | null> => {
-  return await Employee.findOne({ _id: id, companyId });
+export const getEmployeeById = async (id: string, agencyId: string): Promise<IEmployee | null> => {
+  return await Employee.findOne({ _id: id, agencyId });
 };
 
 export const getEmployeeByCode = async (
   employeeCode: string,
-  companyId: string,
+  agencyId: string,
 ): Promise<IEmployee | null> => {
-  return await Employee.findOne({ employeeCode, companyId });
+  return await Employee.findOne({ employeeCode, agencyId });
 };
 
 export const updateEmployee = async (
   id: string,
   data: Partial<IEmployee>,
-  companyId: string,
+  agencyId: string,
 ): Promise<IEmployee | null> => {
-  return await Employee.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
+  return await Employee.findOneAndUpdate({ _id: id, agencyId }, data, { new: true });
 };
 
-export const deleteEmployee = async (id: string, companyId: string): Promise<IEmployee | null> => {
-  return await Employee.findOneAndDelete({ _id: id, companyId });
+export const deleteEmployee = async (id: string, agencyId: string): Promise<IEmployee | null> => {
+  return await Employee.findOneAndDelete({ _id: id, agencyId });
 };

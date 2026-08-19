@@ -1,4 +1,4 @@
-import { type Document, model, Schema, type Types } from 'mongoose';
+import { type Document, model, Schema } from 'mongoose';
 
 export interface IPermission extends Document {
   name: string;

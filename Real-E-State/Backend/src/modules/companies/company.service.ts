@@ -15,8 +15,8 @@ export const createCompany = async (payload: Partial<ICompany> & { password?: st
       lastName: 'Admin',
       email: payload.email,
       password: hashedPassword,
-      role: 'company',
-      companyId: company._id,
+      role: 'AGENCY',
+      agencyId: company._id,
     });
   }
 
@@ -80,7 +80,7 @@ export const updateCompany = async (
   }
 
   if (Object.keys(userUpdate).length > 0) {
-    await User.updateOne({ companyId: id }, userUpdate);
+    await User.updateOne({ agencyId: id }, userUpdate);
   }
 
   return company;

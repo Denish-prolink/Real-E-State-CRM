@@ -1,17 +1,27 @@
 export interface Seller {
   _id: string;
-  companyId?: string;
-  contactId?: string | null;
-  leadId?: string | null;
+  agencyId?: string;
+  name: string;
+  email?: string;
+  phone: string;
+  property?: string;
+  expectedPrice?: number;
+  sellingReason?: string;
+  assignedAgent?: string | null;
+  status?: string;
   notes?: string;
-  metadata?: Record<string, any>;
   createdAt?: string;
   updatedAt?: string;
 }
 
 export type SellerFormValues = {
-  contactId?: string;
-  leadId?: string;
+  name: string;
+  email?: string;
+  phone: string;
+  property?: string;
+  expectedPrice?: number;
+  sellingReason?: string;
+  assignedAgent?: string;
+  status?: string;
   notes?: string;
-  metadata?: Record<string, any>;
 };

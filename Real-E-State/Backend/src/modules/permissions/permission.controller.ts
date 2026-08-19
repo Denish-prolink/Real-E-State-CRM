@@ -1,5 +1,7 @@
-import type { Response, Request } from 'express';
+import type { Request, Response } from 'express';
+
 import { successResponse } from '../../common/helpers/response.helper';
+
 import * as service from './permission.service';
 
 export const createPermission = async (req: Request, res: Response) => {

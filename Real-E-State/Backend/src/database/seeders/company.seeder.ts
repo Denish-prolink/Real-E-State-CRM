@@ -1,5 +1,5 @@
-import { Company } from '../../modules/companies/company.model';
 import logger from '../../config/logger';
+import { Company } from '../../modules/companies/company.model';
 
 export const seedCompanies = async () => {
   logger.info('Seeding Companies...');

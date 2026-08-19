@@ -34,11 +34,22 @@ interface Props {
 
 const EMPTY_VALUES: AddProjectPayload = {
   name: "",
-  description: "",
-  startDate: "",
-  endDate: "",
-  status: "Planned",
+  projectCode: "",
+  developer: "",
+  location: "",
   address: "",
+  city: "",
+  state: "",
+  projectType: "",
+  totalTowers: undefined,
+  totalUnits: undefined,
+  availableUnits: undefined,
+  amenities: [],
+  reraNumber: "",
+  possessionDate: "",
+  startingPrice: undefined,
+  description: "",
+  status: "Planned",
 };
 
 export default function ProjectFormDrawer({
@@ -60,11 +71,13 @@ export default function ProjectFormDrawer({
     onSubmit: async (values, helpers) => {
       try {
         const payload = { ...values };
-        if (!payload.description) delete payload.description;
-        if (!payload.startDate) delete payload.startDate;
-        if (!payload.endDate) delete payload.endDate;
-        if (!payload.address) delete payload.address;
-
+        // Cleanup empty strings for optional numbers and dates
+        if (payload.totalTowers === "" as any) delete payload.totalTowers;
+        if (payload.totalUnits === "" as any) delete payload.totalUnits;
+        if (payload.availableUnits === "" as any) delete payload.availableUnits;
+        if (payload.startingPrice === "" as any) delete payload.startingPrice;
+        if (!payload.possessionDate) delete payload.possessionDate;
+        
         await onSubmit(payload);
         helpers.resetForm();
       } catch {
@@ -80,11 +93,22 @@ export default function ProjectFormDrawer({
         formik.resetForm({
           values: {
             name: projData.name,
-            description: projData.description || "",
-            startDate: projData.startDate ? new Date(projData.startDate).toISOString().split('T')[0] : "",
-            endDate: projData.endDate ? new Date(projData.endDate).toISOString().split('T')[0] : "",
-            status: projData.status || "Planned",
+            projectCode: projData.projectCode || "",
+            developer: projData.developer || "",
+            location: projData.location || "",
             address: projData.address || "",
+            city: projData.city || "",
+            state: projData.state || "",
+            projectType: projData.projectType || "",
+            totalTowers: projData.totalTowers,
+            totalUnits: projData.totalUnits,
+            availableUnits: projData.availableUnits,
+            amenities: projData.amenities || [],
+            reraNumber: projData.reraNumber || "",
+            possessionDate: projData.possessionDate ? new Date(projData.possessionDate).toISOString().split('T')[0] : "",
+            startingPrice: projData.startingPrice,
+            description: projData.description || "",
+            status: projData.status || "Planned",
           },
         });
       } else {
@@ -122,8 +146,8 @@ export default function ProjectFormDrawer({
             </div>
           )}
 
-          <SectionTitle>Project details</SectionTitle>
-          <div className="grid grid-cols-1 gap-4">
+          <SectionTitle>Basic Project details</SectionTitle>
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <FormLabel htmlFor="name" required>Project Name</FormLabel>
               <Input
@@ -139,6 +163,54 @@ export default function ProjectFormDrawer({
             </div>
 
             <div>
+              <FormLabel htmlFor="projectCode">Project Code</FormLabel>
+              <Input
+                id="projectCode"
+                name="projectCode"
+                placeholder="e.g. PRJ-001"
+                value={formik.values.projectCode}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("projectCode")}
+              />
+              <FieldError error={formik.errors.projectCode} touched={formik.touched.projectCode} submitCount={formik.submitCount} />
+            </div>
+            
+            <div>
+              <FormLabel htmlFor="developer">Developer/Builder</FormLabel>
+              <Input
+                id="developer"
+                name="developer"
+                placeholder="e.g. Shaligram Group"
+                value={formik.values.developer}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("developer")}
+              />
+              <FieldError error={formik.errors.developer} touched={formik.touched.developer} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="projectType">Project Type</FormLabel>
+              <Select
+                value={formik.values.projectType}
+                onValueChange={(val) => formik.setFieldValue("projectType", val)}
+              >
+                <SelectTrigger className={cn("w-full h-9", inputCls("projectType"))}>
+                  <SelectValue placeholder="Select Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Residential">Residential</SelectItem>
+                  <SelectItem value="Commercial">Commercial</SelectItem>
+                  <SelectItem value="Mixed Use">Mixed Use</SelectItem>
+                  <SelectItem value="Industrial">Industrial</SelectItem>
+                  <SelectItem value="Plotting">Plotting</SelectItem>
+                </SelectContent>
+              </Select>
+              <FieldError error={formik.errors.projectType} touched={formik.touched.projectType} submitCount={formik.submitCount} />
+            </div>
+
+            <div className="col-span-2">
               <FormLabel htmlFor="description">Description</FormLabel>
               <textarea
                 id="description"
@@ -157,37 +229,142 @@ export default function ProjectFormDrawer({
             </div>
           </div>
 
+          <SectionTitle>Location Details</SectionTitle>
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <FormLabel htmlFor="startDate">Start Date</FormLabel>
+             <div className="col-span-2">
+              <FormLabel htmlFor="address">Project Address</FormLabel>
               <Input
-                id="startDate"
-                name="startDate"
-                type="date"
-                value={formik.values.startDate}
+                id="address"
+                name="address"
+                placeholder="e.g. South Bopal, Ahmedabad"
+                value={formik.values.address}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("startDate")}
+                className={inputCls("address")}
               />
-              <FieldError error={formik.errors.startDate} touched={formik.touched.startDate} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.address} touched={formik.touched.address} submitCount={formik.submitCount} />
             </div>
-
             <div>
-              <FormLabel htmlFor="endDate">End Date</FormLabel>
+              <FormLabel htmlFor="city">City</FormLabel>
               <Input
-                id="endDate"
-                name="endDate"
-                type="date"
-                value={formik.values.endDate}
+                id="city"
+                name="city"
+                placeholder="e.g. Ahmedabad"
+                value={formik.values.city}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("endDate")}
+                className={inputCls("city")}
               />
-              <FieldError error={formik.errors.endDate} touched={formik.touched.endDate} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.city} touched={formik.touched.city} submitCount={formik.submitCount} />
+            </div>
+            <div>
+              <FormLabel htmlFor="state">State</FormLabel>
+              <Input
+                id="state"
+                name="state"
+                placeholder="e.g. Gujarat"
+                value={formik.values.state}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("state")}
+              />
+              <FieldError error={formik.errors.state} touched={formik.touched.state} submitCount={formik.submitCount} />
             </div>
           </div>
 
+          <SectionTitle>Units & Pricing</SectionTitle>
           <div className="grid grid-cols-2 gap-4">
+            <div>
+              <FormLabel htmlFor="totalTowers">Total Towers</FormLabel>
+              <Input
+                id="totalTowers"
+                name="totalTowers"
+                type="number"
+                placeholder="e.g. 5"
+                value={formik.values.totalTowers || ""}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("totalTowers")}
+              />
+              <FieldError error={formik.errors.totalTowers} touched={formik.touched.totalTowers} submitCount={formik.submitCount} />
+            </div>
+            
+            <div>
+              <FormLabel htmlFor="totalUnits">Total Units</FormLabel>
+              <Input
+                id="totalUnits"
+                name="totalUnits"
+                type="number"
+                placeholder="e.g. 200"
+                value={formik.values.totalUnits || ""}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("totalUnits")}
+              />
+              <FieldError error={formik.errors.totalUnits} touched={formik.touched.totalUnits} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="availableUnits">Available Units</FormLabel>
+              <Input
+                id="availableUnits"
+                name="availableUnits"
+                type="number"
+                placeholder="e.g. 45"
+                value={formik.values.availableUnits || ""}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("availableUnits")}
+              />
+              <FieldError error={formik.errors.availableUnits} touched={formik.touched.availableUnits} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="startingPrice">Starting Price (₹)</FormLabel>
+              <Input
+                id="startingPrice"
+                name="startingPrice"
+                type="number"
+                placeholder="e.g. 5000000"
+                value={formik.values.startingPrice || ""}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("startingPrice")}
+              />
+              <FieldError error={formik.errors.startingPrice} touched={formik.touched.startingPrice} submitCount={formik.submitCount} />
+            </div>
+          </div>
+
+          <SectionTitle>Status & Compliance</SectionTitle>
+          <div className="grid grid-cols-2 gap-4">
+             <div>
+              <FormLabel htmlFor="reraNumber">RERA Number</FormLabel>
+              <Input
+                id="reraNumber"
+                name="reraNumber"
+                placeholder="e.g. PR/GJ/AHMEDABAD/..."
+                value={formik.values.reraNumber}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("reraNumber")}
+              />
+              <FieldError error={formik.errors.reraNumber} touched={formik.touched.reraNumber} submitCount={formik.submitCount} />
+            </div>
+            
+            <div>
+              <FormLabel htmlFor="possessionDate">Possession Date</FormLabel>
+              <Input
+                id="possessionDate"
+                name="possessionDate"
+                type="date"
+                value={formik.values.possessionDate}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("possessionDate")}
+              />
+              <FieldError error={formik.errors.possessionDate} touched={formik.touched.possessionDate} submitCount={formik.submitCount} />
+            </div>
+
             <div>
               <FormLabel htmlFor="status" required>Status</FormLabel>
               <Select
@@ -205,20 +382,6 @@ export default function ProjectFormDrawer({
                 </SelectContent>
               </Select>
               <FieldError error={formik.errors.status} touched={formik.touched.status} submitCount={formik.submitCount} />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="address">Project Address</FormLabel>
-              <Input
-                id="address"
-                name="address"
-                placeholder="e.g. South Bopal, Ahmedabad"
-                value={formik.values.address}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("address")}
-              />
-              <FieldError error={formik.errors.address} touched={formik.touched.address} submitCount={formik.submitCount} />
             </div>
           </div>
 

@@ -1,31 +1,31 @@
 import { Sku } from './sku.model';
 import type { ISkuPayload } from './sku.types';
 
-export const createSku = async (payload: ISkuPayload & { companyId: string }) => {
+export const createSku = async (payload: ISkuPayload & { agencyId: string }) => {
   const sku = new Sku(payload);
   return sku.save();
 };
 
-const buildFilter = (companyId: string, search?: string) => {
+const buildFilter = (agencyId: string, search?: string) => {
   return search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { name: { $regex: search, $options: 'i' } },
           { skuCode: { $regex: search, $options: 'i' } },
           { description: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
 };
 
 export const findSkus = async (
-  companyId: string,
+  agencyId: string,
   page?: number,
   limit?: number,
   search?: string,
 ) => {
-  const query = buildFilter(companyId, search);
+  const query = buildFilter(agencyId, search);
   if (page === undefined || limit === undefined) {
     return Sku.find(query).sort({ createdAt: -1 });
   }
@@ -33,22 +33,22 @@ export const findSkus = async (
   return Sku.find(query).skip(skip).limit(limit).sort({ createdAt: -1 });
 };
 
-export const countSkus = async (companyId: string, search?: string) => {
-  return Sku.countDocuments(buildFilter(companyId, search));
+export const countSkus = async (agencyId: string, search?: string) => {
+  return Sku.countDocuments(buildFilter(agencyId, search));
 };
 
-export const findSkuById = async (id: string, companyId: string) => {
-  return Sku.findOne({ _id: id, companyId });
+export const findSkuById = async (id: string, agencyId: string) => {
+  return Sku.findOne({ _id: id, agencyId });
 };
 
-export const findSkuByCode = async (skuCode: string, companyId: string) => {
-  return Sku.findOne({ skuCode, companyId });
+export const findSkuByCode = async (skuCode: string, agencyId: string) => {
+  return Sku.findOne({ skuCode, agencyId });
 };
 
-export const updateSku = async (id: string, payload: Partial<ISkuPayload>, companyId: string) => {
-  return Sku.findOneAndUpdate({ _id: id, companyId }, payload, { new: true });
+export const updateSku = async (id: string, payload: Partial<ISkuPayload>, agencyId: string) => {
+  return Sku.findOneAndUpdate({ _id: id, agencyId }, payload, { new: true });
 };
 
-export const deleteSku = async (id: string, companyId: string) => {
-  return Sku.findOneAndDelete({ _id: id, companyId });
+export const deleteSku = async (id: string, agencyId: string) => {
+  return Sku.findOneAndDelete({ _id: id, agencyId });
 };

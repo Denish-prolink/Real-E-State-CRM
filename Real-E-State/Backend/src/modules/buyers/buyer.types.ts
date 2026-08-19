@@ -1,7 +1,7 @@
 import { type Document, type Types } from 'mongoose';
 
 export interface IBuyer {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   contactId?: Types.ObjectId;
   leadId?: Types.ObjectId;
   notes?: string;

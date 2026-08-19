@@ -24,7 +24,6 @@ import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useGetUnitById } from "../hooks/useUnits";
 import { useGetProjects } from "../../projects/hooks/useProjects";
-import { useGetTowers } from "../../towers/hooks/useTowers";
 
 interface Props {
   open: boolean;
@@ -37,12 +36,14 @@ interface Props {
 const EMPTY_VALUES: AddUnitPayload = {
   projectId: "",
   towerId: "",
+  tower: "",
   unitNumber: "",
   floor: "",
-  size: undefined,
+  unitType: "",
+  bhk: "",
+  area: undefined,
   price: undefined,
-  bedrooms: undefined,
-  bathrooms: undefined,
+  facing: "",
   status: "Available",
 };
 
@@ -69,11 +70,13 @@ export default function UnitFormDrawer({
         const payload = { ...values };
         if (!payload.projectId) delete payload.projectId;
         if (!payload.towerId) delete payload.towerId;
+        if (!payload.tower) delete payload.tower;
         if (!payload.floor) delete payload.floor;
-        if (!payload.size) delete payload.size;
+        if (!payload.unitType) delete payload.unitType;
+        if (!payload.bhk) delete payload.bhk;
+        if (!payload.area) delete payload.area;
         if (!payload.price) delete payload.price;
-        if (!payload.bedrooms) delete payload.bedrooms;
-        if (!payload.bathrooms) delete payload.bathrooms;
+        if (!payload.facing) delete payload.facing;
 
         await onSubmit(payload);
         helpers.resetForm();
@@ -83,12 +86,6 @@ export default function UnitFormDrawer({
     },
   });
 
-  // Dynamic tower loading based on selected project
-  const { data: towers = [] } = useGetTowers(
-    { projectId: typeof formik.values.projectId === "string" ? formik.values.projectId : (formik.values.projectId as any)?._id || undefined },
-    { enabled: !!formik.values.projectId }
-  );
-
   useEffect(() => {
     if (open) {
       if (unitToEdit) {
@@ -97,21 +94,20 @@ export default function UnitFormDrawer({
           typeof uData.projectId === "object" && uData.projectId
             ? uData.projectId._id
             : (uData.projectId as string) || "";
-        const towId =
-          typeof uData.towerId === "object" && uData.towerId
-            ? uData.towerId._id
-            : (uData.towerId as string) || "";
+        const towId = uData.towerId || "";
 
         formik.resetForm({
           values: {
             projectId: projId,
             towerId: towId,
+            tower: uData.tower || "",
             unitNumber: uData.unitNumber,
             floor: uData.floor || "",
-            size: uData.size || undefined,
+            unitType: uData.unitType || "",
+            bhk: uData.bhk || "",
+            area: uData.area || undefined,
             price: uData.price || undefined,
-            bedrooms: uData.bedrooms || undefined,
-            bathrooms: uData.bathrooms || undefined,
+            facing: uData.facing || "",
             status: uData.status || "Available",
           },
         });
@@ -158,7 +154,6 @@ export default function UnitFormDrawer({
                 value={formik.values.projectId}
                 onValueChange={(val) => {
                   formik.setFieldValue("projectId", val);
-                  formik.setFieldValue("towerId", ""); // Reset tower if project changes
                 }}
               >
                 <SelectTrigger className={cn("w-full h-9", inputCls("projectId"))}>
@@ -176,24 +171,17 @@ export default function UnitFormDrawer({
             </div>
 
             <div>
-              <FormLabel htmlFor="towerId">Tower Link</FormLabel>
-              <Select
-                value={formik.values.towerId}
-                onValueChange={(val) => formik.setFieldValue("towerId", val)}
-                disabled={!formik.values.projectId}
-              >
-                <SelectTrigger className={cn("w-full h-9", inputCls("towerId"))}>
-                  <SelectValue placeholder={formik.values.projectId ? "Select Tower" : "Choose Project First"} />
-                </SelectTrigger>
-                <SelectContent>
-                  {towers.map((tower) => (
-                    <SelectItem key={tower._id} value={tower._id}>
-                      {tower.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldError error={formik.errors.towerId} touched={formik.touched.towerId} submitCount={formik.submitCount} />
+              <FormLabel htmlFor="tower">Tower Name</FormLabel>
+              <Input
+                id="tower"
+                name="tower"
+                placeholder="e.g. Tower A"
+                value={formik.values.tower}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("tower")}
+              />
+              <FieldError error={formik.errors.tower} touched={formik.touched.tower} submitCount={formik.submitCount} />
             </div>
           </div>
 
@@ -238,9 +226,10 @@ export default function UnitFormDrawer({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Available">Available</SelectItem>
-                  <SelectItem value="Reserved">Reserved</SelectItem>
+                  <SelectItem value="Hold">Hold</SelectItem>
                   <SelectItem value="Booked">Booked</SelectItem>
                   <SelectItem value="Sold">Sold</SelectItem>
+                  <SelectItem value="Blocked">Blocked</SelectItem>
                 </SelectContent>
               </Select>
               <FieldError error={formik.errors.status} touched={formik.touched.status} submitCount={formik.submitCount} />
@@ -248,6 +237,34 @@ export default function UnitFormDrawer({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
+            <div>
+              <FormLabel htmlFor="unitType">Unit Type</FormLabel>
+              <Input
+                id="unitType"
+                name="unitType"
+                placeholder="e.g. Apartment, Shop"
+                value={formik.values.unitType}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("unitType")}
+              />
+              <FieldError error={formik.errors.unitType} touched={formik.touched.unitType} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="bhk">BHK / Config</FormLabel>
+              <Input
+                id="bhk"
+                name="bhk"
+                placeholder="e.g. 3 BHK"
+                value={formik.values.bhk}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("bhk")}
+              />
+              <FieldError error={formik.errors.bhk} touched={formik.touched.bhk} submitCount={formik.submitCount} />
+            </div>
+            
             <div>
               <FormLabel htmlFor="price">Price (₹)</FormLabel>
               <Input
@@ -264,50 +281,32 @@ export default function UnitFormDrawer({
             </div>
 
             <div>
-              <FormLabel htmlFor="size">Size (sq.ft)</FormLabel>
+              <FormLabel htmlFor="area">Area</FormLabel>
               <Input
-                id="size"
-                name="size"
+                id="area"
+                name="area"
                 type="number"
                 placeholder="e.g. 1250"
-                value={formik.values.size || ""}
+                value={formik.values.area || ""}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("size")}
+                className={inputCls("area")}
               />
-              <FieldError error={formik.errors.size} touched={formik.touched.size} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.area} touched={formik.touched.area} submitCount={formik.submitCount} />
             </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
+            
             <div>
-              <FormLabel htmlFor="bedrooms">Bedrooms</FormLabel>
+              <FormLabel htmlFor="facing">Facing</FormLabel>
               <Input
-                id="bedrooms"
-                name="bedrooms"
-                type="number"
-                placeholder="e.g. 2"
-                value={formik.values.bedrooms || ""}
+                id="facing"
+                name="facing"
+                placeholder="e.g. East"
+                value={formik.values.facing}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("bedrooms")}
+                className={inputCls("facing")}
               />
-              <FieldError error={formik.errors.bedrooms} touched={formik.touched.bedrooms} submitCount={formik.submitCount} />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="bathrooms">Bathrooms</FormLabel>
-              <Input
-                id="bathrooms"
-                name="bathrooms"
-                type="number"
-                placeholder="e.g. 2"
-                value={formik.values.bathrooms || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("bathrooms")}
-              />
-              <FieldError error={formik.errors.bathrooms} touched={formik.touched.bathrooms} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.facing} touched={formik.touched.facing} submitCount={formik.submitCount} />
             </div>
           </div>
 

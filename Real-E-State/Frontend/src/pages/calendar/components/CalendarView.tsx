@@ -7,7 +7,6 @@ import { enUS } from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import type { CalendarEvent } from '../schemas/event.schema';
 import { useTheme } from "next-themes";
-import { useEffect, useState } from 'react';
 
 const locales = {
   'en-US': enUS,
@@ -29,11 +28,6 @@ interface CalendarViewProps {
 
 export function CalendarView({ events, onSelectEvent, onSelectSlot }: CalendarViewProps) {
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const eventStyleGetter = (event: CalendarEvent) => {
     let backgroundColor = '#3b82f6'; // blue
@@ -54,8 +48,6 @@ export function CalendarView({ events, onSelectEvent, onSelectSlot }: CalendarVi
       },
     };
   };
-
-  if (!mounted) return null;
 
   return (
     <div className={`h-full w-full bg-card rounded-xl border border-border shadow-sm overflow-hidden p-4 ${theme === 'dark' ? 'rbc-dark' : ''}`}>

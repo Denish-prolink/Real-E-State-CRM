@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Edit, Mail, Phone, Trash2, Calendar, MapPin, FileText, MoreVertical, IndianRupee, Home, Ruler, Bed } from "lucide-react";
+import { ArrowLeft, Edit, Mail, Phone, Trash2, MapPin, FileText, MoreVertical, IndianRupee, Home } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -210,21 +210,6 @@ export default function LeadDetailsPage() {
                 {lead.assignedAgent ? `${lead.assignedAgent.firstName} ${lead.assignedAgent.lastName || ""}` : "Not Assigned"}
               </p>
             </div>
-            {lead.expectedPurchaseDate && (
-              <div className="col-span-2">
-                <p className="text-xs text-muted-foreground">Expected Purchase Date</p>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <Calendar className="h-4 w-4 text-indigo-500" />
-                  <p className="font-semibold text-foreground text-sm">
-                    {new Date(lead.expectedPurchaseDate).toLocaleDateString("en-IN", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -252,31 +237,15 @@ export default function LeadDetailsPage() {
               </p>
             </div>
 
-            <div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Bed className="h-3.5 w-3.5 text-indigo-500" /> Bedrooms
-              </div>
-              <p className="font-semibold text-foreground mt-1 text-sm">
-                {lead.bedrooms ? `${lead.bedrooms} BHK` : "Any"}
-              </p>
-            </div>
 
-            <div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Ruler className="h-3.5 w-3.5 text-indigo-500" /> Min Area
-              </div>
-              <p className="font-semibold text-foreground mt-1 text-sm">
-                {lead.area ? `${lead.area} sq.ft` : "Any"}
-              </p>
-            </div>
 
-            {lead.location && (
+            {lead.preferredLocation && (
               <div className="col-span-full pt-2 border-t border-border/50">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <MapPin className="h-3.5 w-3.5 text-indigo-500" /> Preferred Location
                 </div>
                 <p className="font-semibold text-foreground mt-1 text-sm">
-                  {lead.location}
+                  {lead.preferredLocation}
                 </p>
               </div>
             )}

@@ -3,7 +3,7 @@ import { type Document, type Types } from 'mongoose';
 export interface IRole {
   name: string;
   description?: string;
-  companyId?: Types.ObjectId;
+  agencyId?: Types.ObjectId;
   permissions?: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;

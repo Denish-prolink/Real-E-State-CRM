@@ -8,7 +8,12 @@ export const createPermission = async (data: Partial<IPermission>) => {
 
 export const getPermissions = async (search?: string) => {
   const filter = search
-    ? { $or: [{ name: { $regex: search, $options: 'i' } }, { key: { $regex: search, $options: 'i' } }] }
+    ? {
+        $or: [
+          { name: { $regex: search, $options: 'i' } },
+          { key: { $regex: search, $options: 'i' } },
+        ],
+      }
     : {};
   return Permission.find(filter).sort({ name: 1 });
 };

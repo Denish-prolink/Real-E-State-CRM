@@ -1,15 +1,19 @@
-import { Document, Types } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export interface ISiteVisit {
-  companyId: Types.ObjectId;
-  leadId: Types.ObjectId;
+  agencyId: Types.ObjectId;
+  leadId?: Types.ObjectId;
+  buyerId?: Types.ObjectId;
   propertyId?: Types.ObjectId;
+  projectId?: Types.ObjectId;
+  unitId?: Types.ObjectId;
   agentId?: Types.ObjectId;
   visitDate: Date;
+  visitTime?: string;
+  location?: string;
   status: 'Scheduled' | 'Confirmed' | 'Completed' | 'Cancelled' | 'Rescheduled' | 'No Show';
-  feedback?: string;
-  rating?: number;
   notes?: string;
+  feedback?: string;
   createdAt: Date;
   updatedAt: Date;
 }

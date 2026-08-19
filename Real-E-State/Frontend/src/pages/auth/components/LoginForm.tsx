@@ -98,14 +98,21 @@ export default function LoginForm({
         </Field>
         <div className="rounded-md border border-dashed border-muted-foreground/30 bg-muted/20 p-3 text-sm text-muted-foreground">
           <p className="font-medium text-foreground">Demo credentials</p>
-          <ul className="mt-2 space-y-1">
+          <ul className="mt-2 space-y-1 text-xs">
             <li>
-              <span className="font-medium text-foreground">Super admin:</span>{" "}
-              superadmin@example.com / password123
+              <span className="font-medium text-foreground">Super Admin:</span> admin@gmail.com / 123456
             </li>
             <li>
-              <span className="font-medium text-foreground">User:</span>{" "}
-              admin@acme.com / password123
+              <span className="font-medium text-foreground">Staff:</span> staff@gmail.com / 123456
+            </li>
+            <li>
+              <span className="font-medium text-foreground">Agency:</span> agency@gmail.com / 123456
+            </li>
+            <li>
+              <span className="font-medium text-foreground">Agent:</span> agent@gmail.com / 123456
+            </li>
+            <li>
+              <span className="font-medium text-foreground">User:</span> user@gmail.com / 123456
             </li>
           </ul>
         </div>

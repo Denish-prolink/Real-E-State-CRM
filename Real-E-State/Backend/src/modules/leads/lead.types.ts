@@ -1,21 +1,20 @@
-import { Document, Types } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export interface ILead {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   firstName: string;
   lastName?: string;
-  email?: string;
   phone: string;
+  email?: string;
+  leadType?: string;
   source: string;
   status: string;
   priority: string;
   budget?: number;
   propertyType?: string;
-  location?: string;
-  bedrooms?: number;
-  area?: number;
+  preferredLocation?: string;
   assignedAgent?: Types.ObjectId;
-  expectedPurchaseDate?: Date;
+  nextFollowUp?: Date;
   notes?: string;
   createdAt: Date;
   updatedAt: Date;

@@ -23,15 +23,29 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    role: {
+    phone: {
       type: String,
-      enum: ['super_admin', 'company'],
-      default: 'company',
     },
 
-    companyId: {
+    role: {
+      type: String,
+      enum: ['SUPER_ADMIN', 'STAFF', 'AGENCY', 'AGENT', 'USER'],
+      default: 'USER',
+    },
+
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Agency',
+    },
+
+    status: {
+      type: String,
+      enum: ['ACTIVE', 'INACTIVE', 'BLOCKED'],
+      default: 'ACTIVE',
+    },
+
+    avatar: {
+      type: String,
     },
 
     resetPasswordToken: {

@@ -3,18 +3,18 @@ import { Contact } from '../contacts/contact.model';
 import { type IOrder, Order } from './order.model';
 
 export const createOrder = async (
-  data: Partial<IOrder> & { companyId: string },
+  data: Partial<IOrder> & { agencyId: string },
 ): Promise<IOrder> => {
   const order = new Order(data);
   return await order.save();
 };
 
 export const buildOrderFilter = async (
-  companyId: string,
+  agencyId: string,
   orderType?: string,
   search?: string,
 ): Promise<Record<string, unknown>> => {
-  const filter: Record<string, unknown> & { $or?: Record<string, unknown>[] } = { companyId };
+  const filter: Record<string, unknown> & { $or?: Record<string, unknown>[] } = { agencyId };
 
   if (orderType) {
     filter.orderType = orderType;
@@ -24,7 +24,7 @@ export const buildOrderFilter = async (
     // Find contacts matching the search term scoped to the company
     const matchingContacts = await Contact.find({
       name: { $regex: search, $options: 'i' },
-      companyId,
+      agencyId,
     })
       .select('_id')
       .lean();
@@ -42,13 +42,13 @@ export const buildOrderFilter = async (
 };
 
 export const getOrders = async (
-  companyId: string,
+  agencyId: string,
   page: number = 1,
   perPage: number = 10,
   orderType?: string,
   search?: string,
 ): Promise<IOrder[]> => {
-  const filter = await buildOrderFilter(companyId, orderType, search);
+  const filter = await buildOrderFilter(agencyId, orderType, search);
 
   const skip = (page - 1) * perPage;
   return await Order.find(filter)
@@ -61,16 +61,16 @@ export const getOrders = async (
 };
 
 export const countOrders = async (
-  companyId: string,
+  agencyId: string,
   orderType?: string,
   search?: string,
 ): Promise<number> => {
-  const filter = await buildOrderFilter(companyId, orderType, search);
+  const filter = await buildOrderFilter(agencyId, orderType, search);
   return await Order.countDocuments(filter);
 };
 
-export const getOrderById = async (id: string, companyId: string): Promise<IOrder | null> => {
-  return await Order.findOne({ _id: id, companyId })
+export const getOrderById = async (id: string, agencyId: string): Promise<IOrder | null> => {
+  return await Order.findOne({ _id: id, agencyId })
     .populate('contact')
     .populate('items.warehouse')
     .populate('items.product');
@@ -79,14 +79,14 @@ export const getOrderById = async (id: string, companyId: string): Promise<IOrde
 export const updateOrder = async (
   id: string,
   data: Partial<IOrder>,
-  companyId: string,
+  agencyId: string,
 ): Promise<IOrder | null> => {
-  return await Order.findOneAndUpdate({ _id: id, companyId }, data, { new: true })
+  return await Order.findOneAndUpdate({ _id: id, agencyId }, data, { new: true })
     .populate('contact')
     .populate('items.warehouse')
     .populate('items.product');
 };
 
-export const deleteOrder = async (id: string, companyId: string): Promise<IOrder | null> => {
-  return await Order.findOneAndDelete({ _id: id, companyId });
+export const deleteOrder = async (id: string, agencyId: string): Promise<IOrder | null> => {
+  return await Order.findOneAndDelete({ _id: id, agencyId });
 };

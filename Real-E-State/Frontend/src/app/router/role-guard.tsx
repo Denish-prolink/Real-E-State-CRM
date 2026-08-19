@@ -17,7 +17,7 @@ export default function RoleGuard({ children, allowedRoles }: Props) {
 
   if (!allowedRoles.includes(user.role)) {
     // Redirect somewhere if they don't have access
-    if (user.role === 'super_admin') {
+    if (user.role === 'SUPER_ADMIN') {
       return <Navigate to="/companies" replace />;
     }
     return <Navigate to="/dashboard" replace />;

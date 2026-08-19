@@ -89,12 +89,13 @@ export default function UnitsPage() {
   const filtered = units.filter((u: Unit) => {
     const term = search.toLowerCase();
     const projName = typeof u.projectId === 'object' && u.projectId ? u.projectId.name : '';
-    const towerName = typeof u.towerId === 'object' && u.towerId ? u.towerId.name : '';
+    const towerName = u.tower || '';
     return (
       u.unitNumber.toLowerCase().includes(term) ||
       projName.toLowerCase().includes(term) ||
       towerName.toLowerCase().includes(term) ||
-      (u.status || '').toLowerCase().includes(term)
+      (u.status || '').toLowerCase().includes(term) ||
+      (u.unitType || '').toLowerCase().includes(term)
     );
   });
 

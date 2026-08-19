@@ -23,8 +23,6 @@ import {
 } from "@/components/ui/sidebar";
 import { useAppSelector } from "@/app/hooks";
 
-import { useState } from "react";
-
 export function AppSidebar() {
   const location = useLocation();
   const user = useAppSelector((state) => state.auth.user);
@@ -34,71 +32,113 @@ export function AppSidebar() {
       title: "Dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Calendar",
       path: "/calendar",
       icon: Calendar,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Tasks",
       path: "/tasks",
       icon: CheckSquare,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Leads",
       path: "/leads",
       icon: UserCheck,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Buyers",
+      path: "/buyers",
+      icon: Users,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Sellers",
+      path: "/sellers",
+      icon: Users,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Deals",
+      path: "/deals",
+      icon: UserCheck,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Bookings",
+      path: "/bookings",
+      icon: CheckSquare,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Payments",
+      path: "/payments",
+      icon: LayoutDashboard,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Site Visits",
+      path: "/site-visits",
+      icon: Home,
+      roles: ["AGENCY", "AGENT", "STAFF"],
+    },
+    {
+      title: "Follow Ups",
+      path: "/follow-ups",
+      icon: Calendar,
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Contact",
       path: "/contacts",
       icon: Users,
-      roles: ["company"],
+      roles: ["AGENCY"],
     },
     {
       title: "Properties",
       path: "/properties",
       icon: Home,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Projects",
       path: "/projects",
       icon: Building2,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Towers",
       path: "/towers",
       icon: Building,
-      roles: ["company", "employee"],
+      roles: ["AGENCY", "AGENT", "STAFF"],
     },
     {
       title: "Company",
       path: "/companies",
       icon: Building2,
-      roles: ["super_admin"],
+      roles: ["SUPER_ADMIN"],
     },
     // {
     //   title: "Reports",
     //   path: "/reports",
     //   icon: TrendingUp,
-    //   roles: ["company"],
+    //   roles: ["AGENCY"],
     // },
     // {
     //   title: "Profile page",
     //   path: "/profile",
     //   icon: Settings,
-    //   roles: ["company", "employee"],
+    //   roles: ["AGENCY", "AGENT", "STAFF"],
     // },
   ];
 
-  const userRole = user?.role || "employee";
+  const userRole = user?.role || "AGENT";
   const navItems = allNavItems.filter((item) => item.roles.includes(userRole));
 
   return (
@@ -144,7 +184,7 @@ export function AppSidebar() {
               })}
 
               {/* Order — Collapsible with sub-items */}
-              {/* {(userRole === "company") && (
+              {/* {(userRole === "AGENCY") && (
                 <div className="flex flex-col gap-1">
                   <SidebarMenuItem>
                     <SidebarMenuButton

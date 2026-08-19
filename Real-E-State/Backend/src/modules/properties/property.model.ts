@@ -1,56 +1,59 @@
 import { model, Schema } from 'mongoose';
-import { IPropertyDocument } from './property.types';
+
+import type { IPropertyDocument } from './property.types';
 
 const propertySchema = new Schema<IPropertyDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     propertyId: { type: String },
-    title: { type: String, required: true },
-    description: { type: String },
+    propertyName: { type: String, required: true },
     propertyType: {
       type: String,
-      enum: ['Apartment', 'Villa', 'House', 'Plot', 'Office', 'Shop', 'Warehouse', 'Land', 'Commercial'],
+      enum: [
+        'Apartment',
+        'Villa',
+        'House',
+        'Office',
+        'Shop',
+        'Warehouse',
+        'Land',
+        'Plot',
+        'Commercial',
+      ],
       required: true,
     },
-    purpose: {
-      type: String,
-      enum: ['Sale', 'Rent', 'Lease'],
-      required: true,
-    },
+    category: { type: String },
+    address: { type: String },
+    city: { type: String },
+    state: { type: String },
+    country: { type: String },
+    pincode: { type: String },
+    latitude: { type: Number },
+    longitude: { type: Number },
     price: { type: Number, required: true },
     area: { type: Number, required: true },
+    areaUnit: { type: String },
     bedrooms: { type: Number },
     bathrooms: { type: Number },
     parking: { type: Number },
-    location: {
-      address: String,
-      city: String,
-      state: String,
-      country: String,
-      latitude: Number,
-      longitude: Number,
-    },
-    projectId: { type: Schema.Types.ObjectId, ref: 'Project' },
-    tower: String,
-    floor: String,
-    unitNumber: String,
+    furnishedStatus: { type: String },
+    constructionStatus: { type: String },
+    ownership: { type: String },
+    facing: { type: String },
+    description: { type: String },
+    amenities: [{ type: String }],
+    images: [{ type: String }],
+    documents: [{ type: String }],
     agentId: { type: Schema.Types.ObjectId, ref: 'User' },
     status: {
       type: String,
-      enum: ['Available', 'Reserved', 'Blocked', 'Booked', 'Sold'],
+      enum: ['Available', 'Reserved', 'Sold', 'Rented', 'Inactive'],
       default: 'Available',
     },
-    media: [
-      {
-        url: String,
-        fileType: String,
-      },
-    ],
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 export const Property = model<IPropertyDocument>('Property', propertySchema);

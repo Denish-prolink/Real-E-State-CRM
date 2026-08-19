@@ -1,37 +1,51 @@
 import bcrypt from 'bcrypt';
-import { User } from '../../modules/auth/auth.model';
+
 import logger from '../../config/logger';
+import { User } from '../../modules/auth/auth.model';
 
 export const seedUsers = async (companies: any[]) => {
   logger.info('Seeding Users...');
   await User.deleteMany({});
-  const hashedPassword = await bcrypt.hash('password123', 10);
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const hashedPassword = await bcrypt.hash('123456', 10);
+  const agency1 = companies[0];
 
   const users = await User.create([
     {
       firstName: 'Super',
       lastName: 'Admin',
-      email: 'superadmin@example.com',
+      email: 'admin@gmail.com',
       password: hashedPassword,
-      role: 'super_admin',
+      role: 'SUPER_ADMIN',
     },
     {
-      firstName: 'Acme',
-      lastName: 'Admin',
-      email: 'admin@acme.com',
+      firstName: 'CRM',
+      lastName: 'Staff',
+      email: 'staff@gmail.com',
       password: hashedPassword,
-      role: 'company',
-      companyId: company1._id,
+      role: 'STAFF',
     },
     {
-      firstName: 'Stark',
-      lastName: 'Admin',
-      email: 'admin@stark.com',
+      firstName: 'Real Estate',
+      lastName: 'Agency',
+      email: 'agency@gmail.com',
       password: hashedPassword,
-      role: 'company',
-      companyId: company2._id,
+      role: 'AGENCY',
+      agencyId: agency1._id,
+    },
+    {
+      firstName: 'Property',
+      lastName: 'Agent',
+      email: 'agent@gmail.com',
+      password: hashedPassword,
+      role: 'AGENT',
+      agencyId: agency1._id,
+    },
+    {
+      firstName: 'Regular',
+      lastName: 'User',
+      email: 'user@gmail.com',
+      password: hashedPassword,
+      role: 'USER',
     },
   ]);
 

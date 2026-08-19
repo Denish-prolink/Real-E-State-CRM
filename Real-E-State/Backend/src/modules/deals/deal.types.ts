@@ -1,16 +1,29 @@
-import { Document, Types } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export interface IDeal {
-  companyId: Types.ObjectId;
-  dealNumber?: string;
+  agencyId: Types.ObjectId;
+  dealId?: string;
   leadId: Types.ObjectId;
+  buyerId?: Types.ObjectId;
+  sellerId?: Types.ObjectId;
   propertyId?: Types.ObjectId;
+  projectId?: Types.ObjectId;
+  unitId?: Types.ObjectId;
   agentId?: Types.ObjectId;
-  dealValue: number;
+  dealAmount: number;
+  commission?: number;
   discount?: number;
   expectedClosingDate?: Date;
-  stage: 'New' | 'Qualified' | 'Site Visit' | 'Negotiation' | 'Booking' | 'Won' | 'Lost';
-  probability?: number;
+  closingDate?: Date;
+  status:
+    | 'Lead'
+    | 'Qualified'
+    | 'Site Visit'
+    | 'Negotiation'
+    | 'Booking'
+    | 'Agreement'
+    | 'Closed'
+    | 'Lost';
   notes?: string;
   createdAt: Date;
   updatedAt: Date;

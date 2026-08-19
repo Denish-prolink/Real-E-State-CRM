@@ -13,7 +13,7 @@ export interface IWarehouse extends Document {
   pincode: string;
   capacity: number;
   usedCapacity: number;
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -80,7 +80,7 @@ const warehouseSchema = new Schema<IWarehouse>(
       default: 0,
       min: 0,
     },
-    companyId: {
+    agencyId: {
       type: Schema.Types.ObjectId,
       ref: 'Company',
       required: true,
@@ -91,6 +91,6 @@ const warehouseSchema = new Schema<IWarehouse>(
   },
 );
 
-warehouseSchema.index({ warehouseCode: 1, companyId: 1 }, { unique: true });
+warehouseSchema.index({ warehouseCode: 1, agencyId: 1 }, { unique: true });
 
 export const Warehouse = model<IWarehouse>('Warehouse', warehouseSchema);

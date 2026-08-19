@@ -2,11 +2,11 @@ import { User } from './auth.model';
 import { RefreshToken } from './refresh-token.model';
 
 export const findUserByEmail = async (email: string) => {
-  return User.findOne({ email }).populate('companyId');
+  return User.findOne({ email }).populate('agencyId');
 };
 
 export const findUserById = async (userId: string) => {
-  return User.findById(userId).populate('companyId');
+  return User.findById(userId).populate('agencyId');
 };
 
 export const createUser = async (payload: {
@@ -14,7 +14,7 @@ export const createUser = async (payload: {
   lastName: string;
   email: string;
   password: string;
-  role?: 'super_admin' | 'company';
+  role?: 'SUPER_ADMIN' | 'STAFF' | 'AGENCY' | 'AGENT' | 'USER';
 }) => {
   return User.create(payload);
 };

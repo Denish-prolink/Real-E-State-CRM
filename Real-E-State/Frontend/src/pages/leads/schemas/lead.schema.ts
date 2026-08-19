@@ -19,7 +19,7 @@ export const leadSchema = Yup.object().shape({
     .nullable()
     .optional(),
   source: Yup.string()
-    .oneOf(['Website', 'Referral', 'Social Media', 'Cold Call', 'WhatsApp', 'Other'], 'Invalid source')
+    .oneOf(['Website', 'Facebook', 'Instagram', 'Google', 'WhatsApp', 'Referral', 'Property Portal', 'Walk-in', 'Phone', 'Other'], 'Invalid source')
     .optional(),
   status: Yup.string()
     .oneOf(['New', 'Contacted', 'Qualified', 'Site Visit', 'Negotiation', 'Converted', 'Lost'], 'Invalid status')
@@ -35,24 +35,16 @@ export const leadSchema = Yup.object().shape({
   propertyType: Yup.string()
     .nullable()
     .optional(),
-  location: Yup.string()
+  preferredLocation: Yup.string()
     .nullable()
     .optional(),
-  bedrooms: Yup.number()
-    .typeError('Bedrooms must be a number')
-    .integer('Bedrooms must be an integer')
-    .min(0, 'Cannot be negative')
-    .nullable()
-    .optional(),
-  area: Yup.number()
-    .typeError('Area must be a number')
-    .positive('Area must be a positive number')
+  leadType: Yup.string()
     .nullable()
     .optional(),
   assignedAgent: Yup.string()
     .nullable()
     .optional(),
-  expectedPurchaseDate: Yup.string()
+  nextFollowUp: Yup.string()
     .nullable()
     .optional(),
   notes: Yup.string()

@@ -23,7 +23,6 @@ import { propertySchema } from "../schemas/property.schema";
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useGetPropertyById } from "../hooks/useProperties";
-import { useGetProjects } from "../../projects/hooks/useProjects";
 
 interface Props {
   open: boolean;
@@ -34,25 +33,32 @@ interface Props {
 }
 
 const EMPTY_VALUES: AddPropertyPayload = {
-  title: "",
-  description: "",
+  propertyName: "",
+  propertyId: "",
   propertyType: "Apartment",
-  purpose: "Sale",
+  category: "",
+  address: "",
+  city: "",
+  state: "",
+  country: "",
+  pincode: "",
+  latitude: undefined,
+  longitude: undefined,
   price: 0,
   area: 0,
+  areaUnit: "sq.ft",
   bedrooms: undefined,
   bathrooms: undefined,
   parking: undefined,
-  location: {
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-  },
-  projectId: "",
-  tower: "",
-  floor: "",
-  unitNumber: "",
+  furnishedStatus: "",
+  constructionStatus: "",
+  ownership: "",
+  facing: "",
+  description: "",
+  amenities: [],
+  images: [],
+  documents: [],
+  agentId: "",
   status: "Available",
 };
 
@@ -67,8 +73,6 @@ export default function PropertyFormDrawer({
     propertyToEdit?._id || ""
   );
 
-  const { data: projects } = useGetProjects();
-
   const formik = useFormik<AddPropertyPayload>({
     initialValues: EMPTY_VALUES,
     validationSchema: propertySchema,
@@ -77,14 +81,12 @@ export default function PropertyFormDrawer({
     onSubmit: async (values, helpers) => {
       try {
         const payload = { ...values };
-        if (!payload.description) delete payload.description;
-        if (!payload.bedrooms) delete payload.bedrooms;
-        if (!payload.bathrooms) delete payload.bathrooms;
-        if (!payload.parking) delete payload.parking;
-        if (!payload.projectId) delete payload.projectId;
-        if (!payload.tower) delete payload.tower;
-        if (!payload.floor) delete payload.floor;
-        if (!payload.unitNumber) delete payload.unitNumber;
+        // Cleanup empty strings for optional numbers
+        if (payload.latitude === "" as any) delete payload.latitude;
+        if (payload.longitude === "" as any) delete payload.longitude;
+        if (payload.bedrooms === "" as any) delete payload.bedrooms;
+        if (payload.bathrooms === "" as any) delete payload.bathrooms;
+        if (payload.parking === "" as any) delete payload.parking;
 
         await onSubmit(payload);
         helpers.resetForm();
@@ -98,31 +100,34 @@ export default function PropertyFormDrawer({
     if (open) {
       if (propertyToEdit) {
         const propData = fetchedProperty || propertyToEdit;
-        const projId = typeof propData.projectId === 'object' && propData.projectId
-          ? propData.projectId._id
-          : (propData.projectId as string) || "";
-
         formik.resetForm({
           values: {
-            title: propData.title,
-            description: propData.description || "",
+            propertyName: propData.propertyName,
+            propertyId: propData.propertyId || "",
             propertyType: propData.propertyType || "Apartment",
-            purpose: propData.purpose || "Sale",
+            category: propData.category || "",
+            address: propData.address || "",
+            city: propData.city || "",
+            state: propData.state || "",
+            country: propData.country || "",
+            pincode: propData.pincode || "",
+            latitude: propData.latitude,
+            longitude: propData.longitude,
             price: propData.price || 0,
             area: propData.area || 0,
-            bedrooms: propData.bedrooms || undefined,
-            bathrooms: propData.bathrooms || undefined,
-            parking: propData.parking || undefined,
-            location: {
-              address: propData.location?.address || "",
-              city: propData.location?.city || "",
-              state: propData.location?.state || "",
-              country: propData.location?.country || "",
-            },
-            projectId: projId,
-            tower: propData.tower || "",
-            floor: propData.floor || "",
-            unitNumber: propData.unitNumber || "",
+            areaUnit: propData.areaUnit || "sq.ft",
+            bedrooms: propData.bedrooms,
+            bathrooms: propData.bathrooms,
+            parking: propData.parking,
+            furnishedStatus: propData.furnishedStatus || "",
+            constructionStatus: propData.constructionStatus || "",
+            ownership: propData.ownership || "",
+            facing: propData.facing || "",
+            description: propData.description || "",
+            amenities: propData.amenities || [],
+            images: propData.images || [],
+            documents: propData.documents || [],
+            agentId: propData.agentId || "",
             status: propData.status || "Available",
           },
         });
@@ -162,22 +167,50 @@ export default function PropertyFormDrawer({
           )}
 
           <SectionTitle>Basic Info</SectionTitle>
-          <div className="grid grid-cols-1 gap-4">
-            <div>
-              <FormLabel htmlFor="title" required>Property Title</FormLabel>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2">
+              <FormLabel htmlFor="propertyName" required>Property Name</FormLabel>
               <Input
-                id="title"
-                name="title"
+                id="propertyName"
+                name="propertyName"
                 placeholder="e.g. 3 BHK Luxury Apartment in South Bopal"
-                value={formik.values.title}
+                value={formik.values.propertyName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("title")}
+                className={inputCls("propertyName")}
               />
-              <FieldError error={formik.errors.title} touched={formik.touched.title} submitCount={formik.submitCount} />
+              <FieldError error={formik.errors.propertyName} touched={formik.touched.propertyName} submitCount={formik.submitCount} />
+            </div>
+            
+            <div>
+              <FormLabel htmlFor="propertyId">Property Code/ID</FormLabel>
+              <Input
+                id="propertyId"
+                name="propertyId"
+                placeholder="e.g. PROP-001"
+                value={formik.values.propertyId}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("propertyId")}
+              />
+              <FieldError error={formik.errors.propertyId} touched={formik.touched.propertyId} submitCount={formik.submitCount} />
             </div>
 
             <div>
+              <FormLabel htmlFor="category">Category</FormLabel>
+              <Input
+                id="category"
+                name="category"
+                placeholder="e.g. Premium"
+                value={formik.values.category}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("category")}
+              />
+              <FieldError error={formik.errors.category} touched={formik.touched.category} submitCount={formik.submitCount} />
+            </div>
+            
+            <div className="col-span-2">
               <FormLabel htmlFor="description">Description</FormLabel>
               <textarea
                 id="description"
@@ -196,6 +229,7 @@ export default function PropertyFormDrawer({
             </div>
           </div>
 
+          <SectionTitle>Classification & Pricing</SectionTitle>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <FormLabel htmlFor="propertyType" required>Property Type</FormLabel>
@@ -216,26 +250,6 @@ export default function PropertyFormDrawer({
             </div>
 
             <div>
-              <FormLabel htmlFor="purpose" required>Purpose</FormLabel>
-              <Select
-                value={formik.values.purpose}
-                onValueChange={(val) => formik.setFieldValue("purpose", val)}
-              >
-                <SelectTrigger className={cn("w-full h-9", inputCls("purpose"))}>
-                  <SelectValue placeholder="Select Purpose" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Sale">Sale</SelectItem>
-                  <SelectItem value="Rent">Rent</SelectItem>
-                  <SelectItem value="Lease">Lease</SelectItem>
-                </SelectContent>
-              </Select>
-              <FieldError error={formik.errors.purpose} touched={formik.touched.purpose} submitCount={formik.submitCount} />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
               <FormLabel htmlFor="price" required>Price (₹)</FormLabel>
               <Input
                 id="price"
@@ -248,22 +262,99 @@ export default function PropertyFormDrawer({
               />
               <FieldError error={formik.errors.price} touched={formik.touched.price} submitCount={formik.submitCount} />
             </div>
+            
+            <div>
+              <FormLabel htmlFor="area" required>Area</FormLabel>
+              <div className="flex gap-2">
+                 <Input
+                  id="area"
+                  name="area"
+                  type="number"
+                  value={formik.values.area || ""}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={cn("flex-1", inputCls("area"))}
+                />
+                <Input
+                  id="areaUnit"
+                  name="areaUnit"
+                  placeholder="Unit"
+                  value={formik.values.areaUnit}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={cn("w-24", inputCls("areaUnit"))}
+                />
+              </div>
+              <FieldError error={formik.errors.area} touched={formik.touched.area} submitCount={formik.submitCount} />
+            </div>
 
             <div>
-              <FormLabel htmlFor="area" required>Area (sq.ft)</FormLabel>
-              <Input
-                id="area"
-                name="area"
-                type="number"
-                value={formik.values.area || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("area")}
-              />
-              <FieldError error={formik.errors.area} touched={formik.touched.area} submitCount={formik.submitCount} />
+              <FormLabel htmlFor="status">Status</FormLabel>
+              <Select
+                value={formik.values.status}
+                onValueChange={(val) => formik.setFieldValue("status", val)}
+              >
+                <SelectTrigger className={cn("w-full h-9", inputCls("status"))}>
+                  <SelectValue placeholder="Select Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Available">Available</SelectItem>
+                  <SelectItem value="Reserved">Reserved</SelectItem>
+                  <SelectItem value="Sold">Sold</SelectItem>
+                  <SelectItem value="Rented">Rented</SelectItem>
+                  <SelectItem value="Inactive">Inactive</SelectItem>
+                </SelectContent>
+              </Select>
+              <FieldError error={formik.errors.status} touched={formik.touched.status} submitCount={formik.submitCount} />
             </div>
           </div>
 
+          <SectionTitle>Location Details</SectionTitle>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2">
+              <FormLabel htmlFor="address">Address</FormLabel>
+              <Input
+                id="address"
+                name="address"
+                placeholder="e.g. 402 Radhe Regency"
+                value={formik.values.address}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("address")}
+              />
+              <FieldError error={formik.errors.address} touched={formik.touched.address} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="city">City</FormLabel>
+              <Input
+                id="city"
+                name="city"
+                placeholder="e.g. Ahmedabad"
+                value={formik.values.city}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("city")}
+              />
+              <FieldError error={formik.errors.city} touched={formik.touched.city} submitCount={formik.submitCount} />
+            </div>
+
+            <div>
+              <FormLabel htmlFor="state">State</FormLabel>
+              <Input
+                id="state"
+                name="state"
+                placeholder="e.g. Gujarat"
+                value={formik.values.state}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={inputCls("state")}
+              />
+              <FieldError error={formik.errors.state} touched={formik.touched.state} submitCount={formik.submitCount} />
+            </div>
+          </div>
+
+          <SectionTitle>Features & Attributes</SectionTitle>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <FormLabel htmlFor="bedrooms">Bedrooms</FormLabel>
@@ -306,137 +397,51 @@ export default function PropertyFormDrawer({
               />
               <FieldError error={formik.errors.parking} touched={formik.touched.parking} submitCount={formik.submitCount} />
             </div>
-          </div>
-
-          <SectionTitle>Location Details</SectionTitle>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2">
-              <FormLabel htmlFor="location.address">Address</FormLabel>
-              <Input
-                id="location.address"
-                name="location.address"
-                placeholder="e.g. 402 Radhe Regency"
-                value={formik.values.location?.address}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("location.address")}
-              />
-              <FieldError error={(formik.errors.location as any)?.address} touched={(formik.touched.location as any)?.address} submitCount={formik.submitCount} />
-            </div>
-
+            
             <div>
-              <FormLabel htmlFor="location.city">City</FormLabel>
-              <Input
-                id="location.city"
-                name="location.city"
-                placeholder="e.g. Ahmedabad"
-                value={formik.values.location?.city}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("location.city")}
-              />
-              <FieldError error={(formik.errors.location as any)?.city} touched={(formik.touched.location as any)?.city} submitCount={formik.submitCount} />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="location.state">State</FormLabel>
-              <Input
-                id="location.state"
-                name="location.state"
-                placeholder="e.g. Gujarat"
-                value={formik.values.location?.state}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("location.state")}
-              />
-              <FieldError error={(formik.errors.location as any)?.state} touched={(formik.touched.location as any)?.state} submitCount={formik.submitCount} />
-            </div>
-          </div>
-
-          <SectionTitle>Real Estate Links</SectionTitle>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <FormLabel htmlFor="projectId">Project Link</FormLabel>
+              <FormLabel htmlFor="furnishedStatus">Furnishing</FormLabel>
               <Select
-                value={formik.values.projectId}
-                onValueChange={(val) => formik.setFieldValue("projectId", val)}
+                value={formik.values.furnishedStatus}
+                onValueChange={(val) => formik.setFieldValue("furnishedStatus", val)}
               >
-                <SelectTrigger className={cn("w-full h-9", inputCls("projectId"))}>
-                  <SelectValue placeholder="Select Project" />
+                <SelectTrigger className={cn("w-full h-9", inputCls("furnishedStatus"))}>
+                  <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
-                  {projects?.map((proj: any) => (
-                    <SelectItem key={proj._id} value={proj._id}>
-                      {proj.name}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="Unfurnished">Unfurnished</SelectItem>
+                  <SelectItem value="Semi-Furnished">Semi-Furnished</SelectItem>
+                  <SelectItem value="Fully-Furnished">Fully-Furnished</SelectItem>
                 </SelectContent>
               </Select>
-              <FieldError error={formik.errors.projectId} touched={formik.touched.projectId} submitCount={formik.submitCount} />
             </div>
-
+            
             <div>
-              <FormLabel htmlFor="status">Status</FormLabel>
+              <FormLabel htmlFor="constructionStatus">Construction</FormLabel>
               <Select
-                value={formik.values.status}
-                onValueChange={(val) => formik.setFieldValue("status", val)}
+                value={formik.values.constructionStatus}
+                onValueChange={(val) => formik.setFieldValue("constructionStatus", val)}
               >
-                <SelectTrigger className={cn("w-full h-9", inputCls("status"))}>
-                  <SelectValue placeholder="Select Status" />
+                <SelectTrigger className={cn("w-full h-9", inputCls("constructionStatus"))}>
+                  <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Available">Available</SelectItem>
-                  <SelectItem value="Reserved">Reserved</SelectItem>
-                  <SelectItem value="Blocked">Blocked</SelectItem>
-                  <SelectItem value="Booked">Booked</SelectItem>
-                  <SelectItem value="Sold">Sold</SelectItem>
+                  <SelectItem value="Ready to Move">Ready to Move</SelectItem>
+                  <SelectItem value="Under Construction">Under Construction</SelectItem>
                 </SelectContent>
               </Select>
-              <FieldError error={formik.errors.status} touched={formik.touched.status} submitCount={formik.submitCount} />
             </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4">
+            
             <div>
-              <FormLabel htmlFor="tower">Tower</FormLabel>
+              <FormLabel htmlFor="facing">Facing</FormLabel>
               <Input
-                id="tower"
-                name="tower"
-                placeholder="e.g. Tower A"
-                value={formik.values.tower}
+                id="facing"
+                name="facing"
+                placeholder="e.g. East"
+                value={formik.values.facing}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={inputCls("tower")}
+                className={inputCls("facing")}
               />
-              <FieldError error={formik.errors.tower} touched={formik.touched.tower} submitCount={formik.submitCount} />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="floor">Floor</FormLabel>
-              <Input
-                id="floor"
-                name="floor"
-                placeholder="e.g. 4th"
-                value={formik.values.floor}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("floor")}
-              />
-              <FieldError error={formik.errors.floor} touched={formik.touched.floor} submitCount={formik.submitCount} />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="unitNumber">Unit Number</FormLabel>
-              <Input
-                id="unitNumber"
-                name="unitNumber"
-                placeholder="e.g. 402"
-                value={formik.values.unitNumber}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className={inputCls("unitNumber")}
-              />
-              <FieldError error={formik.errors.unitNumber} touched={formik.touched.unitNumber} submitCount={formik.submitCount} />
             </div>
           </div>
 

@@ -1,44 +1,36 @@
-export interface PropertyLocation {
+export interface Property {
+  _id: string;
+  agencyId: string;
+  propertyId?: string;
+  propertyName: string;
+  propertyType: 'Apartment' | 'Villa' | 'House' | 'Office' | 'Shop' | 'Warehouse' | 'Land' | 'Plot' | 'Commercial';
+  category?: string;
   address?: string;
   city?: string;
   state?: string;
   country?: string;
+  pincode?: string;
   latitude?: number;
   longitude?: number;
-}
-
-export interface PropertyMedia {
-  url: string;
-  fileType: string;
-}
-
-export interface Property {
-  _id: string;
-  companyId: string;
-  propertyId?: string;
-  title: string;
-  description?: string;
-  propertyType: 'Apartment' | 'Villa' | 'House' | 'Plot' | 'Office' | 'Shop' | 'Warehouse' | 'Land' | 'Commercial';
-  purpose: 'Sale' | 'Rent' | 'Lease';
   price: number;
   area: number;
+  areaUnit?: string;
   bedrooms?: number;
   bathrooms?: number;
   parking?: number;
-  location?: PropertyLocation;
-  projectId?: {
-    _id: string;
-    name: string;
-  } | string | null;
-  tower?: string;
-  floor?: string;
-  unitNumber?: string;
+  furnishedStatus?: string;
+  constructionStatus?: string;
+  ownership?: string;
+  facing?: string;
+  description?: string;
+  amenities?: string[];
+  images?: string[];
+  documents?: string[];
   agentId?: string | null;
-  status: 'Available' | 'Reserved' | 'Blocked' | 'Booked' | 'Sold';
-  media?: PropertyMedia[];
+  status: 'Available' | 'Reserved' | 'Sold' | 'Rented' | 'Inactive';
   createdAt: string;
   updatedAt: string;
 }
 
-export type AddPropertyPayload = Omit<Property, '_id' | 'companyId' | 'createdAt' | 'updatedAt'>;
+export type AddPropertyPayload = Omit<Property, '_id' | 'agencyId' | 'createdAt' | 'updatedAt'>;
 export type UpdatePropertyPayload = Partial<AddPropertyPayload>;

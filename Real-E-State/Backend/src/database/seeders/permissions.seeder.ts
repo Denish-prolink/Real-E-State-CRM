@@ -1,5 +1,5 @@
-import logger from '../../config/logger';
 import { PERMISSIONS } from '../../common/constants/permissions.constant';
+import logger from '../../config/logger';
 
 export const seedPermissions = async () => {
   logger.info('Seeding Permissions...');

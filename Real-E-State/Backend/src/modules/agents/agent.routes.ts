@@ -1,13 +1,15 @@
 import { Router } from 'express';
+
 import { authenticate, authorizeRoles } from '../../middlewares/auth.middleware';
 import { validate } from '../../middlewares/validation.middleware';
+
 import * as controller from './agent.controller';
 import { createAgentSchema, updateAgentSchema } from './agent.validation';
 
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('AGENCY', 'SUPER_ADMIN'));
 
 router.post('/', validate(createAgentSchema), controller.createAgent);
 router.get('/', controller.getAgents);

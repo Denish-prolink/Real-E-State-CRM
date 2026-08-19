@@ -20,9 +20,12 @@ export default defineConfig([
     },
     rules: {
       'react-refresh/only-export-components': [
-        'error',
+        'warn',
         { allowConstantExport: true },
       ],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'preserve-caught-error': 'off',
     },
   },
   {

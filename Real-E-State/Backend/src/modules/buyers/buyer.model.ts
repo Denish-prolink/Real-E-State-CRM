@@ -1,22 +1,39 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IBuyer extends Document {
-  companyId: Types.ObjectId;
-  contactId?: Types.ObjectId;
-  leadId?: Types.ObjectId;
+  agencyId: Types.ObjectId;
+  name: string;
+  email?: string;
+  phone: string;
+  budget?: number;
+  propertyType?: string;
+  preferredLocation?: string;
+  purpose?: string;
+  assignedAgent?: Types.ObjectId;
+  requirements?: string;
+  status?: string;
   notes?: string;
-  preferences?: Record<string, any>;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const buyerSchema = new Schema<IBuyer>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
-    contactId: { type: Schema.Types.ObjectId, ref: 'Contact' },
-    leadId: { type: Schema.Types.ObjectId, ref: 'Lead' },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
+    name: { type: String, required: true },
+    email: { type: String },
+    phone: { type: String, required: true },
+    budget: { type: Number },
+    propertyType: { type: String },
+    preferredLocation: { type: String },
+    purpose: {
+      type: String,
+      enum: ['Investment', 'Residential', 'Commercial', 'Rental'],
+    },
+    assignedAgent: { type: Schema.Types.ObjectId, ref: 'User' },
+    requirements: { type: String },
+    status: { type: String, default: 'New' },
     notes: { type: String, trim: true },
-    preferences: { type: Schema.Types.Mixed },
   },
   {
     timestamps: true,

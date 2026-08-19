@@ -1,5 +1,5 @@
-import { Contact } from '../../modules/contacts/contact.model';
 import logger from '../../config/logger';
+import { Contact } from '../../modules/contacts/contact.model';
 
 export const seedContacts = async (companies: any[]) => {
   logger.info('Seeding Contacts...');
@@ -15,7 +15,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '1112223333',
       gender: 'male',
       address: '123 Customer Ave',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       name: 'Jane Smith',
@@ -24,7 +24,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '4445556666',
       gender: 'female',
       address: '456 Supplier Blvd',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       name: 'Pepper Potts',
@@ -33,7 +33,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '9998887777',
       gender: 'female',
       address: '1000 Stark Way',
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

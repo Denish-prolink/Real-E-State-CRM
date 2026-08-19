@@ -1,25 +1,30 @@
 import { model, Schema } from 'mongoose';
-import { ISiteVisitDocument } from './site-visit.types';
+
+import type { ISiteVisitDocument } from './site-visit.types';
 
 const siteVisitSchema = new Schema<ISiteVisitDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
-    leadId: { type: Schema.Types.ObjectId, ref: 'Lead', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
+    leadId: { type: Schema.Types.ObjectId, ref: 'Lead' },
+    buyerId: { type: Schema.Types.ObjectId, ref: 'Buyer' },
     propertyId: { type: Schema.Types.ObjectId, ref: 'Property' },
+    projectId: { type: Schema.Types.ObjectId, ref: 'Project' },
+    unitId: { type: Schema.Types.ObjectId, ref: 'Unit' },
     agentId: { type: Schema.Types.ObjectId, ref: 'User' },
     visitDate: { type: Date, required: true },
+    visitTime: { type: String },
+    location: { type: String },
     status: {
       type: String,
       enum: ['Scheduled', 'Confirmed', 'Completed', 'Cancelled', 'Rescheduled', 'No Show'],
       default: 'Scheduled',
     },
-    feedback: { type: String },
-    rating: { type: Number, min: 1, max: 5 },
     notes: { type: String },
+    feedback: { type: String },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const SiteVisit = model<ISiteVisitDocument>('SiteVisit', siteVisitSchema);

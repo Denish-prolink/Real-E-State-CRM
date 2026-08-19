@@ -2,13 +2,16 @@ import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IAgent extends Document {
   userId?: Types.ObjectId;
-  companyId: Types.ObjectId;
-  firstName: string;
-  lastName?: string;
+  agencyId: Types.ObjectId;
+  name: string;
   email?: string;
   phone?: string;
-  licenseNo?: string;
-  active?: boolean;
+  profilePhoto?: string;
+  employeeId?: string;
+  joiningDate?: Date;
+  specialization?: string;
+  commission?: number;
+  status?: string;
   notes?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -17,18 +20,21 @@ export interface IAgent extends Document {
 const agentSchema = new Schema<IAgent>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
-    firstName: { type: String, required: true, trim: true },
-    lastName: { type: String, trim: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
+    name: { type: String, required: true, trim: true },
     email: { type: String, trim: true, lowercase: true },
     phone: { type: String, trim: true },
-    licenseNo: { type: String, trim: true },
-    active: { type: Boolean, default: true },
+    profilePhoto: { type: String },
+    employeeId: { type: String },
+    joiningDate: { type: Date },
+    specialization: { type: String },
+    commission: { type: Number },
+    status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
     notes: { type: String },
   },
   { timestamps: true },
 );
 
-agentSchema.index({ companyId: 1, email: 1 }, { unique: false });
+agentSchema.index({ agencyId: 1, email: 1 }, { unique: false });
 
 export const Agent = model<IAgent>('Agent', agentSchema);

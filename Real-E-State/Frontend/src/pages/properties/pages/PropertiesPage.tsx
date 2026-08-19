@@ -65,13 +65,11 @@ export default function PropertiesPage() {
   // Client-side search filtering
   const filtered = properties.filter((p: Property) => {
     const term = search.toLowerCase();
-    const projName = typeof p.projectId === 'object' && p.projectId ? p.projectId.name : '';
     return (
-      p.title.toLowerCase().includes(term) ||
+      (p.propertyName || '').toLowerCase().includes(term) ||
       (p.propertyType || '').toLowerCase().includes(term) ||
-      (p.purpose || '').toLowerCase().includes(term) ||
-      projName.toLowerCase().includes(term) ||
-      (p.location?.city || '').toLowerCase().includes(term)
+      (p.city || '').toLowerCase().includes(term) ||
+      (p.address || '').toLowerCase().includes(term)
     );
   });
 

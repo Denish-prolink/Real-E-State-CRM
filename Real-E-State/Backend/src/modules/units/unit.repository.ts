@@ -8,9 +8,15 @@ export const createUnit = async (data: Partial<IUnit>) => {
 
 const buildFilter = (projectId?: string, towerId?: string, search?: string) => {
   const base: any = {};
-  if (projectId) base.projectId = projectId;
-  if (towerId) base.towerId = towerId;
-  if (search) base.unitNumber = { $regex: search, $options: 'i' };
+  if (projectId) {
+    base.projectId = projectId;
+  }
+  if (towerId) {
+    base.towerId = towerId;
+  }
+  if (search) {
+    base.unitNumber = { $regex: search, $options: 'i' };
+  }
   return base;
 };
 

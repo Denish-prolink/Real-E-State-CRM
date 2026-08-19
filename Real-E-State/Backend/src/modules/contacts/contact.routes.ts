@@ -9,7 +9,7 @@ import { createContactSchema, updateContactSchema } from './contact.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/', validate(createContactSchema), controller.createContact);
 router.get('/', controller.getContacts);

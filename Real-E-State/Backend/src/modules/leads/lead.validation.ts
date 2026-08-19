@@ -5,8 +5,12 @@ export const createLeadSchema = z.object({
   lastName: z.string().optional(),
   phone: z.string().min(5),
   email: z.string().email().optional(),
-  source: z.enum(['Website', 'Referral', 'Social Media', 'Cold Call', 'WhatsApp', 'Other']).optional(),
-  status: z.enum(['New', 'Contacted', 'Qualified', 'Site Visit', 'Negotiation', 'Converted', 'Lost']).optional(),
+  source: z
+    .enum(['Website', 'Referral', 'Social Media', 'Cold Call', 'WhatsApp', 'Other'])
+    .optional(),
+  status: z
+    .enum(['New', 'Contacted', 'Qualified', 'Site Visit', 'Negotiation', 'Converted', 'Lost'])
+    .optional(),
   priority: z.enum(['High', 'Medium', 'Low']).optional(),
   budget: z.number().optional(),
   propertyType: z.string().optional(),

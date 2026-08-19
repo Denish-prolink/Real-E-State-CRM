@@ -1,15 +1,15 @@
-import { Warehouse } from '../../modules/warehouses/warehouse.model';
 import logger from '../../config/logger';
+import { Warehouse } from '../../modules/warehouses/warehouse.model';
 
 export const seedWarehouses = async (companies: any[], employees: any[]) => {
   logger.info('Seeding Warehouses...');
   await Warehouse.deleteMany({});
   const company1 = companies[0];
   const company2 = companies[1];
-  
+
   // Find employee managers for warehouses
-  const manager1 = employees.find(e => e.companyId.toString() === company1._id.toString());
-  const manager2 = employees.find(e => e.companyId.toString() === company2._id.toString());
+  const manager1 = employees.find((e) => e.agencyId.toString() === company1._id.toString());
+  const manager2 = employees.find((e) => e.agencyId.toString() === company2._id.toString());
 
   const warehouses = await Warehouse.create([
     {
@@ -24,7 +24,7 @@ export const seedWarehouses = async (companies: any[], employees: any[]) => {
       pincode: '10001',
       capacity: 10000,
       usedCapacity: 500,
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       warehouseCode: 'WH002',
@@ -38,7 +38,7 @@ export const seedWarehouses = async (companies: any[], employees: any[]) => {
       pincode: '10002',
       capacity: 5000,
       usedCapacity: 1000,
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

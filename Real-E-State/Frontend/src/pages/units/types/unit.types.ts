@@ -4,17 +4,16 @@ export interface Unit {
     _id: string;
     name: string;
   } | string | null;
-  towerId?: {
-    _id: string;
-    name: string;
-  } | string | null;
-  unitNumber: string;
+  towerId?: string | null;
+  tower?: string;
   floor?: number | string;
-  size?: number;
+  unitNumber: string;
+  unitType?: string;
+  bhk?: string;
+  area?: number;
   price?: number;
-  bedrooms?: number;
-  bathrooms?: number;
-  status: 'Available' | 'Reserved' | 'Booked' | 'Sold';
+  facing?: string;
+  status: 'Available' | 'Hold' | 'Booked' | 'Sold' | 'Blocked';
   createdAt: string;
   updatedAt: string;
 }

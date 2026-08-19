@@ -35,13 +35,15 @@ export default function UnitTable({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Available':
-        return 'bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-400 border-green-200 dark:border-green-800';
-      case 'Reserved':
-        return 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200 dark:border-amber-800';
+        return 'bg-green-50 text-green-700 border-green-200';
+      case 'Hold':
+        return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'Booked':
-        return 'bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200 dark:border-blue-800';
+        return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'Sold':
-        return 'bg-gray-50 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400 border-gray-200';
+        return 'bg-gray-50 text-gray-700 border-gray-200';
+      case 'Blocked':
+        return 'bg-red-50 text-red-700 border-red-200';
       default:
         return 'bg-gray-50 text-gray-700 border-gray-200';
     }
@@ -58,9 +60,9 @@ export default function UnitTable({
               <TableHead>Project</TableHead>
               <TableHead>Tower</TableHead>
               <TableHead>Floor</TableHead>
-              <TableHead>Size (sq.ft)</TableHead>
+              <TableHead>Type/BHK</TableHead>
+              <TableHead>Area</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Beds/Baths</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -84,10 +86,7 @@ export default function UnitTable({
                   typeof unit.projectId === 'object' && unit.projectId
                     ? unit.projectId.name
                     : '-';
-                const towerName =
-                  typeof unit.towerId === 'object' && unit.towerId
-                    ? unit.towerId.name
-                    : '-';
+                const towerName = unit.tower || '-';
 
                 return (
                   <TableRow key={unit._id} className="hover:bg-muted/50 transition-colors">
@@ -102,22 +101,16 @@ export default function UnitTable({
                       <span className="text-sm font-medium">{towerName}</span>
                     </TableCell>
                     <TableCell>{unit.floor ?? '-'}</TableCell>
-                    <TableCell>{unit.size ? `${unit.size} sq.ft` : '-'}</TableCell>
+                    <TableCell>
+                      <span className="text-sm font-medium">{unit.unitType || '-'}{unit.bhk ? ` / ${unit.bhk}` : ''}</span>
+                    </TableCell>
+                    <TableCell>{unit.area ? `${unit.area}` : '-'}</TableCell>
                     <TableCell>
                       {unit.price ? (
                         <div className="flex items-center gap-0.5 text-indigo-600 font-semibold text-sm">
                           <IndianRupee className="h-3.5 w-3.5" />
                           <span>{unit.price.toLocaleString('en-IN')}</span>
                         </div>
-                      ) : (
-                        '-'
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {unit.bedrooms || unit.bathrooms ? (
-                        <span>
-                          {unit.bedrooms || 0}B / {unit.bathrooms || 0}T
-                        </span>
                       ) : (
                         '-'
                       )}

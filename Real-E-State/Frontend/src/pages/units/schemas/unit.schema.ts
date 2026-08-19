@@ -3,13 +3,16 @@ import * as Yup from 'yup';
 export const unitSchema = Yup.object().shape({
   projectId: Yup.string().nullable().optional(),
   towerId: Yup.string().nullable().optional(),
+  tower: Yup.string().nullable().optional(),
+  floor: Yup.string().nullable().optional(),
   unitNumber: Yup.string()
     .min(1, 'Unit number is required')
     .required('Unit number is required'),
-  floor: Yup.string().nullable().optional(),
-  size: Yup.number()
-    .typeError('Size must be a number')
-    .positive('Size must be positive')
+  unitType: Yup.string().nullable().optional(),
+  bhk: Yup.string().nullable().optional(),
+  area: Yup.number()
+    .typeError('Area must be a number')
+    .positive('Area must be positive')
     .nullable()
     .optional(),
   price: Yup.number()
@@ -17,19 +20,8 @@ export const unitSchema = Yup.object().shape({
     .positive('Price must be positive')
     .nullable()
     .optional(),
-  bedrooms: Yup.number()
-    .typeError('Bedrooms must be a number')
-    .integer('Bedrooms must be an integer')
-    .min(0, 'Cannot be negative')
-    .nullable()
-    .optional(),
-  bathrooms: Yup.number()
-    .typeError('Bathrooms must be a number')
-    .integer('Bathrooms must be an integer')
-    .min(0, 'Cannot be negative')
-    .nullable()
-    .optional(),
+  facing: Yup.string().nullable().optional(),
   status: Yup.string()
-    .oneOf(['Available', 'Reserved', 'Booked', 'Sold'], 'Invalid status')
+    .oneOf(['Available', 'Hold', 'Booked', 'Sold', 'Blocked'], 'Invalid status')
     .optional(),
 });

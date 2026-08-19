@@ -12,20 +12,25 @@ const orderItemSchema = z.object({
 export const createOrderSchema = z.object({
   orderType: z.enum(['purchase', 'sell']),
   contact: z.string().min(1, 'Contact is required'),
-  items: z.array(orderItemSchema).min(1, 'At least one item is required').refine(
-    (items) => {
-      const seen = new Set<string>();
-      for (const item of items) {
-        if (item.warehouse && item.product && item.sku) {
-          const key = `${item.warehouse}-${item.product}-${item.sku}`;
-          if (seen.has(key)) return false;
-          seen.add(key);
+  items: z
+    .array(orderItemSchema)
+    .min(1, 'At least one item is required')
+    .refine(
+      (items) => {
+        const seen = new Set<string>();
+        for (const item of items) {
+          if (item.warehouse && item.product && item.sku) {
+            const key = `${item.warehouse}-${item.product}-${item.sku}`;
+            if (seen.has(key)) {
+              return false;
+            }
+            seen.add(key);
+          }
         }
-      }
-      return true;
-    },
-    { message: 'Duplicate entries with the same Warehouse, Product, and SKU are not allowed.' }
-  ),
+        return true;
+      },
+      { message: 'Duplicate entries with the same Warehouse, Product, and SKU are not allowed.' },
+    ),
   gstAndCharges: z.number().min(0).default(0),
   discountType: z.enum(['percentage', 'amount']).default('amount'),
   discountValue: z.number().min(0).default(0),

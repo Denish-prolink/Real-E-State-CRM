@@ -1,6 +1,8 @@
 import type { Response } from 'express';
+
 import { successResponse } from '../../common/helpers/response.helper';
-import { type AuthenticatedRequest, getCompanyId } from '../../middlewares/auth.middleware';
+import { type AuthenticatedRequest } from '../../middlewares/auth.middleware';
+
 import * as service from './tower.service';
 
 export const createTower = async (req: AuthenticatedRequest, res: Response) => {

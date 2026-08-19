@@ -32,7 +32,7 @@ const skuSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
       required: true,
@@ -43,6 +43,6 @@ const skuSchema = new mongoose.Schema(
   },
 );
 
-skuSchema.index({ skuCode: 1, companyId: 1 }, { unique: true });
+skuSchema.index({ skuCode: 1, agencyId: 1 }, { unique: true });
 
 export const Sku = mongoose.model('Sku', skuSchema);

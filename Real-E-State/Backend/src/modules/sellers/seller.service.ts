@@ -1,21 +1,21 @@
 import { ApiError } from '../../common/exceptions/ApiError';
 
-import type { ISeller } from './seller.types';
 import * as repository from './seller.repository';
+import type { ISeller } from './seller.types';
 
-export const createSeller = async (data: Partial<ISeller> & { companyId: string }) => {
+export const createSeller = async (data: Partial<ISeller> & { agencyId: string }) => {
   return await repository.createSeller(data);
 };
 
 export const getSellers = async (
-  companyId: string,
+  agencyId: string,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
   const [sellers, total] = await Promise.all([
-    repository.getSellers(companyId, page, perPage, search),
-    repository.countSellers(companyId, search),
+    repository.getSellers(agencyId, page, perPage, search),
+    repository.countSellers(agencyId, search),
   ]);
 
   return {
@@ -26,20 +26,26 @@ export const getSellers = async (
   };
 };
 
-export const getSellerById = async (id: string, companyId: string) => {
-  const seller = await repository.getSellerById(id, companyId);
-  if (!seller) throw new ApiError('Seller not found', 404);
+export const getSellerById = async (id: string, agencyId: string) => {
+  const seller = await repository.getSellerById(id, agencyId);
+  if (!seller) {
+    throw new ApiError('Seller not found', 404);
+  }
   return seller;
 };
 
-export const updateSeller = async (id: string, data: Partial<ISeller>, companyId: string) => {
-  const seller = await repository.updateSeller(id, data, companyId);
-  if (!seller) throw new ApiError('Seller not found', 404);
+export const updateSeller = async (id: string, data: Partial<ISeller>, agencyId: string) => {
+  const seller = await repository.updateSeller(id, data, agencyId);
+  if (!seller) {
+    throw new ApiError('Seller not found', 404);
+  }
   return seller;
 };
 
-export const deleteSeller = async (id: string, companyId: string) => {
-  const seller = await repository.deleteSeller(id, companyId);
-  if (!seller) throw new ApiError('Seller not found', 404);
+export const deleteSeller = async (id: string, agencyId: string) => {
+  const seller = await repository.deleteSeller(id, agencyId);
+  if (!seller) {
+    throw new ApiError('Seller not found', 404);
+  }
   return seller;
 };

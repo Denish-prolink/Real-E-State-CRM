@@ -9,7 +9,7 @@ import { createPropertySchema, updatePropertySchema } from './property.validatio
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/', validate(createPropertySchema), controller.createProperty);
 router.get('/', controller.getProperties);

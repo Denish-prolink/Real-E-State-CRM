@@ -9,7 +9,7 @@ import { createDealSchema, updateDealSchema } from './deal.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/', validate(createDealSchema), controller.createDeal);
 router.get('/', controller.getDeals);

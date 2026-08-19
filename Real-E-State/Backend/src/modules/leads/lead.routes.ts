@@ -9,7 +9,7 @@ import { createLeadSchema, updateLeadSchema } from './lead.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/', validate(createLeadSchema), controller.createLead);
 router.get('/', controller.getLeads);

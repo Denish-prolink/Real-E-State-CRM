@@ -1,31 +1,30 @@
 export interface Lead {
   _id: string;
-  companyId: string;
+  agencyId: string;
   firstName: string;
   lastName?: string;
-  email?: string;
   phone: string;
-  source: 'Website' | 'Referral' | 'Social Media' | 'Cold Call' | 'WhatsApp' | 'Other';
+  email?: string;
+  leadType?: string;
+  source: 'Website' | 'Facebook' | 'Instagram' | 'Google' | 'WhatsApp' | 'Referral' | 'Property Portal' | 'Walk-in' | 'Phone' | 'Other';
   status: 'New' | 'Contacted' | 'Qualified' | 'Site Visit' | 'Negotiation' | 'Converted' | 'Lost';
   priority: 'High' | 'Medium' | 'Low';
   budget?: number;
   propertyType?: string;
-  location?: string;
-  bedrooms?: number;
-  area?: number;
+  preferredLocation?: string;
   assignedAgent?: {
     _id: string;
     firstName: string;
     lastName?: string;
     email: string;
   } | null;
-  expectedPurchaseDate?: string;
+  nextFollowUp?: string;
   notes?: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export type AddLeadPayload = Omit<Lead, '_id' | 'companyId' | 'assignedAgent' | 'createdAt' | 'updatedAt'> & {
+export type AddLeadPayload = Omit<Lead, '_id' | 'agencyId' | 'assignedAgent' | 'createdAt' | 'updatedAt'> & {
   assignedAgent?: string;
 };
 export type UpdateLeadPayload = Partial<AddLeadPayload>;

@@ -1,7 +1,7 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IEmployee extends Document {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   employeeCode: string;
   firstName: string;
   lastName: string;
@@ -70,7 +70,7 @@ const employeeSchema = new Schema<IEmployee>(
       type: String,
       trim: true,
     },
-    companyId: {
+    agencyId: {
       type: Schema.Types.ObjectId,
       ref: 'Company',
       required: true,
@@ -81,6 +81,6 @@ const employeeSchema = new Schema<IEmployee>(
   },
 );
 
-employeeSchema.index({ employeeCode: 1, companyId: 1 }, { unique: true });
+employeeSchema.index({ employeeCode: 1, agencyId: 1 }, { unique: true });
 
 export const Employee = model<IEmployee>('Employee', employeeSchema);

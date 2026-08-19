@@ -1,32 +1,60 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IProject extends Document {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   name: string;
-  description?: string;
-  startDate?: Date;
-  endDate?: Date;
-  status?: 'Planned' | 'Active' | 'Completed' | 'On Hold';
+  projectCode?: string;
+  developer?: string;
+  location?: string;
   address?: string;
-  metadata?: Record<string, any>;
+  city?: string;
+  state?: string;
+  projectType?: string;
+  totalTowers?: number;
+  totalUnits?: number;
+  availableUnits?: number;
+  amenities?: string[];
+  reraNumber?: string;
+  possessionDate?: Date;
+  startingPrice?: number;
+  description?: string;
+  images?: string[];
+  documents?: string[];
+  status?: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const projectSchema = new Schema<IProject>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     name: { type: String, required: true, trim: true },
-    description: { type: String, trim: true },
-    startDate: { type: Date },
-    endDate: { type: Date },
-    status: { type: String, enum: ['Planned', 'Active', 'Completed', 'On Hold'], default: 'Planned' },
+    projectCode: { type: String, trim: true },
+    developer: { type: String },
+    location: { type: String },
     address: { type: String },
-    metadata: { type: Schema.Types.Mixed },
+    city: { type: String },
+    state: { type: String },
+    projectType: { type: String },
+    totalTowers: { type: Number },
+    totalUnits: { type: Number },
+    availableUnits: { type: Number },
+    amenities: [{ type: String }],
+    reraNumber: { type: String },
+    possessionDate: { type: Date },
+    startingPrice: { type: Number },
+    description: { type: String, trim: true },
+    images: [{ type: String }],
+    documents: [{ type: String }],
+    status: {
+      type: String,
+      enum: ['Planned', 'Active', 'Completed', 'On Hold'],
+      default: 'Planned',
+    },
   },
   { timestamps: true },
 );
 
-projectSchema.index({ name: 1, companyId: 1 }, { unique: true });
+projectSchema.index({ name: 1, agencyId: 1 }, { unique: true });
 
 export const Project = model<IProject>('Project', projectSchema);

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { io } from "socket.io-client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -133,39 +132,7 @@ export default function DashboardLayout() {
   const user = useAppSelector((state) => state.auth.user);
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!user || user.role === "super_admin") return;
 
-    const socketUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-    const socket = io(socketUrl, {
-      withCredentials: true,
-    });
-
-    socket.on("connect", () => {
-      console.log("Connected to notification socket server");
-      if (user.companyId?._id) {
-        socket.emit("join_company", user.companyId._id);
-      }
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Socket connection error:", err);
-    });
-
-    socket.on("low_stock_update", () => {
-      console.log("Low stock update event received, refetching...");
-      queryClient.invalidateQueries({ queryKey: ["lowStockNotifications"] });
-      queryClient.refetchQueries({ queryKey: ["lowStockNotifications"] });
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from notification socket server");
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [user, queryClient]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -180,6 +147,16 @@ export default function DashboardLayout() {
     if (path === "/projects") return "Projects";
     if (path === "/towers") return "Towers";
     if (path === "/units") return "Units";
+    if (path === "/leads") return "Leads";
+    if (path === "/buyers") return "Buyers";
+    if (path === "/sellers") return "Sellers";
+    if (path === "/deals") return "Deals";
+    if (path === "/bookings") return "Bookings";
+    if (path === "/payments") return "Payments";
+    if (path === "/site-visits") return "Site Visits";
+    if (path === "/follow-ups") return "Follow Ups";
+    if (path === "/tasks") return "Tasks";
+    if (path === "/calendar") return "Calendar";
     if (path === "/inventory") return "Inventory";
     if (path === "/products") return "Products";
     if (path.startsWith("/products/")) return "Product View";
@@ -225,7 +202,7 @@ export default function DashboardLayout() {
               {/* Right */}
               <div className="flex items-center gap-4">
                 <ModeToggle />
-                {user?.role !== "super_admin" && <NotificationBell />}
+                {user?.role !== "SUPER_ADMIN" && <NotificationBell />}
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center  rounded-full px-1 py-1 hover:border-2 transition-colors  cursor-pointer">
@@ -254,15 +231,16 @@ export default function DashboardLayout() {
                             }`.trim()
                           : "User"}
                       </span>
-
-                      <span className="text-xs text-muted-foreground">
-                        {user?.email}
-                      </span>
+                      {user?.agencyId ? (
+                        <span className="text-xs text-muted-foreground truncate max-w-[120px]">{user.agencyId.name}</span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">{user?.email}</span>
+                      )}
                     </div>
                     
                     <DropdownMenuSeparator />
 
-                    {user?.role !== "super_admin" && (
+                    {user?.role !== "SUPER_ADMIN" && (
                       <>
                         <DropdownMenuItem
                           onClick={() => navigate("/profile")}

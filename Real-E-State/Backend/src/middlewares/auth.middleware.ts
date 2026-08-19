@@ -8,11 +8,21 @@ export interface AuthenticatedRequest extends Request {
   user?: JwtPayload;
 }
 
-export const getCompanyId = (req: AuthenticatedRequest): string => {
-  if (req.user?.role === 'company' && req.user.companyId) {
-    return req.user.companyId;
+export const getAgencyId = (req: AuthenticatedRequest): string => {
+  if (req.user?.role === 'AGENCY' && req.user?.userId) {
+    return req.user.userId;
   }
-  throw new ApiError('Forbidden: Company ID required', 403);
+  if (['AGENT', 'STAFF'].includes(req.user?.role || '') && req.user?.agencyId) {
+    return req.user.agencyId;
+  }
+  if (req.user?.role === 'SUPER_ADMIN') {
+    if (req.method === 'GET') {
+      return { $exists: true } as unknown as string;
+    }
+    throw new ApiError('Forbidden: SUPER_ADMIN cannot perform this write operation without an agency context', 403);
+  }
+  // For SUPER_ADMIN or if missing
+  throw new ApiError('Forbidden: Agency ID required', 403);
 };
 
 export const authenticate = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {

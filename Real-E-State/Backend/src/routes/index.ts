@@ -1,29 +1,29 @@
 import { Router } from 'express';
 
+import agentRoutes from '../modules/agents/agent.routes';
 import authRoutes from '../modules/auth/auth.routes';
+import buyerRoutes from '../modules/buyers/buyer.routes';
 import categoryRoutes from '../modules/categories/category.routes';
 import companyRoutes from '../modules/companies/company.routes';
 import contactRoutes from '../modules/contacts/contact.routes';
-import employeeRoutes from '../modules/employees/employee.routes';
-import notificationRoutes from '../modules/notification/notification.routes';
-import leadRoutes from '../modules/leads/lead.routes';
-import propertyRoutes from '../modules/properties/property.routes';
 import dealRoutes from '../modules/deals/deal.routes';
-import siteVisitRoutes from '../modules/site-visits/site-visit.routes';
+import employeeRoutes from '../modules/employees/employee.routes';
+import leadRoutes from '../modules/leads/lead.routes';
+import notificationRoutes from '../modules/notification/notification.routes';
 import orderRoutes from '../modules/orders/order.routes';
+import permissionRoutes from '../modules/permissions/permission.routes';
 import productRoutes from '../modules/products/product.routes';
+import projectRoutes from '../modules/projects/project.routes';
+import propertyRoutes from '../modules/properties/property.routes';
 import reportRoutes from '../modules/reports/report.routes';
+import roleRoutes from '../modules/roles/role.routes';
+import sellerRoutes from '../modules/sellers/seller.routes';
+import siteVisitRoutes from '../modules/site-visits/site-visit.routes';
 import skuRoutes from '../modules/skus/sku.routes';
 import supplierRoutes from '../modules/suppliers/supplier.routes';
-import warehouseRoutes from '../modules/warehouses/warehouse.routes';
-import buyerRoutes from '../modules/buyers/buyer.routes';
-import sellerRoutes from '../modules/sellers/seller.routes';
-import roleRoutes from '../modules/roles/role.routes';
-import permissionRoutes from '../modules/permissions/permission.routes';
-import projectRoutes from '../modules/projects/project.routes';
 import towerRoutes from '../modules/towers/tower.routes';
 import unitRoutes from '../modules/units/unit.routes';
-import agentRoutes from '../modules/agents/agent.routes';
+import warehouseRoutes from '../modules/warehouses/warehouse.routes';
 
 const router = Router();
 

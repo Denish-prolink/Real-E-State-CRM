@@ -9,7 +9,7 @@ import { createOrderSchema, updateOrderSchema } from './order.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('AGENCY', 'AGENT', 'STAFF', 'SUPER_ADMIN'));
 
 router.post('/sell', validate(createOrderSchema), controller.createSellOrder);
 router.get('/sell', controller.getSellOrders);
