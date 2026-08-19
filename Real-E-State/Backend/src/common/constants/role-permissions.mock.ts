@@ -57,7 +57,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Dashboard: 'Manage',
     Users: 'None',
     RolesAndPermissions: 'None',
-    Agencies: 'Own',
+    Agencies: 'None',
     Agents: 'Own',
     Leads: 'Own Agency',
     Buyers: 'Own Agency',

@@ -7,7 +7,7 @@ const rbacTable = {
   Dashboard: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Manage', Agent: 'Own', User: 'Own' },
   Users: { 'Super Admin': 'Full', Staff: 'View', Agency: 'None', Agent: 'None', User: 'None' },
   'Roles & Permissions': { 'Super Admin': 'Full', Staff: 'None', Agency: 'None', Agent: 'None', User: 'None' },
-  Agencies: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own', Agent: 'View', User: 'None' },
+  Agencies: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'None', Agent: 'View', User: 'None' },
   Agents: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own', Agent: 'View', User: 'None' },
   Leads: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'Own', User: 'Own' },
   Buyers: { 'Super Admin': 'Full', Staff: 'Manage', Agency: 'Own Agency', Agent: 'Own', User: 'Own' },

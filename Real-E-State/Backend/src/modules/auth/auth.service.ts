@@ -26,6 +26,7 @@ export const getUserPermissions = async (roleName: string) => {
   }
   return permissionsMap;
 };
+
 import {
   createRefreshToken,
   createUser,
@@ -98,7 +99,7 @@ export const loginUser = async (email: string, password: string) => {
 
   const agencyId = user.agencyId
     ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.agencyId as unknown as { toString(): string }).toString()
+    (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const payload = {
@@ -158,7 +159,7 @@ export const refreshAccessToken = async (refreshToken: string) => {
 
   const agencyId = user.agencyId
     ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.agencyId as unknown as { toString(): string }).toString()
+    (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const accessToken = generateAccessToken({
@@ -205,7 +206,7 @@ export const loginOrCreateGoogleUser = async (payload: {
 
   const agencyId = user.agencyId
     ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.agencyId as unknown as { toString(): string }).toString()
+    (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const tokenPayload = {
