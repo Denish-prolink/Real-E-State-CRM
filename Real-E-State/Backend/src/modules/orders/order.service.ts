@@ -1,5 +1,4 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import { notifyCompany } from '../../services/socket.service';
 import { Product } from '../products/product.model';
 import { Warehouse } from '../warehouses/warehouse.model';
 
@@ -67,7 +66,6 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
       );
     }
   }
-  notifyCompany(companyId, 'low_stock_update');
   return order;
 };
 
@@ -135,6 +133,5 @@ export const deleteOrder = async (id: string, companyId: string) => {
   }
 
   await repository.deleteOrder(id, companyId);
-  notifyCompany(companyId, 'low_stock_update');
   return order;
 };

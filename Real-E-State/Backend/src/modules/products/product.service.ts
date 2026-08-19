@@ -1,5 +1,4 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import { notifyCompany } from '../../services/socket.service';
 
 import {
   countProducts,
@@ -22,7 +21,6 @@ export const addProduct = async (payload: IProductPayload & { companyId: string 
   }
 
   const product = await createProduct(payload);
-  notifyCompany(payload.companyId, 'low_stock_update');
   return product;
 };
 
@@ -71,7 +69,6 @@ export const updateProductDetails = async (
   }
 
   const updatedProduct = await updateProduct(id, payload, companyId);
-  notifyCompany(companyId, 'low_stock_update');
   return updatedProduct;
 };
 
@@ -81,6 +78,5 @@ export const removeProduct = async (id: string, companyId: string) => {
     throw new ApiError('Product not found', 404);
   }
   const result = await deleteProduct(id, companyId);
-  notifyCompany(companyId, 'low_stock_update');
   return result;
 };

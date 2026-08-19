@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { io } from "socket.io-client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -131,41 +129,6 @@ export default function DashboardLayout() {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.auth.user);
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (!user || user.role === "super_admin") return;
-
-    const socketUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-    const socket = io(socketUrl, {
-      withCredentials: true,
-    });
-
-    socket.on("connect", () => {
-      console.log("Connected to notification socket server");
-      if (user.companyId?._id) {
-        socket.emit("join_company", user.companyId._id);
-      }
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Socket connection error:", err);
-    });
-
-    socket.on("low_stock_update", () => {
-      console.log("Low stock update event received, refetching...");
-      queryClient.invalidateQueries({ queryKey: ["lowStockNotifications"] });
-      queryClient.refetchQueries({ queryKey: ["lowStockNotifications"] });
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from notification socket server");
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [user, queryClient]);
 
   const handleLogout = () => {
     dispatch(logout());
