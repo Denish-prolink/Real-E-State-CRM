@@ -1,27 +1,27 @@
 import { Buyer } from './buyer.model';
 import type { IBuyer } from './buyer.types';
 
-export const createBuyer = async (data: Partial<IBuyer> & { companyId: string }) => {
+export const createBuyer = async (data: Partial<IBuyer> & { agencyId: string | undefined }) => {
   const buyer = new Buyer(data);
   return await buyer.save();
 };
 
-const buildFilter = (companyId: string, search?: string) => {
-  const base: any = { companyId };
+const buildFilter = (agencyId: string | undefined, search?: string) => {
+  const base: any = { agencyId };
   if (!search) return base;
   return {
-    companyId,
+    agencyId,
     $or: [{ notes: { $regex: search, $options: 'i' } }],
   };
 };
 
 export const getBuyers = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
-  const filter = buildFilter(companyId, search);
+  const filter = buildFilter(agencyId, search);
   if (page === undefined || perPage === undefined) {
     return Buyer.find(filter).populate('contactId').sort({ createdAt: -1 });
   }
@@ -29,18 +29,18 @@ export const getBuyers = async (
   return Buyer.find(filter).populate('contactId').sort({ createdAt: -1 }).skip(skip).limit(perPage);
 };
 
-export const countBuyers = async (companyId: string, search?: string) => {
-  return Buyer.countDocuments(buildFilter(companyId, search));
+export const countBuyers = async (agencyId: string | undefined, search?: string) => {
+  return Buyer.countDocuments(buildFilter(agencyId, search));
 };
 
-export const getBuyerById = async (id: string, companyId: string) => {
-  return Buyer.findOne({ _id: id, companyId }).populate('contactId');
+export const getBuyerById = async (id: string, agencyId: string | undefined) => {
+  return Buyer.findOne({ _id: id, agencyId }).populate('contactId');
 };
 
-export const updateBuyer = async (id: string, data: Partial<IBuyer>, companyId: string) => {
-  return Buyer.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
+export const updateBuyer = async (id: string, data: Partial<IBuyer>, agencyId: string | undefined) => {
+  return Buyer.findOneAndUpdate({ _id: id, agencyId }, data, { new: true });
 };
 
-export const deleteBuyer = async (id: string, companyId: string) => {
-  return Buyer.findOneAndDelete({ _id: id, companyId });
+export const deleteBuyer = async (id: string, agencyId: string | undefined) => {
+  return Buyer.findOneAndDelete({ _id: id, agencyId });
 };

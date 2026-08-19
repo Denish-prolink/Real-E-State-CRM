@@ -6,8 +6,8 @@ export const createRole = async (data: Partial<IRole>) => {
   return await repository.createRole(data);
 };
 
-export const getRoles = async (companyId?: string, search?: string) => {
-  return await repository.getRoles(companyId, search);
+export const getRoles = async (agencyId: string | undefined, search?: string) => {
+  return await repository.getRoles(agencyId, search);
 };
 
 export const getRoleById = async (id: string) => {

@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 
 export interface ISiteVisit {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   leadId: Types.ObjectId;
   propertyId?: Types.ObjectId;
   agentId?: Types.ObjectId;

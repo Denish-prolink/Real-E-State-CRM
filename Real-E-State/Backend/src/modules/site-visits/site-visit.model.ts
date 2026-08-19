@@ -3,7 +3,7 @@ import { ISiteVisitDocument } from './site-visit.types';
 
 const siteVisitSchema = new Schema<ISiteVisitDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     leadId: { type: Schema.Types.ObjectId, ref: 'Lead', required: true },
     propertyId: { type: Schema.Types.ObjectId, ref: 'Property' },
     agentId: { type: Schema.Types.ObjectId, ref: 'User' },

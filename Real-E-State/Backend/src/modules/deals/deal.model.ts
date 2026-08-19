@@ -3,7 +3,7 @@ import { IDealDocument } from './deal.types';
 
 const dealSchema = new Schema<IDealDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     dealNumber: { type: String },
     leadId: { type: Schema.Types.ObjectId, ref: 'Lead', required: true },
     propertyId: { type: Schema.Types.ObjectId, ref: 'Property' },

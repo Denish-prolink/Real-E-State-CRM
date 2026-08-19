@@ -16,7 +16,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 1500,
       category: 'Electronics',
       supplier: ['Global Tech Suppliers'],
-      companyId: company1._id,
+      agencyId: company1._id,
       status: 'Active',
     },
     {
@@ -27,7 +27,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 200,
       category: 'Furniture',
       supplier: ['Furniture Co'],
-      companyId: company1._id,
+      agencyId: company1._id,
       status: 'Active',
     },
     {
@@ -38,7 +38,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 999999,
       category: 'Weapons',
       supplier: ['Stark Labs'],
-      companyId: company2._id,
+      agencyId: company2._id,
       status: 'Active',
     },
   ]);

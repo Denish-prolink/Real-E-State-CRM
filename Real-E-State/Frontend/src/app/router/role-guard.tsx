@@ -1,22 +1,22 @@
 import { Navigate } from "react-router-dom";
 import type { RootState } from "../store";
 import { useSelector } from "react-redux";
+import { usePermissions } from "@/hooks/usePermissions";
 
 interface Props {
   children: React.ReactNode;
-  allowedRoles: string[];
+  moduleName?: string; // Made optional for routes that are just "logged in"
 }
 
-export default function RoleGuard({ children, allowedRoles }: Props) {
+export default function RoleGuard({ children, moduleName }: Props) {
   const user = useSelector((state: RootState) => state.auth.user);
+  const { hasAccess } = usePermissions();
   
   if (!user || !user.role) {
-    // If no user or no role, might want to redirect to a generic unauthorized or login
     return <Navigate to="/login" replace />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
-    // Redirect somewhere if they don't have access
+  if (moduleName && !hasAccess(moduleName)) {
     if (user.role === 'super_admin') {
       return <Navigate to="/companies" replace />;
     }

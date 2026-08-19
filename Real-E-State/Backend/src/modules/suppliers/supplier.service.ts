@@ -11,8 +11,8 @@ import {
 } from './supplier.repository';
 import type { ISupplierPayload } from './supplier.types';
 
-export const addSupplier = async (payload: ISupplierPayload & { companyId: string }) => {
-  const existingSupplier = await findSupplierByCode(payload.supplierCode, payload.companyId);
+export const addSupplier = async (payload: ISupplierPayload & { agencyId: string | undefined }) => {
+  const existingSupplier = await findSupplierByCode(payload.supplierCode, payload.agencyId);
   if (existingSupplier) {
     throw new ApiError('Supplier with this code already exists', 409);
   }
@@ -21,14 +21,14 @@ export const addSupplier = async (payload: ISupplierPayload & { companyId: strin
 };
 
 export const getSuppliersList = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
   const [suppliers, total] = await Promise.all([
-    findSuppliers(companyId, page, perPage, search),
-    countSuppliers(companyId, search),
+    findSuppliers(agencyId, page, perPage, search),
+    countSuppliers(agencyId, search),
   ]);
   return {
     suppliers,
@@ -39,8 +39,8 @@ export const getSuppliersList = async (
   };
 };
 
-export const getSupplierById = async (id: string, companyId: string) => {
-  const supplier = await findSupplierById(id, companyId);
+export const getSupplierById = async (id: string, agencyId: string | undefined) => {
+  const supplier = await findSupplierById(id, agencyId);
   if (!supplier) {
     throw new ApiError('Supplier not found', 404);
   }
@@ -50,27 +50,27 @@ export const getSupplierById = async (id: string, companyId: string) => {
 export const updateSupplierDetails = async (
   id: string,
   payload: Partial<ISupplierPayload>,
-  companyId: string,
+  agencyId: string | undefined,
 ) => {
-  const supplier = await findSupplierById(id, companyId);
+  const supplier = await findSupplierById(id, agencyId);
   if (!supplier) {
     throw new ApiError('Supplier not found', 404);
   }
 
   if (payload.supplierCode) {
-    const existingSupplier = await findSupplierByCode(payload.supplierCode, companyId);
+    const existingSupplier = await findSupplierByCode(payload.supplierCode, agencyId);
     if (existingSupplier && existingSupplier._id.toString() !== id) {
       throw new ApiError('Supplier with this code already exists', 409);
     }
   }
 
-  return updateSupplier(id, payload, companyId);
+  return updateSupplier(id, payload, agencyId);
 };
 
-export const removeSupplier = async (id: string, companyId: string) => {
-  const supplier = await findSupplierById(id, companyId);
+export const removeSupplier = async (id: string, agencyId: string | undefined) => {
+  const supplier = await findSupplierById(id, agencyId);
   if (!supplier) {
     throw new ApiError('Supplier not found', 404);
   }
-  return deleteSupplier(id, companyId);
+  return deleteSupplier(id, agencyId);
 };

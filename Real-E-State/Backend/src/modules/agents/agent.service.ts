@@ -2,28 +2,28 @@ import { ApiError } from '../../common/exceptions/ApiError';
 import type { IAgent } from './agent.types';
 import * as repository from './agent.repository';
 
-export const createAgent = async (data: Partial<IAgent> & { companyId: string }) => {
+export const createAgent = async (data: Partial<IAgent> & { agencyId: string | undefined }) => {
   return await repository.createAgent(data);
 };
 
-export const getAgents = async (companyId: string, search?: string) => {
-  return await repository.getAgents(companyId, search);
+export const getAgents = async (agencyId: string | undefined, search?: string) => {
+  return await repository.getAgents(agencyId, search);
 };
 
-export const getAgentById = async (id: string, companyId: string) => {
-  const a = await repository.getAgentById(id, companyId);
+export const getAgentById = async (id: string, agencyId: string | undefined) => {
+  const a = await repository.getAgentById(id, agencyId);
   if (!a) throw new ApiError('Agent not found', 404);
   return a;
 };
 
-export const updateAgent = async (id: string, data: Partial<IAgent>, companyId: string) => {
-  const a = await repository.updateAgent(id, data, companyId);
+export const updateAgent = async (id: string, data: Partial<IAgent>, agencyId: string | undefined) => {
+  const a = await repository.updateAgent(id, data, agencyId);
   if (!a) throw new ApiError('Agent not found', 404);
   return a;
 };
 
-export const deleteAgent = async (id: string, companyId: string) => {
-  const a = await repository.deleteAgent(id, companyId);
+export const deleteAgent = async (id: string, agencyId: string | undefined) => {
+  const a = await repository.deleteAgent(id, agencyId);
   if (!a) throw new ApiError('Agent not found', 404);
   return a;
 };

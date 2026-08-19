@@ -1,21 +1,21 @@
 import { Product } from './product.model';
 import type { IProductPayload } from './product.types';
 
-export const createProduct = async (payload: IProductPayload & { companyId: string }) => {
+export const createProduct = async (payload: IProductPayload & { agencyId: string | undefined }) => {
   return Product.create(payload);
 };
 
-export const findProductByBarcode = async (barcode: string, companyId: string) => {
+export const findProductByBarcode = async (barcode: string, agencyId: string | undefined) => {
   if (!barcode) {
     return null;
   }
-  return Product.findOne({ barcode, companyId });
+  return Product.findOne({ barcode, agencyId });
 };
 
-const buildFilter = (companyId: string, search?: string) => {
+const buildFilter = (agencyId: string | undefined, search?: string) => {
   return search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { title: { $regex: search, $options: 'i' } },
           { brand: { $regex: search, $options: 'i' } },
@@ -24,16 +24,16 @@ const buildFilter = (companyId: string, search?: string) => {
           { barcode: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
 };
 
 export const findProducts = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
-  const filter = buildFilter(companyId, search);
+  const filter = buildFilter(agencyId, search);
   if (page === undefined || perPage === undefined) {
     return Product.find(filter).sort({ createdAt: -1 });
   }
@@ -41,26 +41,26 @@ export const findProducts = async (
   return Product.find(filter).sort({ createdAt: -1 }).skip(skip).limit(perPage);
 };
 
-export const countProducts = async (companyId: string, search?: string) => {
-  return Product.countDocuments(buildFilter(companyId, search));
+export const countProducts = async (agencyId: string | undefined, search?: string) => {
+  return Product.countDocuments(buildFilter(agencyId, search));
 };
 
-export const findProductById = async (id: string, companyId: string) => {
-  return Product.findOne({ _id: id, companyId });
+export const findProductById = async (id: string, agencyId: string | undefined) => {
+  return Product.findOne({ _id: id, agencyId });
 };
 
 export const updateProduct = async (
   id: string,
   payload: Partial<IProductPayload>,
-  companyId: string,
+  agencyId: string | undefined,
 ) => {
   const updateData: any = { ...payload };
   if (payload.quantity !== undefined) {
     updateData.lowStockReadBy = [];
   }
-  return Product.findOneAndUpdate({ _id: id, companyId }, updateData, { new: true });
+  return Product.findOneAndUpdate({ _id: id, agencyId }, updateData, { new: true });
 };
 
-export const deleteProduct = async (id: string, companyId: string) => {
-  return Product.findOneAndDelete({ _id: id, companyId });
+export const deleteProduct = async (id: string, agencyId: string | undefined) => {
+  return Product.findOneAndDelete({ _id: id, agencyId });
 };

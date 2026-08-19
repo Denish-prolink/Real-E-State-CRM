@@ -213,7 +213,7 @@ export default function CompanyDetailsPage() {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         onSubmit={handleEditSubmit}
-        editCompanyId={company._id}
+        editAgencyId={company._id}
       />
 
       {/* Delete Confirmation Alert Dialog */}

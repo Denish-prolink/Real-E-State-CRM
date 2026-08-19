@@ -1,32 +1,32 @@
 import * as propertyRepository from './property.repository';
 import type { IProperty } from './property.types';
 
-export const createPropertyService = async (companyId: string, data: Partial<IProperty>) => {
-  return propertyRepository.createProperty({ ...data, companyId: companyId as any });
+export const createPropertyService = async (agencyId: string | undefined, data: Partial<IProperty>) => {
+  return propertyRepository.createProperty({ ...data, agencyId: agencyId as any });
 };
 
-export const getPropertiesService = async (companyId: string, filters: any = {}) => {
-  return propertyRepository.findPropertiesByCompany(companyId, filters);
+export const getPropertiesService = async (agencyId: string | undefined, filters: any = {}) => {
+  return propertyRepository.findPropertiesByCompany(agencyId, filters);
 };
 
-export const getPropertyByIdService = async (id: string, companyId: string) => {
-  const property = await propertyRepository.findPropertyById(id, companyId);
+export const getPropertyByIdService = async (id: string, agencyId: string | undefined) => {
+  const property = await propertyRepository.findPropertyById(id, agencyId);
   if (!property) {
     throw new Error('Property not found');
   }
   return property;
 };
 
-export const updatePropertyService = async (id: string, companyId: string, data: Partial<IProperty>) => {
-  const property = await propertyRepository.updatePropertyById(id, companyId, data);
+export const updatePropertyService = async (id: string, agencyId: string | undefined, data: Partial<IProperty>) => {
+  const property = await propertyRepository.updatePropertyById(id, agencyId, data);
   if (!property) {
     throw new Error('Property not found');
   }
   return property;
 };
 
-export const deletePropertyService = async (id: string, companyId: string) => {
-  const property = await propertyRepository.deletePropertyById(id, companyId);
+export const deletePropertyService = async (id: string, agencyId: string | undefined) => {
+  const property = await propertyRepository.deletePropertyById(id, agencyId);
   if (!property) {
     throw new Error('Property not found');
   }

@@ -135,7 +135,7 @@ export default function CompaniesPage() {
           setEditTargetId(null);
         }}
         onSubmit={handleAddOrEdit}
-        editCompanyId={editTargetId}
+        editAgencyId={editTargetId}
       />
 
       {/* Delete Confirmation */}

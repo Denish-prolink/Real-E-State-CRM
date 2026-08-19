@@ -1,33 +1,33 @@
 import { Category } from './category.model';
 import type { ICategoryPayload } from './category.types';
 
-export const createCategory = async (payload: ICategoryPayload & { companyId: string }) => {
+export const createCategory = async (payload: ICategoryPayload & { agencyId: string | undefined }) => {
   return Category.create(payload);
 };
 
-export const findCategoryByName = async (name: string, companyId: string) => {
-  return Category.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') }, companyId });
+export const findCategoryByName = async (name: string, agencyId: string | undefined) => {
+  return Category.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') }, agencyId });
 };
 
-const buildFilter = (companyId: string, search?: string) => {
+const buildFilter = (agencyId: string | undefined, search?: string) => {
   return search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { name: { $regex: search, $options: 'i' } },
           { description: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
 };
 
 export const findCategories = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
-  const filter = buildFilter(companyId, search);
+  const filter = buildFilter(agencyId, search);
   if (page === undefined || perPage === undefined) {
     return Category.find(filter).sort({ name: 1 });
   }
@@ -35,22 +35,22 @@ export const findCategories = async (
   return Category.find(filter).sort({ name: 1 }).skip(skip).limit(perPage);
 };
 
-export const countCategories = async (companyId: string, search?: string) => {
-  return Category.countDocuments(buildFilter(companyId, search));
+export const countCategories = async (agencyId: string | undefined, search?: string) => {
+  return Category.countDocuments(buildFilter(agencyId, search));
 };
 
-export const findCategoryById = async (id: string, companyId: string) => {
-  return Category.findOne({ _id: id, companyId });
+export const findCategoryById = async (id: string, agencyId: string | undefined) => {
+  return Category.findOne({ _id: id, agencyId });
 };
 
 export const updateCategory = async (
   id: string,
   payload: Partial<ICategoryPayload>,
-  companyId: string,
+  agencyId: string | undefined,
 ) => {
-  return Category.findOneAndUpdate({ _id: id, companyId }, payload, { new: true });
+  return Category.findOneAndUpdate({ _id: id, agencyId }, payload, { new: true });
 };
 
-export const deleteCategory = async (id: string, companyId: string) => {
-  return Category.findOneAndDelete({ _id: id, companyId });
+export const deleteCategory = async (id: string, agencyId: string | undefined) => {
+  return Category.findOneAndDelete({ _id: id, agencyId });
 };

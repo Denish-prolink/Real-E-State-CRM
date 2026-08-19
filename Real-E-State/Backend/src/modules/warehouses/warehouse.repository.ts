@@ -5,47 +5,47 @@ export const createWarehouse = async (data: Partial<IWarehouse>): Promise<IWareh
   return await warehouse.save();
 };
 
-export const getWarehouses = async (companyId: string, search?: string): Promise<IWarehouse[]> => {
+export const getWarehouses = async (agencyId: string | undefined, search?: string): Promise<IWarehouse[]> => {
   const filter = search
     ? {
-        companyId,
+        agencyId,
         $or: [
           { warehouseCode: { $regex: search, $options: 'i' } },
           { warehouseName: { $regex: search, $options: 'i' } },
           { warehouseType: { $regex: search, $options: 'i' } },
         ],
       }
-    : { companyId };
+    : { agencyId };
   return await Warehouse.find(filter).populate('manager').sort({ createdAt: -1 });
 };
 
 export const getWarehouseById = async (
   id: string,
-  companyId: string,
+  agencyId: string | undefined,
 ): Promise<IWarehouse | null> => {
-  return await Warehouse.findOne({ _id: id, companyId }).populate('manager');
+  return await Warehouse.findOne({ _id: id, agencyId }).populate('manager');
 };
 
 export const getWarehouseByCode = async (
   warehouseCode: string,
-  companyId: string,
+  agencyId: string | undefined,
 ): Promise<IWarehouse | null> => {
-  return await Warehouse.findOne({ warehouseCode, companyId });
+  return await Warehouse.findOne({ warehouseCode, agencyId });
 };
 
 export const updateWarehouse = async (
   id: string,
   data: Partial<IWarehouse>,
-  companyId: string,
+  agencyId: string | undefined,
 ): Promise<IWarehouse | null> => {
-  return await Warehouse.findOneAndUpdate({ _id: id, companyId }, data, { new: true }).populate(
+  return await Warehouse.findOneAndUpdate({ _id: id, agencyId }, data, { new: true }).populate(
     'manager',
   );
 };
 
 export const deleteWarehouse = async (
   id: string,
-  companyId: string,
+  agencyId: string | undefined,
 ): Promise<IWarehouse | null> => {
-  return await Warehouse.findOneAndDelete({ _id: id, companyId });
+  return await Warehouse.findOneAndDelete({ _id: id, agencyId });
 };

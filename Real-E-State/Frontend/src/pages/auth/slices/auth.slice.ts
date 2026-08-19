@@ -45,15 +45,15 @@ const authSlice = createSlice({
     },
     updateUserCompany: (state, action: PayloadAction<{ _id?: string; name?: string }>) => {
       if (state.user) {
-        if (!state.user.companyId) {
-          state.user.companyId = {} as unknown as typeof state.user.companyId;
+        if (!state.user.agencyId) {
+          state.user.agencyId = {} as unknown as typeof state.user.agencyId;
         }
-        const companyId = state.user.companyId as NonNullable<typeof state.user.companyId>;
+        const agencyId = state.user.agencyId as NonNullable<typeof state.user.agencyId>;
         if (action.payload._id) {
-          companyId._id = action.payload._id;
+          agencyId._id = action.payload._id;
         }
         if (action.payload.name) {
-          companyId.name = action.payload.name;
+          agencyId.name = action.payload.name;
           state.user.firstName = action.payload.name;
         }
         localStorage.setItem('user', JSON.stringify(state.user));

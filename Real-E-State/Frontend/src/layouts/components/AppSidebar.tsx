@@ -22,84 +22,71 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useAppSelector } from "@/app/hooks";
-
-import { useState } from "react";
+import { usePermissions } from "@/hooks/usePermissions";
 
 export function AppSidebar() {
   const location = useLocation();
-  const user = useAppSelector((state) => state.auth.user);
+  const { hasAccess } = usePermissions();
 
   const allNavItems = [
     {
       title: "Dashboard",
+      moduleName: "dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
-      roles: ["company", "employee"],
     },
     {
       title: "Calendar",
+      moduleName: "calendar", // Assuming calendar is part of a module, if not we might need to map it
       path: "/calendar",
       icon: Calendar,
-      roles: ["company", "employee"],
     },
     {
       title: "Tasks",
+      moduleName: "tasks", // Assuming tasks mapped
       path: "/tasks",
       icon: CheckSquare,
-      roles: ["company", "employee"],
     },
     {
       title: "Leads",
+      moduleName: "leads",
       path: "/leads",
       icon: UserCheck,
-      roles: ["company", "employee"],
     },
     {
       title: "Contact",
+      moduleName: "contacts", // if Contacts is a module
       path: "/contacts",
       icon: Users,
-      roles: ["company"],
     },
     {
       title: "Properties",
+      moduleName: "properties",
       path: "/properties",
       icon: Home,
-      roles: ["company", "employee"],
     },
     {
       title: "Projects",
+      moduleName: "projects",
       path: "/projects",
       icon: Building2,
-      roles: ["company", "employee"],
     },
     {
       title: "Towers",
+      moduleName: "towers",
       path: "/towers",
       icon: Building,
-      roles: ["company", "employee"],
     },
     {
-      title: "Company",
+      title: "Agencies",
+      moduleName: "agencies",
       path: "/companies",
       icon: Building2,
-      roles: ["super_admin"],
     },
-    // {
-    //   title: "Reports",
-    //   path: "/reports",
-    //   icon: TrendingUp,
-    //   roles: ["company"],
-    // },
-    // {
-    //   title: "Profile page",
-    //   path: "/profile",
-    //   icon: Settings,
-    //   roles: ["company", "employee"],
-    // },
+    // Add any others
   ];
 
-  const userRole = user?.role || "employee";
-  const navItems = allNavItems.filter((item) => item.roles.includes(userRole));
+  const navItems = allNavItems.filter((item) => hasAccess(item.moduleName));
 
   return (
     <Sidebar className="border-r border-border">
@@ -128,17 +115,18 @@ export function AppSidebar() {
                 const isActive = location.pathname === item.path;
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      render={<Link to={item.path} />}
-                      isActive={isActive}
-                      className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
-                        ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
-                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                        }`}
-                    >
-                      <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
-                      <span>{item.title}</span>
-                    </SidebarMenuButton>
+                    <Link to={item.path} className="w-full flex">
+                      <SidebarMenuButton
+                        isActive={isActive}
+                        className={`w-full justify-start gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
+                          ? "bg-indigo-50 text-indigo-700 font-medium dark:bg-indigo-950/45 dark:text-indigo-400"
+                          : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                          }`}
+                      >
+                        <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
+                        <span>{item.title}</span>
+                      </SidebarMenuButton>
+                    </Link>
                   </SidebarMenuItem>
                 );
               })}

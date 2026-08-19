@@ -8,7 +8,24 @@ import {
   verifyRefreshToken,
 } from '../../common/helpers/token.helper';
 import type { ICompany } from '../companies/company.model';
+import { Role } from '../roles/role.model';
+import { Permission } from '../permissions/permission.model';
 
+export const getUserPermissions = async (roleName: string) => {
+  let permissionsMap: Record<string, string> = {};
+  if (roleName) {
+    const roleDoc = await Role.findOne({ name: roleName }).populate('permissions').lean();
+    if (roleDoc && roleDoc.permissions) {
+      roleDoc.permissions.forEach((perm: any) => {
+        if (perm.module && perm.key) {
+          const level = perm.key.split('_').pop() || '';
+          permissionsMap[perm.module.toLowerCase()] = level;
+        }
+      });
+    }
+  }
+  return permissionsMap;
+};
 import {
   createRefreshToken,
   createUser,
@@ -41,7 +58,7 @@ export const registerUser = async (payload: {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId: undefined,
+    agencyId: undefined,
   };
 
   const accessToken = generateAccessToken(tokenPayload);
@@ -53,10 +70,11 @@ export const registerUser = async (payload: {
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
+  const permissions = await getUserPermissions(user.role);
   return {
     accessToken,
     refreshToken,
-    user,
+    user: { ...user.toJSON(), permissions },
   };
 };
 
@@ -73,21 +91,21 @@ export const loginUser = async (email: string, password: string) => {
     throw new ApiError('Invalid credentials', 401);
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'agency' && company && company.status === 'inactive') {
     throw new ApiError('Your company account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const payload = {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId,
+    agencyId,
   };
 
   const accessToken = generateAccessToken(payload);
@@ -100,10 +118,11 @@ export const loginUser = async (email: string, password: string) => {
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
+  const permissions = await getUserPermissions(user.role);
   return {
     accessToken,
     refreshToken,
-    user,
+    user: { ...user.toJSON(), permissions },
   };
 };
 
@@ -114,7 +133,8 @@ export const getProfile = async (userId: string) => {
     throw new ApiError('User not found', 404);
   }
 
-  return user;
+  const permissions = await getUserPermissions(user.role);
+  return { ...user.toJSON(), permissions };
 };
 
 export const refreshAccessToken = async (refreshToken: string) => {
@@ -131,21 +151,21 @@ export const refreshAccessToken = async (refreshToken: string) => {
     throw new ApiError('User not found', 404);
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'agency' && company && company.status === 'inactive') {
     throw new ApiError('Your company account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const accessToken = generateAccessToken({
     userId: payload.userId,
     email: payload.email,
     role: payload.role,
-    companyId,
+    agencyId,
   });
 
   return {
@@ -178,21 +198,21 @@ export const loginOrCreateGoogleUser = async (payload: {
     });
   }
 
-  const company = user.companyId as unknown as ICompany | null;
-  if (user.role === 'company' && company && company.status === 'inactive') {
+  const company = user.agencyId as unknown as ICompany | null;
+  if (user.role === 'agency' && company && company.status === 'inactive') {
     throw new ApiError('Your company account is inactive. Please contact support.', 403);
   }
 
-  const companyId = user.companyId
-    ? (user.companyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
-      (user.companyId as unknown as { toString(): string }).toString()
+  const agencyId = user.agencyId
+    ? (user.agencyId as unknown as { _id?: { toString(): string } })._id?.toString() ||
+      (user.agencyId as unknown as { toString(): string }).toString()
     : undefined;
 
   const tokenPayload = {
     userId: user._id.toString(),
     email: user.email,
     role: user.role,
-    companyId,
+    agencyId,
   };
 
   const accessToken = generateAccessToken(tokenPayload);
@@ -204,10 +224,11 @@ export const loginOrCreateGoogleUser = async (payload: {
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
+  const permissions = await getUserPermissions(user.role);
   return {
     accessToken,
     refreshToken,
-    user,
+    user: { ...user.toJSON(), permissions },
   };
 };
 

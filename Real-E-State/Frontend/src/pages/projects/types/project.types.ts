@@ -1,6 +1,6 @@
 export interface Project {
   _id: string;
-  companyId: string;
+  agencyId: string;
   name: string;
   description?: string;
   startDate?: string;
@@ -11,5 +11,5 @@ export interface Project {
   updatedAt: string;
 }
 
-export type AddProjectPayload = Omit<Project, '_id' | 'companyId' | 'createdAt' | 'updatedAt'>;
+export type AddProjectPayload = Omit<Project, '_id' | 'agencyId' | 'createdAt' | 'updatedAt'>;
 export type UpdateProjectPayload = Partial<AddProjectPayload>;

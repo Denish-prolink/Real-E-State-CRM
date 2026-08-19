@@ -11,10 +11,10 @@ import {
 } from './product.repository';
 import type { IProductPayload } from './product.types';
 
-export const addProduct = async (payload: IProductPayload & { companyId: string }) => {
+export const addProduct = async (payload: IProductPayload & { agencyId: string | undefined }) => {
   // Check barcode uniqueness if provided
   if (payload.barcode) {
-    const existingProduct = await findProductByBarcode(payload.barcode, payload.companyId);
+    const existingProduct = await findProductByBarcode(payload.barcode, payload.agencyId);
     if (existingProduct) {
       throw new ApiError('Product with this barcode already exists', 409);
     }
@@ -25,14 +25,14 @@ export const addProduct = async (payload: IProductPayload & { companyId: string 
 };
 
 export const getProductsList = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
   const [products, total] = await Promise.all([
-    findProducts(companyId, page, perPage, search),
-    countProducts(companyId, search),
+    findProducts(agencyId, page, perPage, search),
+    countProducts(agencyId, search),
   ]);
   return {
     products,
@@ -43,8 +43,8 @@ export const getProductsList = async (
   };
 };
 
-export const getProductById = async (id: string, companyId: string) => {
-  const product = await findProductById(id, companyId);
+export const getProductById = async (id: string, agencyId: string | undefined) => {
+  const product = await findProductById(id, agencyId);
   if (!product) {
     throw new ApiError('Product not found', 404);
   }
@@ -54,29 +54,29 @@ export const getProductById = async (id: string, companyId: string) => {
 export const updateProductDetails = async (
   id: string,
   payload: Partial<IProductPayload>,
-  companyId: string,
+  agencyId: string | undefined,
 ) => {
-  const product = await findProductById(id, companyId);
+  const product = await findProductById(id, agencyId);
   if (!product) {
     throw new ApiError('Product not found', 404);
   }
 
   if (payload.barcode) {
-    const existingProduct = await findProductByBarcode(payload.barcode, companyId);
+    const existingProduct = await findProductByBarcode(payload.barcode, agencyId);
     if (existingProduct && existingProduct._id.toString() !== id) {
       throw new ApiError('Product with this barcode already exists', 409);
     }
   }
 
-  const updatedProduct = await updateProduct(id, payload, companyId);
+  const updatedProduct = await updateProduct(id, payload, agencyId);
   return updatedProduct;
 };
 
-export const removeProduct = async (id: string, companyId: string) => {
-  const product = await findProductById(id, companyId);
+export const removeProduct = async (id: string, agencyId: string | undefined) => {
+  const product = await findProductById(id, agencyId);
   if (!product) {
     throw new ApiError('Product not found', 404);
   }
-  const result = await deleteProduct(id, companyId);
+  const result = await deleteProduct(id, agencyId);
   return result;
 };

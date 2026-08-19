@@ -117,11 +117,11 @@ export default function LoginForm({
               size="sm"
               className="w-full justify-start text-muted-foreground hover:text-foreground"
               onClick={() => {
-                formik.setFieldValue("email", "admin@acme.com");
+                formik.setFieldValue("email", "agency@acme.com");
                 formik.setFieldValue("password", "password123");
               }}
             >
-              <span className="font-semibold w-24 text-left">Acme Agency:</span> admin@acme.com
+              <span className="font-semibold w-24 text-left">Agency:</span> agency@acme.com
             </Button>
             <Button
               type="button"
@@ -129,11 +129,35 @@ export default function LoginForm({
               size="sm"
               className="w-full justify-start text-muted-foreground hover:text-foreground"
               onClick={() => {
-                formik.setFieldValue("email", "admin@stark.com");
+                formik.setFieldValue("email", "staff@acme.com");
                 formik.setFieldValue("password", "password123");
               }}
             >
-              <span className="font-semibold w-24 text-left">Stark Agency:</span> admin@stark.com
+              <span className="font-semibold w-24 text-left">Staff:</span> staff@acme.com
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                formik.setFieldValue("email", "agent@acme.com");
+                formik.setFieldValue("password", "password123");
+              }}
+            >
+              <span className="font-semibold w-24 text-left">Agent:</span> agent@acme.com
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                formik.setFieldValue("email", "user@acme.com");
+                formik.setFieldValue("password", "password123");
+              }}
+            >
+              <span className="font-semibold w-24 text-left">User:</span> user@acme.com
             </Button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 export interface Buyer {
   _id: string;
-  companyId?: string;
+  agencyId?: string;
   contactId?: string | null;
   leadId?: string | null;
   notes?: string;

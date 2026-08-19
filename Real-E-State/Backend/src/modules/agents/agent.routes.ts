@@ -7,7 +7,7 @@ import { createAgentSchema, updateAgentSchema } from './agent.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('agency', 'super_admin'));
 
 router.post('/', validate(createAgentSchema), controller.createAgent);
 router.get('/', controller.getAgents);

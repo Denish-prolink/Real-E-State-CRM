@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ['super_admin', 'company'],
-      default: 'company',
+      enum: ['super_admin', 'staff', 'agency', 'agent', 'user'],
+      default: 'user',
     },
 
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
     },

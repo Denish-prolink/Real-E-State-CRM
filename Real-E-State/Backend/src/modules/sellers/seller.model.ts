@@ -1,7 +1,7 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface ISeller extends Document {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   contactId?: Types.ObjectId;
   leadId?: Types.ObjectId;
   notes?: string;
@@ -12,7 +12,7 @@ export interface ISeller extends Document {
 
 const sellerSchema = new Schema<ISeller>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     contactId: { type: Schema.Types.ObjectId, ref: 'Contact' },
     leadId: { type: Schema.Types.ObjectId, ref: 'Lead' },
     notes: { type: String, trim: true },

@@ -3,9 +3,9 @@ import { ApiError } from '../../common/exceptions/ApiError';
 import type { IWarehouse } from './warehouse.model';
 import * as repository from './warehouse.repository';
 
-export const createWarehouse = async (data: Partial<IWarehouse> & { companyId: string }) => {
+export const createWarehouse = async (data: Partial<IWarehouse> & { agencyId: string | undefined }) => {
   if (data.warehouseCode) {
-    const existing = await repository.getWarehouseByCode(data.warehouseCode, data.companyId);
+    const existing = await repository.getWarehouseByCode(data.warehouseCode, data.agencyId);
     if (existing) {
       throw new ApiError('Warehouse with this code already exists', 409);
     }
@@ -13,34 +13,34 @@ export const createWarehouse = async (data: Partial<IWarehouse> & { companyId: s
   return await repository.createWarehouse(data);
 };
 
-export const getWarehouses = async (companyId: string, search?: string) => {
-  return await repository.getWarehouses(companyId, search);
+export const getWarehouses = async (agencyId: string | undefined, search?: string) => {
+  return await repository.getWarehouses(agencyId, search);
 };
 
-export const getWarehouseById = async (id: string, companyId: string) => {
-  const warehouse = await repository.getWarehouseById(id, companyId);
+export const getWarehouseById = async (id: string, agencyId: string | undefined) => {
+  const warehouse = await repository.getWarehouseById(id, agencyId);
   if (!warehouse) {
     throw new ApiError('Warehouse not found', 404);
   }
   return warehouse;
 };
 
-export const updateWarehouse = async (id: string, data: Partial<IWarehouse>, companyId: string) => {
+export const updateWarehouse = async (id: string, data: Partial<IWarehouse>, agencyId: string | undefined) => {
   if (data.warehouseCode) {
-    const existing = await repository.getWarehouseByCode(data.warehouseCode, companyId);
+    const existing = await repository.getWarehouseByCode(data.warehouseCode, agencyId);
     if (existing && existing._id.toString() !== id) {
       throw new ApiError('Warehouse with this code already exists', 409);
     }
   }
-  const warehouse = await repository.updateWarehouse(id, data, companyId);
+  const warehouse = await repository.updateWarehouse(id, data, agencyId);
   if (!warehouse) {
     throw new ApiError('Warehouse not found', 404);
   }
   return warehouse;
 };
 
-export const deleteWarehouse = async (id: string, companyId: string) => {
-  const warehouse = await repository.deleteWarehouse(id, companyId);
+export const deleteWarehouse = async (id: string, agencyId: string | undefined) => {
+  const warehouse = await repository.deleteWarehouse(id, agencyId);
   if (!warehouse) {
     throw new ApiError('Warehouse not found', 404);
   }

@@ -2,7 +2,7 @@ import { type Document, type Types } from 'mongoose';
 
 export interface IAgent {
   userId?: Types.ObjectId;
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   firstName: string;
   lastName?: string;
   email?: string;

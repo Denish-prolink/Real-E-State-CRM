@@ -34,7 +34,7 @@ interface Props {
   open: boolean;
   onClose: () => void;
   onSubmit: (values: AddCompanyPayload) => void | Promise<void>;
-  editCompanyId?: string | null;
+  editAgencyId?: string | null;
 }
 
 const EMPTY_VALUES: AddCompanyPayload = {
@@ -61,21 +61,21 @@ export default function CompanyFormDrawer({
   open,
   onClose,
   onSubmit,
-  editCompanyId,
+  editAgencyId,
 }: Props) {
   const { data: company, isLoading: isCompanyLoading } = useGetCompany(
-    editCompanyId || null,
+    editAgencyId || null,
   );
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik<AddCompanyPayload>({
     initialValues: EMPTY_VALUES,
-    validationSchema: editCompanyId ? companyUpdateSchema : companySchema,
+    validationSchema: editAgencyId ? companyUpdateSchema : companySchema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values, helpers) => {
       try {
-        if (editCompanyId && !formik.dirty) {
+        if (editAgencyId && !formik.dirty) {
           // toast.info("No changes made");
           onClose();
           return;
@@ -103,7 +103,7 @@ export default function CompanyFormDrawer({
 
   useEffect(() => {
     if (open) {
-      if (editCompanyId) {
+      if (editAgencyId) {
         if (company) {
           formik.resetForm({
             values: {
@@ -135,7 +135,7 @@ export default function CompanyFormDrawer({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, editCompanyId, company]);
+  }, [open, editAgencyId, company]);
 
   const inputCls = (field: keyof AddCompanyPayload) =>
     getInputClassName(formik.errors, formik.touched, formik.submitCount, field);
@@ -150,10 +150,10 @@ export default function CompanyFormDrawer({
           <div className="flex items-center justify-between">
             <div>
               <SheetTitle className="text-lg font-semibold">
-                {editCompanyId ? "Edit Company" : "Add Company"}
+                {editAgencyId ? "Edit Company" : "Add Company"}
               </SheetTitle>
               <SheetDescription className="text-xs text-muted-foreground mt-0.5">
-                {editCompanyId
+                {editAgencyId
                   ? "Update the details of the company below."
                   : "Create a new company in your system."}
               </SheetDescription>
@@ -385,7 +385,7 @@ export default function CompanyFormDrawer({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 className={inputCls("email")}
-                disabled={!!editCompanyId}
+                disabled={!!editAgencyId}
                 autoComplete="off"
               />
               <FieldError
@@ -395,8 +395,8 @@ export default function CompanyFormDrawer({
               />
             </div>
             <div>
-              <FormLabel htmlFor="password" required={!editCompanyId}>
-                {editCompanyId ? "Change Password" : "Login Password"}
+              <FormLabel htmlFor="password" required={!editAgencyId}>
+                {editAgencyId ? "Change Password" : "Login Password"}
               </FormLabel>
               <div className="relative">
                 <Input
@@ -404,7 +404,7 @@ export default function CompanyFormDrawer({
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder={
-                    editCompanyId
+                    editAgencyId
                       ? "Leave blank to keep same"
                       : "Set a password for login"
                   }
@@ -432,7 +432,7 @@ export default function CompanyFormDrawer({
                 submitCount={formik.submitCount}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                {editCompanyId
+                {editAgencyId
                   ? "Type a new password to change it."
                   : "Fill this to allow company login."}
               </p>
@@ -562,7 +562,7 @@ export default function CompanyFormDrawer({
               </div>
             </div>
 
-            {editCompanyId && (
+            {editAgencyId && (
               <div>
                 <FormLabel htmlFor="status" required>
                   Status
@@ -608,7 +608,7 @@ export default function CompanyFormDrawer({
             >
               {formik.isSubmitting || isCompanyLoading
                 ? "Saving..."
-                : editCompanyId
+                : editAgencyId
                   ? "Update Company"
                   : "Add Company"}
             </Button>

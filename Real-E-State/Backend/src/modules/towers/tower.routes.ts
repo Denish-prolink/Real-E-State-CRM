@@ -7,7 +7,7 @@ import { createTowerSchema, updateTowerSchema } from './tower.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('agency', 'super_admin'));
 
 router.post('/', validate(createTowerSchema), controller.createTower);
 router.get('/', controller.getTowers);

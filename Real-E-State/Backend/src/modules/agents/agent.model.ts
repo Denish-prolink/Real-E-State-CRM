@@ -2,7 +2,7 @@ import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IAgent extends Document {
   userId?: Types.ObjectId;
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   firstName: string;
   lastName?: string;
   email?: string;
@@ -17,7 +17,7 @@ export interface IAgent extends Document {
 const agentSchema = new Schema<IAgent>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, trim: true },
     email: { type: String, trim: true, lowercase: true },
@@ -29,6 +29,6 @@ const agentSchema = new Schema<IAgent>(
   { timestamps: true },
 );
 
-agentSchema.index({ companyId: 1, email: 1 }, { unique: false });
+agentSchema.index({ agencyId: 1, email: 1 }, { unique: false });
 
 export const Agent = model<IAgent>('Agent', agentSchema);

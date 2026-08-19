@@ -32,7 +32,7 @@ export const seedSuppliers = async (companies: any[]) => {
         accountNumber: 'ACC123456',
         ifscCode: 'IFSC0001',
       },
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       supplierCode: 'SUP002',
@@ -58,7 +58,7 @@ export const seedSuppliers = async (companies: any[]) => {
         accountNumber: 'VIB123456',
         ifscCode: 'WAK0001',
       },
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

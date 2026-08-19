@@ -24,14 +24,14 @@ router.delete('/:id', authorizeRoles('super_admin'), controller.deleteCompany);
 // Routes that can be accessed by both super_admin and company
 router.post(
   '/upload',
-  authorizeRoles('super_admin', 'company'),
+  authorizeRoles('super_admin', 'agency'),
   upload.single('logo'),
   controller.uploadLogo,
 );
-router.get('/:id', authorizeRoles('super_admin', 'company'), controller.getCompanyById);
+router.get('/:id', authorizeRoles('super_admin', 'agency'), controller.getCompanyById);
 router.put(
   '/:id',
-  authorizeRoles('super_admin', 'company'),
+  authorizeRoles('super_admin', 'agency'),
   validate(updateCompanySchema),
   controller.updateCompany,
 );

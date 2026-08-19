@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { authenticate, authorizeRoles } from '../../middlewares/auth.middleware';
+import { authenticate, authorizeModule } from '../../middlewares/auth.middleware';
 import { validate } from '../../middlewares/validation.middleware';
 
 import * as controller from './lead.controller';
@@ -9,7 +9,7 @@ import { createLeadSchema, updateLeadSchema } from './lead.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeModule('Leads'));
 
 router.post('/', validate(createLeadSchema), controller.createLead);
 router.get('/', controller.getLeads);

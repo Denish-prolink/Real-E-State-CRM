@@ -18,7 +18,7 @@ export const seedEmployees = async (companies: any[]) => {
       designation: 'Warehouse Manager',
       joiningDate: new Date('2022-01-15'),
       gender: 'female',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       employeeCode: 'EMP002',
@@ -30,7 +30,7 @@ export const seedEmployees = async (companies: any[]) => {
       designation: 'Sales Rep',
       joiningDate: new Date('2023-03-01'),
       gender: 'male',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       employeeCode: 'STK001',
@@ -42,7 +42,7 @@ export const seedEmployees = async (companies: any[]) => {
       designation: 'Head of Security',
       joiningDate: new Date('2010-05-01'),
       gender: 'male',
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

@@ -3,7 +3,7 @@ export const ROLE_STAFF = 'staff';
 export const ROLE_AGENCY = 'agency';
 export const ROLE_AGENT = 'agent';
 export const ROLE_USER = 'user';
-export const ROLE_COMPANY = 'company'; // keeping for backwards compatibility
+export const ROLE_COMPANY = 'agency'; // keeping for backwards compatibility
 
 export const ROLES = [
   ROLE_SUPER_ADMIN,

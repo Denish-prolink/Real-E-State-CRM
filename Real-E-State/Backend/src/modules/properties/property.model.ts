@@ -3,7 +3,7 @@ import { IPropertyDocument } from './property.types';
 
 const propertySchema = new Schema<IPropertyDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     propertyId: { type: String },
     title: { type: String, required: true },
     description: { type: String },

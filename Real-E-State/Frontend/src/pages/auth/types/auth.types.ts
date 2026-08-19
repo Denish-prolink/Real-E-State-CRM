@@ -24,7 +24,7 @@ export interface LoginResponse {
       lastName: string;
       email: string;
       role?: string;
-      companyId?: {
+      agencyId?: {
         _id: string;
         name: string;
         gst?: string;
@@ -41,6 +41,7 @@ export interface LoginResponse {
         pincode?: string;
         logo?: string;
       };
+      permissions?: Record<string, string>;
     };
   };
 }

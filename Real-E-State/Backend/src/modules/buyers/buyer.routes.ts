@@ -9,7 +9,7 @@ import { createBuyerSchema, updateBuyerSchema } from './buyer.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('agency'));
 
 router.post('/', validate(createBuyerSchema), controller.createBuyer);
 router.get('/', controller.getBuyers);

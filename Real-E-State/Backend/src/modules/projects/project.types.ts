@@ -1,7 +1,7 @@
 import { type Document, type Types } from 'mongoose';
 
 export interface IProject {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   name: string;
   description?: string;
   startDate?: Date;

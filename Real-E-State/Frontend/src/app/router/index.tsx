@@ -89,7 +89,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="dashboard">
             <DashboardOverview />
           </RoleGuard>
         ),
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
       {
         path: "/leads",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="leads">
             <LeadsPage />
           </RoleGuard>
         ),
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
       {
         path: "/leads/:id",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="leads">
             <LeadDetailsPage />
           </RoleGuard>
         ),
@@ -113,7 +113,7 @@ const router = createBrowserRouter([
       {
         path: "/buyers",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="buyers">
             <BuyersPage />
           </RoleGuard>
         ),
@@ -121,7 +121,7 @@ const router = createBrowserRouter([
       {
         path: "/sellers",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="sellers">
             <SellersPage />
           </RoleGuard>
         ),
@@ -129,7 +129,7 @@ const router = createBrowserRouter([
       {
         path: "/properties",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="properties">
             <PropertiesPage />
           </RoleGuard>
         ),
@@ -137,7 +137,7 @@ const router = createBrowserRouter([
       {
         path: "/projects",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="projects">
             <ProjectsPage />
           </RoleGuard>
         ),
@@ -145,7 +145,7 @@ const router = createBrowserRouter([
       {
         path: "/towers",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="towers">
             <TowersPage />
           </RoleGuard>
         ),
@@ -153,7 +153,7 @@ const router = createBrowserRouter([
       {
         path: "/units",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="units">
             <UnitsPage />
           </RoleGuard>
         ),
@@ -161,7 +161,7 @@ const router = createBrowserRouter([
       {
         path: "/deals",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="deals">
             <DealsPage />
           </RoleGuard>
         ),
@@ -169,7 +169,7 @@ const router = createBrowserRouter([
       {
         path: "/site-visits",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="sitevisits">
             <SiteVisitsPage />
           </RoleGuard>
         ),
@@ -177,7 +177,7 @@ const router = createBrowserRouter([
       {
         path: "/companies",
         element: (
-          <RoleGuard allowedRoles={["super_admin"]}>
+          <RoleGuard moduleName="agencies">
             <CompaniesPage />
           </RoleGuard>
         ),
@@ -185,7 +185,7 @@ const router = createBrowserRouter([
       {
         path: "/companies/:id",
         element: (
-          <RoleGuard allowedRoles={["super_admin"]}>
+          <RoleGuard moduleName="agencies">
             <CompanyDetailsPage />
           </RoleGuard>
         ),
@@ -193,7 +193,7 @@ const router = createBrowserRouter([
       {
         path: "/inventory",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="inventory">
             <InventoryPage />
           </RoleGuard>
         ),
@@ -201,7 +201,7 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="products">
             <ProductsPage />
           </RoleGuard>
         ),
@@ -209,7 +209,7 @@ const router = createBrowserRouter([
       {
         path: "/products/:id",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="products">
             <ProductDetailsPage />
           </RoleGuard>
         ),
@@ -217,7 +217,7 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: (
-          <RoleGuard allowedRoles={["company","employee"]}>
+          <RoleGuard moduleName="categories">
             <CategoriesPage />
           </RoleGuard>
         ),
@@ -225,7 +225,7 @@ const router = createBrowserRouter([
       {
         path: "/skus",
         element: (
-          <RoleGuard allowedRoles={["company","employee"]}>
+          <RoleGuard moduleName="skus">
             <SkusPage />
           </RoleGuard>
         ),
@@ -233,7 +233,7 @@ const router = createBrowserRouter([
       {
         path: "/suppliers",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="suppliers">
             <SuppliersPage />
           </RoleGuard>
         ),
@@ -241,7 +241,7 @@ const router = createBrowserRouter([
       {
         path: "/warehouses",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="warehouses">
             <WarehousesPage />
           </RoleGuard>
         ),
@@ -249,7 +249,7 @@ const router = createBrowserRouter([
       {
         path: "/warehouses/:id",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="warehouses">
             <WarehouseDetailsPage />
           </RoleGuard>
         ),
@@ -257,7 +257,7 @@ const router = createBrowserRouter([
       {
         path: "/sales",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="sales">
             <SalesPage />
           </RoleGuard>
         ),
@@ -269,7 +269,7 @@ const router = createBrowserRouter([
       {
         path: "/orders/sell",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="orders">
             <OrdersPage />
           </RoleGuard>
         ),
@@ -277,7 +277,7 @@ const router = createBrowserRouter([
       {
         path: "/orders/purchase",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="orders">
             <OrdersPage />
           </RoleGuard>
         ),
@@ -285,7 +285,7 @@ const router = createBrowserRouter([
       {
         path: "/orders/:type/create",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="orders">
             <CreateOrderPage />
           </RoleGuard>
         ),
@@ -293,7 +293,7 @@ const router = createBrowserRouter([
       {
         path: "/orders/:type/:id",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="orders">
             <OrderDetailsPage />
           </RoleGuard>
         ),
@@ -301,7 +301,7 @@ const router = createBrowserRouter([
       {
         path: "/contacts",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="contacts">
             <ContactsPage />
           </RoleGuard>
         ),
@@ -309,7 +309,7 @@ const router = createBrowserRouter([
       {
         path: "/contacts/:id",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="contacts">
             <ContactDetailsPage />
           </RoleGuard>
         ),
@@ -317,7 +317,7 @@ const router = createBrowserRouter([
       {
         path: "/employees",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="users">
             <EmployeesPage />
           </RoleGuard>
         ),
@@ -329,7 +329,7 @@ const router = createBrowserRouter([
       {
         path: "/reports/:type",
         element: (
-          <RoleGuard allowedRoles={["company"]}>
+          <RoleGuard moduleName="reports">
             <ReportsPage />
           </RoleGuard>
         ),
@@ -337,7 +337,7 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="profile">
             <ProfilePage />
           </RoleGuard>
         ),
@@ -345,7 +345,7 @@ const router = createBrowserRouter([
       {
         path: "/settings",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="settings">
             <SettingsPage />
           </RoleGuard>
         ),
@@ -353,7 +353,7 @@ const router = createBrowserRouter([
       {
         path: "/calendar",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="calendar">
             <CalendarPage />
           </RoleGuard>
         ),
@@ -361,7 +361,7 @@ const router = createBrowserRouter([
       {
         path: "/tasks",
         element: (
-          <RoleGuard allowedRoles={["company", "employee"]}>
+          <RoleGuard moduleName="tasks">
             <TasksPage />
           </RoleGuard>
         ),

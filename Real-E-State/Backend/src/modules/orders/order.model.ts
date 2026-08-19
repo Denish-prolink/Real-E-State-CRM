@@ -19,7 +19,7 @@ export interface IOrder extends Document {
   finalPrice: number;
   deliveryAddress: string;
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -105,7 +105,7 @@ const orderSchema = new Schema<IOrder>(
       enum: ['pending', 'confirmed', 'completed', 'cancelled'],
       default: 'pending',
     },
-    companyId: {
+    agencyId: {
       type: Schema.Types.ObjectId,
       ref: 'Company',
       required: true,

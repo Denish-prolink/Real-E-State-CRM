@@ -9,14 +9,14 @@ export const seedOrders = async (companies: any[], contacts: any[], products: an
   const company2 = companies[1];
 
   // Find corresponding records
-  const customer1 = contacts.find(c => c.companyId.toString() === company1._id.toString() && c.type === 'customer');
-  const supplier1 = contacts.find(c => c.companyId.toString() === company1._id.toString() && c.type === 'supplier');
-  const product1 = products.find(p => p.companyId.toString() === company1._id.toString());
-  const warehouse1 = warehouses.find(w => w.companyId.toString() === company1._id.toString());
+  const customer1 = contacts.find(c => c.agencyId.toString() === company1._id.toString() && c.type === 'customer');
+  const supplier1 = contacts.find(c => c.agencyId.toString() === company1._id.toString() && c.type === 'supplier');
+  const product1 = products.find(p => p.agencyId.toString() === company1._id.toString());
+  const warehouse1 = warehouses.find(w => w.agencyId.toString() === company1._id.toString());
 
-  const customer2 = contacts.find(c => c.companyId.toString() === company2._id.toString());
-  const product2 = products.find(p => p.companyId.toString() === company2._id.toString());
-  const warehouse2 = warehouses.find(w => w.companyId.toString() === company2._id.toString());
+  const customer2 = contacts.find(c => c.agencyId.toString() === company2._id.toString());
+  const product2 = products.find(p => p.agencyId.toString() === company2._id.toString());
+  const warehouse2 = warehouses.find(w => w.agencyId.toString() === company2._id.toString());
 
   const orders = await Order.create([
     {
@@ -38,7 +38,7 @@ export const seedOrders = async (companies: any[], contacts: any[], products: an
       finalPrice: (20 * product1.rawPrice) + 50,
       deliveryAddress: '123 Company Warehouse Address',
       status: 'completed',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       orderType: 'sell',
@@ -59,7 +59,7 @@ export const seedOrders = async (companies: any[], contacts: any[], products: an
       finalPrice: ((2 * product1.salePrice) * 0.9) + 100,
       deliveryAddress: customer1.address || 'Customer Addr',
       status: 'pending',
-      companyId: company1._id,
+      agencyId: company1._id,
     },
     {
       orderType: 'sell',
@@ -80,7 +80,7 @@ export const seedOrders = async (companies: any[], contacts: any[], products: an
       finalPrice: product2.salePrice,
       deliveryAddress: customer2.address || 'Stark Tower',
       status: 'confirmed',
-      companyId: company2._id,
+      agencyId: company2._id,
     },
   ]);
 

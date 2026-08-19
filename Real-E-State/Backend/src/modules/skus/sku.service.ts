@@ -11,8 +11,8 @@ import {
 } from './sku.repository';
 import type { ISkuPayload } from './sku.types';
 
-export const addSku = async (payload: ISkuPayload & { companyId: string }) => {
-  const existingSku = await findSkuByCode(payload.skuCode, payload.companyId);
+export const addSku = async (payload: ISkuPayload & { agencyId: string | undefined }) => {
+  const existingSku = await findSkuByCode(payload.skuCode, payload.agencyId);
   if (existingSku) {
     throw new ApiError('SKU code already exists', 409);
   }
@@ -20,14 +20,14 @@ export const addSku = async (payload: ISkuPayload & { companyId: string }) => {
 };
 
 export const getSkusList = async (
-  companyId: string,
+  agencyId: string | undefined,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
   const [skus, total] = await Promise.all([
-    findSkus(companyId, page, perPage, search),
-    countSkus(companyId, search),
+    findSkus(agencyId, page, perPage, search),
+    countSkus(agencyId, search),
   ]);
   return {
     skus,
@@ -38,8 +38,8 @@ export const getSkusList = async (
   };
 };
 
-export const getSkuById = async (id: string, companyId: string) => {
-  const sku = await findSkuById(id, companyId);
+export const getSkuById = async (id: string, agencyId: string | undefined) => {
+  const sku = await findSkuById(id, agencyId);
   if (!sku) {
     throw new ApiError('SKU not found', 404);
   }
@@ -49,27 +49,27 @@ export const getSkuById = async (id: string, companyId: string) => {
 export const updateSkuDetails = async (
   id: string,
   payload: Partial<ISkuPayload>,
-  companyId: string,
+  agencyId: string | undefined,
 ) => {
-  const sku = await findSkuById(id, companyId);
+  const sku = await findSkuById(id, agencyId);
   if (!sku) {
     throw new ApiError('SKU not found', 404);
   }
 
   if (payload.skuCode && payload.skuCode !== sku.skuCode) {
-    const existingSku = await findSkuByCode(payload.skuCode, companyId);
+    const existingSku = await findSkuByCode(payload.skuCode, agencyId);
     if (existingSku) {
       throw new ApiError('SKU code already exists', 409);
     }
   }
 
-  return updateSku(id, payload, companyId);
+  return updateSku(id, payload, agencyId);
 };
 
-export const removeSku = async (id: string, companyId: string) => {
-  const sku = await findSkuById(id, companyId);
+export const removeSku = async (id: string, agencyId: string | undefined) => {
+  const sku = await findSkuById(id, agencyId);
   if (!sku) {
     throw new ApiError('SKU not found', 404);
   }
-  return deleteSku(id, companyId);
+  return deleteSku(id, agencyId);
 };

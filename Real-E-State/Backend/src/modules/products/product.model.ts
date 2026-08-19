@@ -51,7 +51,7 @@ const productSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
       required: true,

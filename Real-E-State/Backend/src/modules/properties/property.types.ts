@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 
 export interface IProperty {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   propertyId?: string;
   title: string;
   description?: string;

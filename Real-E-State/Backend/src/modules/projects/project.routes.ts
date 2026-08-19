@@ -7,7 +7,7 @@ import { createProjectSchema, updateProjectSchema } from './project.validation';
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('agency', 'super_admin'));
 
 router.post('/', validate(createProjectSchema), controller.createProject);
 router.get('/', controller.getProjects);
