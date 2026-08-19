@@ -25,6 +25,17 @@ import towerRoutes from '../modules/towers/tower.routes';
 import unitRoutes from '../modules/units/unit.routes';
 import agentRoutes from '../modules/agents/agent.routes';
 
+import followUpsRoutes from '../modules/follow-ups/follow-ups.routes';
+import callsRoutes from '../modules/calls/calls.routes';
+import whatsappRoutes from '../modules/whatsapp/whatsapp.routes';
+import emailRoutes from '../modules/email/email.routes';
+import bookingsRoutes from '../modules/bookings/bookings.routes';
+import paymentsRoutes from '../modules/payments/payments.routes';
+import installmentsRoutes from '../modules/installments/installments.routes';
+import documentsRoutes from '../modules/documents/documents.routes';
+import auditLogsRoutes from '../modules/audit-logs/audit-logs.routes';
+import settingsRoutes from '../modules/settings/settings.routes';
+
 const router = Router();
 
 router.use('/auth', authRoutes);
@@ -51,6 +62,18 @@ router.use('/towers', towerRoutes);
 router.use('/units', unitRoutes);
 router.use('/agents', agentRoutes);
 router.use('/notifications', notificationRoutes);
+
+// New Modules
+router.use('/follow-ups', followUpsRoutes);
+router.use('/calls', callsRoutes);
+router.use('/whatsapp', whatsappRoutes);
+router.use('/email', emailRoutes);
+router.use('/bookings', bookingsRoutes);
+router.use('/payments', paymentsRoutes);
+router.use('/installments', installmentsRoutes);
+router.use('/documents', documentsRoutes);
+router.use('/audit-logs', auditLogsRoutes);
+router.use('/settings', settingsRoutes);
 
 router.get('/', (_req, res) => {
   res.status(200).json({
