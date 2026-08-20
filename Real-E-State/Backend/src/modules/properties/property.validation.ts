@@ -5,18 +5,16 @@ export const createPropertySchema = z.object({
   description: z.string().optional(),
   propertyType: z.enum(['Apartment', 'Villa', 'House', 'Plot', 'Office', 'Shop', 'Warehouse', 'Land', 'Commercial']),
   purpose: z.enum(['Sale', 'Rent', 'Lease']),
-  price: z.number().positive(),
-  area: z.number().positive(),
-  bedrooms: z.number().optional(),
-  bathrooms: z.number().optional(),
-  parking: z.number().optional(),
-  location: z.object({
-    address: z.string().optional(),
-    city: z.string().optional(),
-    state: z.string().optional(),
-    country: z.string().optional(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
+  price: z.coerce.number().positive(),
+  area: z.coerce.number().positive(),
+  bedrooms: z.coerce.number().optional(),
+  bathrooms: z.coerce.number().optional(),
+  parking: z.coerce.number().optional(),
+  location: z.any().transform((val) => {
+    if (typeof val === 'string') {
+      try { return JSON.parse(val); } catch (e) { return {}; }
+    }
+    return val;
   }).optional(),
   projectId: z.string().optional(),
   tower: z.string().optional(),
@@ -24,6 +22,14 @@ export const createPropertySchema = z.object({
   unitNumber: z.string().optional(),
   agentId: z.string().optional(),
   status: z.enum(['Available', 'Reserved', 'Blocked', 'Booked', 'Sold']).optional(),
+  photos: z.any().transform(val => {
+    if (Array.isArray(val)) return val.filter(v => typeof v === 'string');
+    if (typeof val === 'string') {
+      try { const parsed = JSON.parse(val); return Array.isArray(parsed) ? parsed : []; }
+      catch { return [val]; }
+    }
+    return [];
+  }).optional(),
 });
 
 export const updatePropertySchema = createPropertySchema.partial();

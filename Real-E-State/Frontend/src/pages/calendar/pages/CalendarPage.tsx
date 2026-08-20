@@ -105,14 +105,14 @@ export default function CalendarPage() {
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-muted-foreground flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-blue-500"></div>
                   Events
                 </span>
                 <span className="font-medium">{events.filter(e => e.type === 'event').length}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-muted-foreground flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-violet-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-amber-500"></div>
                   Meetings
                 </span>
                 <span className="font-medium">{events.filter(e => e.type === 'meeting').length}</span>

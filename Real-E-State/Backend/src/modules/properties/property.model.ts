@@ -40,6 +40,7 @@ const propertySchema = new Schema<IPropertyDocument>(
       enum: ['Available', 'Reserved', 'Blocked', 'Booked', 'Sold'],
       default: 'Available',
     },
+    photos: [String],
     media: [
       {
         url: String,

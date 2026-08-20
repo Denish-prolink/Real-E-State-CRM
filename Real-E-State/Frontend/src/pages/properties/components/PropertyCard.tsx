@@ -55,7 +55,9 @@ export default function PropertyCard({ property, onEdit, onDelete, onView }: Pro
     <div className="flex flex-col bg-card rounded-xl border border-border shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
       {/* Property Photo placeholder or first media */}
       <div className="h-40 bg-muted flex items-center justify-center text-muted-foreground/30 relative">
-        {property.media && property.media.length > 0 ? (
+        {property.photos && property.photos.length > 0 ? (
+          <img src={property.photos[0].startsWith('/') ? `${import.meta.env.VITE_API_URL}${property.photos[0]}` : property.photos[0]} alt={property.title} className="w-full h-full object-cover" />
+        ) : property.media && property.media.length > 0 ? (
           <img src={property.media[0].url} alt={property.title} className="w-full h-full object-cover" />
         ) : (
           <Home className="h-12 w-12" />

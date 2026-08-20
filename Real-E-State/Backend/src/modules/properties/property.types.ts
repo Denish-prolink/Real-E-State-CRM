@@ -26,6 +26,7 @@ export interface IProperty {
   unitNumber?: string;
   agentId?: Types.ObjectId;
   status: 'Available' | 'Reserved' | 'Blocked' | 'Booked' | 'Sold';
+  photos?: string[];
   media?: Array<{
     url: string;
     fileType: string;

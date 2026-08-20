@@ -37,18 +37,6 @@ export function AppSidebar() {
       roles: ["company", "employee"],
     },
     {
-      title: "Calendar",
-      path: "/calendar",
-      icon: Calendar,
-      roles: ["company", "employee"],
-    },
-    {
-      title: "Tasks",
-      path: "/tasks",
-      icon: CheckSquare,
-      roles: ["company", "employee"],
-    },
-    {
       title: "Leads",
       path: "/leads",
       icon: UserCheck,
@@ -59,6 +47,18 @@ export function AppSidebar() {
       path: "/contacts",
       icon: Users,
       roles: ["company"],
+    },
+    {
+      title: "Tasks",
+      path: "/tasks",
+      icon: CheckSquare,
+      roles: ["company", "employee"],
+    },
+    {
+      title: "Calendar",
+      path: "/calendar",
+      icon: Calendar,
+      roles: ["company", "employee"],
     },
     {
       title: "Properties",

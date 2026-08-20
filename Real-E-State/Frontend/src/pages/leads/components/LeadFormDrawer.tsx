@@ -360,34 +360,15 @@ export default function LeadFormDrawer({
             </div>
           </div>
 
-          <SectionTitle>Assignment & Expectation</SectionTitle>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <FormLabel htmlFor="assignedAgent">Assigned Employee</FormLabel>
-              <Select
-                value={formik.values.assignedAgent}
-                onValueChange={(val) => formik.setFieldValue("assignedAgent", val)}
-              >
-                <SelectTrigger className={cn("w-full h-9", inputCls("assignedAgent"))}>
-                  <SelectValue placeholder="Select Employee" />
-                </SelectTrigger>
-                <SelectContent>
-                  {employees.map((emp: any) => (
-                    <SelectItem key={emp._id} value={emp._id}>
-                      {emp.firstName} {emp.lastName}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldError error={formik.errors.assignedAgent} touched={formik.touched.assignedAgent} submitCount={formik.submitCount} />
-            </div>
-
+          <SectionTitle>Expectation</SectionTitle>
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <FormLabel htmlFor="expectedPurchaseDate">Expected Purchase Date</FormLabel>
               <Input
                 id="expectedPurchaseDate"
                 name="expectedPurchaseDate"
                 type="date"
+                min={new Date().toISOString().split('T')[0]}
                 value={formik.values.expectedPurchaseDate}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

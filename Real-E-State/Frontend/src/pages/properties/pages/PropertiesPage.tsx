@@ -14,9 +14,12 @@ import {
 } from "../hooks/useProperties";
 import type { AddPropertyPayload, Property } from "../types/property.types";
 
+import { useNavigate } from "react-router-dom";
+
 const PAGE_SIZE = 9;
 
 export default function PropertiesPage() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -123,6 +126,7 @@ export default function PropertiesPage() {
           isLoading={isLoading || isFetching}
           onEdit={openEdit}
           onDelete={setDeleteId}
+          onView={(property) => navigate(`/properties/${property._id}`)}
         />
 
         {/* Pagination */}

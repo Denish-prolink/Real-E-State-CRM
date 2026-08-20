@@ -42,7 +42,7 @@ export const useAddProperty = () => {
 export const useUpdateProperty = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, payload }: { id: string; payload: UpdatePropertyPayload }) => {
+    mutationFn: async ({ id, payload }: { id: string; payload: UpdatePropertyPayload | FormData }) => {
       const response = await updatePropertyApi({ id, payload });
       return response.data;
     },

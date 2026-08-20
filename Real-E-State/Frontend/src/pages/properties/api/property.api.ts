@@ -13,7 +13,7 @@ export const getPropertyByIdApi = async (id: string): Promise<{ success: boolean
   return response.data;
 };
 
-export const addPropertyApi = async (payload: AddPropertyPayload): Promise<{ success: boolean; message: string; data: Property }> => {
+export const addPropertyApi = async (payload: AddPropertyPayload | FormData): Promise<{ success: boolean; message: string; data: Property }> => {
   const response = await api.post('/api/v1/properties', payload);
   return response.data;
 };
@@ -23,7 +23,7 @@ export const updatePropertyApi = async ({
   payload,
 }: {
   id: string;
-  payload: UpdatePropertyPayload;
+  payload: UpdatePropertyPayload | FormData;
 }): Promise<{ success: boolean; message: string; data: Property }> => {
   const response = await api.put(`/api/v1/properties/${id}`, payload);
   return response.data;

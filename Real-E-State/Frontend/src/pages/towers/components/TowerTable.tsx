@@ -1,4 +1,5 @@
-import { Edit2, Building, Trash2, MoreVertical } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Edit2, Building, Trash2, MoreVertical, Eye } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -70,7 +71,9 @@ export default function TowerTable({
                   <TableRow key={tower._id} className="hover:bg-muted/50 transition-colors">
                     <TableCell>{startIndex + index + 1}</TableCell>
                     <TableCell className="font-semibold text-foreground">
-                      {tower.name}
+                      <Link to={`/towers/${tower._id}`} className="hover:underline">
+                        {tower.name}
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <span className="px-2 py-1 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-400 rounded-md font-semibold text-xs border border-indigo-100 dark:border-indigo-900">
@@ -90,6 +93,13 @@ export default function TowerTable({
                             <MoreVertical className="h-4 w-4 text-muted-foreground" />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-32 rounded-lg">
+                            <DropdownMenuItem asChild className="cursor-pointer">
+                              <Link to={`/towers/${tower._id}`} className="flex items-center w-full">
+                                <Eye className="mr-2 h-4 w-4" />
+                                View Details
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => onEdit(tower)} className="cursor-pointer">
                               <Edit2 className="mr-2 h-4 w-4" />
                               Edit

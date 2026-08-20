@@ -1,4 +1,5 @@
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import type { View } from 'react-big-calendar';
 import { format } from 'date-fns/format';
 import { parse } from 'date-fns/parse';
 import { startOfWeek } from 'date-fns/startOfWeek';
@@ -7,7 +8,7 @@ import { enUS } from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import type { CalendarEvent } from '../schemas/event.schema';
 import { useTheme } from "next-themes";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const locales = {
   'en-US': enUS,
@@ -30,15 +31,20 @@ interface CalendarViewProps {
 export function CalendarView({ events, onSelectEvent, onSelectSlot }: CalendarViewProps) {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [view, setView] = useState<View>('month');
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const onNavigate = useCallback((newDate: Date) => setDate(newDate), [setDate]);
+  const onView = useCallback((newView: View) => setView(newView), [setView]);
+
   const eventStyleGetter = (event: CalendarEvent) => {
     let backgroundColor = '#3b82f6'; // blue
     if (event.type === 'meeting') {
-      backgroundColor = '#8b5cf6'; // violet
+      backgroundColor = '#f59e0b'; // amber
     } else if (event.type === 'task') {
       backgroundColor = '#10b981'; // emerald
     }
@@ -131,6 +137,10 @@ export function CalendarView({ events, onSelectEvent, onSelectSlot }: CalendarVi
         popup
         views={['month', 'week', 'day', 'agenda']}
         eventPropGetter={eventStyleGetter}
+        date={date}
+        onNavigate={onNavigate}
+        view={view}
+        onView={onView}
       />
     </div>
   );

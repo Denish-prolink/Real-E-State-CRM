@@ -204,12 +204,6 @@ export default function LeadDetailsPage() {
               <p className="text-xs text-muted-foreground">Lead Source</p>
               <p className="font-semibold text-foreground mt-0.5 text-sm">{lead.source}</p>
             </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Assigned Agent</p>
-              <p className="font-semibold text-foreground mt-0.5 text-sm">
-                {lead.assignedAgent ? `${lead.assignedAgent.firstName} ${lead.assignedAgent.lastName || ""}` : "Not Assigned"}
-              </p>
-            </div>
             {lead.expectedPurchaseDate && (
               <div className="col-span-2">
                 <p className="text-xs text-muted-foreground">Expected Purchase Date</p>

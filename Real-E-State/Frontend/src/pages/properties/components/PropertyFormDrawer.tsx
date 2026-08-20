@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { propertySchema } from "../schemas/property.schema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useGetPropertyById } from "../hooks/useProperties";
 import { useGetProjects } from "../../projects/hooks/useProjects";
@@ -28,7 +28,7 @@ import { useGetProjects } from "../../projects/hooks/useProjects";
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: AddPropertyPayload) => void | Promise<void>;
+  onSubmit: (values: AddPropertyPayload | FormData) => void | Promise<void>;
   propertyToEdit?: Property | null;
   isSubmitting?: boolean;
 }
@@ -54,6 +54,7 @@ const EMPTY_VALUES: AddPropertyPayload = {
   floor: "",
   unitNumber: "",
   status: "Available",
+  photos: [],
 };
 
 export default function PropertyFormDrawer({
@@ -63,6 +64,7 @@ export default function PropertyFormDrawer({
   propertyToEdit,
   isSubmitting = false,
 }: Props) {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { data: fetchedProperty, isLoading: isFetching } = useGetPropertyById(
     propertyToEdit?._id || ""
   );
@@ -86,8 +88,33 @@ export default function PropertyFormDrawer({
         if (!payload.floor) delete payload.floor;
         if (!payload.unitNumber) delete payload.unitNumber;
 
-        await onSubmit(payload);
+        if (selectedFiles.length > 0) {
+          const formData = new FormData();
+          Object.entries(payload).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && key !== 'photos') {
+              if (typeof value === 'object') {
+                formData.append(key, JSON.stringify(value));
+              } else {
+                formData.append(key, String(value));
+              }
+            }
+          });
+          
+          if (payload.photos && payload.photos.length > 0) {
+             payload.photos.forEach(photo => formData.append('photos', photo));
+          }
+
+          selectedFiles.forEach((file) => {
+            formData.append("photos", file);
+          });
+          
+          await onSubmit(formData);
+        } else {
+          await onSubmit(payload);
+        }
+
         helpers.resetForm();
+        setSelectedFiles([]);
       } catch {
         // stay open on failure
       }
@@ -124,10 +151,13 @@ export default function PropertyFormDrawer({
             floor: propData.floor || "",
             unitNumber: propData.unitNumber || "",
             status: propData.status || "Available",
+            photos: propData.photos || [],
           },
         });
+        setSelectedFiles([]);
       } else {
         formik.resetForm({ values: EMPTY_VALUES });
+        setSelectedFiles([]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -437,6 +467,39 @@ export default function PropertyFormDrawer({
                 className={inputCls("unitNumber")}
               />
               <FieldError error={formik.errors.unitNumber} touched={formik.touched.unitNumber} submitCount={formik.submitCount} />
+            </div>
+          </div>
+
+          <SectionTitle>Media</SectionTitle>
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <FormLabel htmlFor="photos">Upload Photos</FormLabel>
+              <Input
+                id="photos"
+                name="photos"
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setSelectedFiles(Array.from(e.target.files));
+                  }
+                }}
+                className={inputCls("photos")}
+              />
+              <div className="mt-2 text-sm text-muted-foreground flex gap-2 flex-wrap">
+                {selectedFiles.length > 0 && selectedFiles.map((f, i) => (
+                  <span key={i} className="px-2 py-1 bg-secondary rounded text-xs">{f.name}</span>
+                ))}
+                {formik.values.photos?.length ? (
+                  formik.values.photos.map((p, i) => (
+                     <span key={`old-${i}`} className="px-2 py-1 bg-secondary rounded text-xs truncate max-w-[150px]">
+                       {p.split('/').pop()} (Existing)
+                     </span>
+                  ))
+                ) : null}
+              </div>
+              <FieldError error={formik.errors.photos as string} touched={formik.touched.photos as unknown as boolean} submitCount={formik.submitCount} />
             </div>
           </div>
 

@@ -59,4 +59,5 @@ export const propertySchema = Yup.object().shape({
   status: Yup.string()
     .oneOf(['Available', 'Reserved', 'Blocked', 'Booked', 'Sold'], 'Invalid status')
     .optional(),
+  photos: Yup.array().of(Yup.string().required()).optional(),
 });

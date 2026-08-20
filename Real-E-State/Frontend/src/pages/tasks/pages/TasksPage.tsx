@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { Plus, CheckCircle2 } from "lucide-react";
+import { Plus, CheckCircle2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEvents } from "../../calendar/hooks/useEvents";
 import EventFormDrawer from "../../calendar/components/EventFormDrawer";
 import type { CalendarEvent } from "../../calendar/schemas/event.schema";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
 export default function TasksPage() {
   const { events, createEvent, updateEvent, isLoading, deleteEvent } = useEvents();
+  const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   const tasks = events.filter((e) => e.type === "task");
 
-  const handleSelectEvent = (event: CalendarEvent) => {
-    setSelectedEvent(event);
-    setDrawerOpen(true);
+  const handleSelectEvent = (task: CalendarEvent) => {
+    navigate(`/tasks/${task.id}`);
   };
 
   const handleSubmit = async (values: Omit<CalendarEvent, "id">) => {
@@ -97,8 +98,8 @@ export default function TasksPage() {
                </span>
                <Button 
                 variant="ghost" 
-                size="sm" 
-                className="h-8 px-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+                size="icon" 
+                className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-full"
                 onClick={(e) => {
                   e.stopPropagation();
                   if(confirm("Are you sure you want to delete this task?")) {
@@ -106,7 +107,7 @@ export default function TasksPage() {
                   }
                 }}
                >
-                 Delete
+                 <Trash2 className="h-4 w-4" />
                </Button>
             </div>
           </div>

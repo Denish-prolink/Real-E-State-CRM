@@ -1,4 +1,5 @@
-import { Edit2, Trash2, MoreVertical, MapPin, Calendar, FolderOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Edit2, Trash2, MoreVertical, MapPin, Calendar, FolderOpen, Eye } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,7 +51,9 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
             <FolderOpen className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
           </div>
           <div className="min-w-0">
-            <TruncatedName name={project.name} maxLength={22} className="font-bold text-foreground text-lg" />
+            <Link to={`/projects/${project._id}`} className="hover:underline">
+              <TruncatedName name={project.name} maxLength={22} className="font-bold text-foreground text-lg" />
+            </Link>
             <div className="mt-1">
               <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase border ${getStatusColor(project.status)}`}>
                 {project.status}
@@ -65,6 +68,13 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
               <MoreVertical className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-32 rounded-lg">
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link to={`/projects/${project._id}`} className="flex items-center w-full">
+                  <Eye className="mr-2 h-4 w-4" />
+                  View Details
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onEdit(project)} className="cursor-pointer">
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit

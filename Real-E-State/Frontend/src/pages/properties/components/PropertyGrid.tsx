@@ -7,9 +7,10 @@ interface PropertyGridProps {
   isLoading: boolean;
   onEdit: (property: Property) => void;
   onDelete: (id: string) => void;
+  onView?: (property: Property) => void;
 }
 
-export default function PropertyGrid({ properties, isLoading, onEdit, onDelete }: PropertyGridProps) {
+export default function PropertyGrid({ properties, isLoading, onEdit, onDelete, onView }: PropertyGridProps) {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
@@ -45,6 +46,7 @@ export default function PropertyGrid({ properties, isLoading, onEdit, onDelete }
           property={property}
           onEdit={onEdit}
           onDelete={onDelete}
+          onView={onView}
         />
       ))}
     </div>

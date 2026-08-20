@@ -12,7 +12,7 @@ export const getTowers = async (projectId?: string) => {
 };
 
 export const getTowerById = async (id: string) => {
-  return Tower.findById(id);
+  return Tower.findById(id).populate('projectId', 'name');
 };
 
 export const updateTower = async (id: string, data: Partial<ITower>) => {

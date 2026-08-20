@@ -35,6 +35,7 @@ export interface Property {
   unitNumber?: string;
   agentId?: string | null;
   status: 'Available' | 'Reserved' | 'Blocked' | 'Booked' | 'Sold';
+  photos?: string[];
   media?: PropertyMedia[];
   createdAt: string;
   updatedAt: string;
