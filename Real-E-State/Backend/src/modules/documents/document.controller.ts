@@ -22,7 +22,14 @@ export const getDocuments = async (req: AuthenticatedRequest, res: Response) => 
   const relatedType = (req.query.relatedType as string) || undefined;
   const relatedId = (req.query.relatedId as string) || undefined;
 
-  const documents = await service.getDocumentsService(companyId, page, perPage, search, relatedType, relatedId);
+  const documents = await service.getDocumentsService(
+    companyId,
+    page,
+    perPage,
+    search,
+    relatedType,
+    relatedId,
+  );
   return successResponse(res, 'Documents retrieved successfully', documents);
 };
 

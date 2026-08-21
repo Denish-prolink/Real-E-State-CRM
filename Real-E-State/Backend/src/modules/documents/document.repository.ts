@@ -5,7 +5,12 @@ export const createDocument = async (data: Partial<IDocument>) => {
   return DocumentModel.create(data);
 };
 
-const buildFilter = (companyId: string, search?: string, relatedType?: string, relatedId?: string) => {
+const buildFilter = (
+  companyId: string,
+  search?: string,
+  relatedType?: string,
+  relatedId?: string,
+) => {
   const filter: any = { companyId };
   if (search) {
     filter.$or = [
@@ -43,7 +48,12 @@ export const findDocumentsByCompany = async (
   return query.skip(skip).limit(perPage);
 };
 
-export const countDocumentsByCompany = async (companyId: string, search?: string, relatedType?: string, relatedId?: string) => {
+export const countDocumentsByCompany = async (
+  companyId: string,
+  search?: string,
+  relatedType?: string,
+  relatedId?: string,
+) => {
   return DocumentModel.countDocuments(buildFilter(companyId, search, relatedType, relatedId));
 };
 

@@ -22,7 +22,14 @@ export const getDocumentsService = async (
   relatedId?: string,
 ) => {
   const [documents, total] = await Promise.all([
-    documentRepository.findDocumentsByCompany(companyId, page, perPage, search, relatedType, relatedId),
+    documentRepository.findDocumentsByCompany(
+      companyId,
+      page,
+      perPage,
+      search,
+      relatedType,
+      relatedId,
+    ),
     documentRepository.countDocumentsByCompany(companyId, search, relatedType, relatedId),
   ]);
 
