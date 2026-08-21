@@ -20,17 +20,17 @@ export const markAsRead = async (req: AuthenticatedRequest, res: Response) => {
   const companyId = getCompanyId(req);
   const userId = req.user?.userId as string;
   const productId = req.params.id as string;
-  
+
   await notificationService.markNotificationAsRead(companyId, userId, productId);
-  
+
   return successResponse(res, 'Notification marked as read successfully');
 };
 
 export const markAllAsRead = async (req: AuthenticatedRequest, res: Response) => {
   const companyId = getCompanyId(req);
   const userId = req.user?.userId as string;
-  
+
   await notificationService.markAllNotificationsAsRead(companyId, userId);
-  
+
   return successResponse(res, 'All notifications marked as read successfully');
 };

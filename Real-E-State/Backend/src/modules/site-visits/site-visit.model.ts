@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+
 import { ISiteVisitDocument } from './site-visit.types';
 
 const siteVisitSchema = new Schema<ISiteVisitDocument>(
@@ -19,7 +20,7 @@ const siteVisitSchema = new Schema<ISiteVisitDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const SiteVisit = model<ISiteVisitDocument>('SiteVisit', siteVisitSchema);

@@ -1,5 +1,5 @@
-import logger from '../../config/logger';
 import { ROLES } from '../../common/constants/roles.constant';
+import logger from '../../config/logger';
 
 export const seedRoles = async () => {
   logger.info('Seeding Roles...');

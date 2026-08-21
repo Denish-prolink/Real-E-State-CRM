@@ -25,7 +25,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Reports: 'Full',
     AuditLogs: 'Full',
     Settings: 'Full',
-    Profile: 'Full'
+    Profile: 'Full',
   },
   Staff: {
     Dashboard: 'Manage',
@@ -53,7 +53,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Reports: 'Manage',
     AuditLogs: 'View',
     Settings: 'None',
-    Profile: 'Full'
+    Profile: 'Full',
   },
   Agency: {
     Dashboard: 'Manage',
@@ -81,7 +81,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Reports: 'Own Agency',
     AuditLogs: 'None',
     Settings: 'Own Agency',
-    Profile: 'Full'
+    Profile: 'Full',
   },
   Agent: {
     Dashboard: 'Own',
@@ -109,7 +109,7 @@ export const ROLE_PERMISSIONS_MOCK = {
     Reports: 'Own',
     AuditLogs: 'None',
     Settings: 'Own Profile',
-    Profile: 'Full'
+    Profile: 'Full',
   },
   User: {
     Dashboard: 'Own',
@@ -137,8 +137,8 @@ export const ROLE_PERMISSIONS_MOCK = {
     Reports: 'Own',
     AuditLogs: 'None',
     Settings: 'Own Profile',
-    Profile: 'Full'
-  }
+    Profile: 'Full',
+  },
 };
 
 export default ROLE_PERMISSIONS_MOCK;

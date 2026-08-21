@@ -1,5 +1,5 @@
-import { Product } from '../../modules/products/product.model';
 import logger from '../../config/logger';
+import { Product } from '../../modules/products/product.model';
 
 export const seedProducts = async (companies: any[]) => {
   logger.info('Seeding Products...');

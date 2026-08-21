@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+
 import { ILeadDocument } from './lead.types';
 
 const leadSchema = new Schema<ILeadDocument>(
@@ -34,7 +35,7 @@ const leadSchema = new Schema<ILeadDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Lead = model<ILeadDocument>('Lead', leadSchema);

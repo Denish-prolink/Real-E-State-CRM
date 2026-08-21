@@ -52,9 +52,9 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
       const adjustment = order.orderType === 'sell' ? -item.quantity : item.quantity;
       await Product.findOneAndUpdate(
         { _id: item.product, companyId },
-        { 
+        {
           $inc: { quantity: adjustment },
-          $set: { lowStockReadBy: [] }
+          $set: { lowStockReadBy: [] },
         },
         { new: true },
       );
@@ -117,9 +117,9 @@ export const deleteOrder = async (id: string, companyId: string) => {
       const adjustment = order.orderType === 'sell' ? item.quantity : -item.quantity;
       await Product.findOneAndUpdate(
         { _id: item.product, companyId },
-        { 
+        {
           $inc: { quantity: adjustment },
-          $set: { lowStockReadBy: [] }
+          $set: { lowStockReadBy: [] },
         },
         { new: true },
       );

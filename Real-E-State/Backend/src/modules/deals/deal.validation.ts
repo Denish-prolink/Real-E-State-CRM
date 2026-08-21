@@ -7,7 +7,9 @@ export const createDealSchema = z.object({
   dealValue: z.number().positive(),
   discount: z.number().optional(),
   expectedClosingDate: z.string().optional(),
-  stage: z.enum(['New', 'Qualified', 'Site Visit', 'Negotiation', 'Booking', 'Won', 'Lost']).optional(),
+  stage: z
+    .enum(['New', 'Qualified', 'Site Visit', 'Negotiation', 'Booking', 'Won', 'Lost'])
+    .optional(),
   probability: z.number().min(0).max(100).optional(),
   notes: z.string().optional(),
 });

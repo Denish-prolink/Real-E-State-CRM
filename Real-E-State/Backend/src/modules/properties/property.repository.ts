@@ -6,14 +6,20 @@ export const createProperty = async (data: Partial<IProperty>) => {
 };
 
 export const findPropertiesByCompany = async (companyId: string, filters: any = {}) => {
-  return Property.find({ companyId, ...filters }).populate('projectId', 'name').sort({ createdAt: -1 });
+  return Property.find({ companyId, ...filters })
+    .populate('projectId', 'name')
+    .sort({ createdAt: -1 });
 };
 
 export const findPropertyById = async (id: string, companyId: string) => {
   return Property.findOne({ _id: id, companyId }).populate('projectId', 'name');
 };
 
-export const updatePropertyById = async (id: string, companyId: string, data: Partial<IProperty>) => {
+export const updatePropertyById = async (
+  id: string,
+  companyId: string,
+  data: Partial<IProperty>,
+) => {
   return Property.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
 };
 

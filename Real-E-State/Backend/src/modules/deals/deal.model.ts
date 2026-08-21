@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+
 import { IDealDocument } from './deal.types';
 
 const dealSchema = new Schema<IDealDocument>(
@@ -21,8 +22,7 @@ const dealSchema = new Schema<IDealDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 export const Deal = model<IDealDocument>('Deal', dealSchema);

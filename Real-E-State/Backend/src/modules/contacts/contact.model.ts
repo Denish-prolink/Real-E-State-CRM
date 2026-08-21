@@ -3,7 +3,25 @@ import { type Document, model, Schema, type Types } from 'mongoose';
 export interface IContact extends Document {
   companyId: Types.ObjectId;
   name: string;
-  type: 'customer' | 'supplier';
+  type:
+    | 'customer'
+    | 'supplier'
+    | 'vendor'
+    | 'seller'
+    | 'other'
+    | 'Buyer'
+    | 'Seller'
+    | 'Architect'
+    | 'Broker'
+    | 'Civil Engineer'
+    | 'Construction Contractor'
+    | 'Developer'
+    | 'Influencer'
+    | 'Interior Designer'
+    | 'Landscape Designer'
+    | 'Legal Advisor'
+    | 'Property Owner'
+    | 'Structure Designer';
   email: string;
   mobileNo: string;
   gender: 'male' | 'female' | 'other';
@@ -23,9 +41,28 @@ const contactSchema = new Schema<IContact>(
     },
     type: {
       type: String,
-      enum: ['customer', 'supplier'],
+      enum: [
+        'customer',
+        'supplier',
+        'vendor',
+        'seller',
+        'other',
+        'Buyer',
+        'Seller',
+        'Architect',
+        'Broker',
+        'Civil Engineer',
+        'Construction Contractor',
+        'Developer',
+        'Influencer',
+        'Interior Designer',
+        'Landscape Designer',
+        'Legal Advisor',
+        'Property Owner',
+        'Structure Designer',
+      ],
       required: true,
-      default: 'customer',
+      default: 'Buyer',
     },
     email: {
       type: String,

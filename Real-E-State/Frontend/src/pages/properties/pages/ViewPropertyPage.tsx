@@ -15,6 +15,8 @@ import PropertyFormDrawer from "../components/PropertyFormDrawer";
 import type { AddPropertyPayload } from "../types/property.types";
 import { DeleteConfirmDialog } from "@/components/common/DeleteConfirmDialog";
 
+import EntityDocuments from "../../documents/components/EntityDocuments";
+
 export default function ViewPropertyPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -65,9 +67,9 @@ export default function ViewPropertyPage() {
     }
   };
 
-  const handleEditSubmit = async (values: AddPropertyPayload) => {
+  const handleEditSubmit = async (values: AddPropertyPayload | FormData) => {
     try {
-      await updatePropertyMutation.mutateAsync({ id: property._id, payload: values });
+      await updatePropertyMutation.mutateAsync({ id: property._id, payload: values as any });
       toast.success("Property updated successfully");
       setDrawerOpen(false);
       refetch();
@@ -277,6 +279,8 @@ export default function ViewPropertyPage() {
           </div>
         )}
       </div>
+
+      <EntityDocuments relatedType="Property" relatedId={id as string} />
 
       {/* Edit Form Drawer */}
       <PropertyFormDrawer

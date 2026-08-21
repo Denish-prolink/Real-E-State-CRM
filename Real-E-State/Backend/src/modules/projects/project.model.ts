@@ -20,7 +20,11 @@ const projectSchema = new Schema<IProject>(
     description: { type: String, trim: true },
     startDate: { type: Date },
     endDate: { type: Date },
-    status: { type: String, enum: ['Planned', 'Active', 'Completed', 'On Hold'], default: 'Planned' },
+    status: {
+      type: String,
+      enum: ['Planned', 'Active', 'Completed', 'On Hold'],
+      default: 'Planned',
+    },
     address: { type: String },
     metadata: { type: Schema.Types.Mixed },
   },

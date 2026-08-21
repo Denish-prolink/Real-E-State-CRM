@@ -1,5 +1,5 @@
-import { Contact } from '../../modules/contacts/contact.model';
 import logger from '../../config/logger';
+import { Contact } from '../../modules/contacts/contact.model';
 
 export const seedContacts = async (companies: any[]) => {
   logger.info('Seeding Contacts...');

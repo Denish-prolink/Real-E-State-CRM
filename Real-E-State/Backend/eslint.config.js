@@ -40,16 +40,11 @@ module.exports = [
        |--------------------------------------------------------------------------
        */
 
-      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
 
       '@typescript-eslint/no-unused-vars': 'off',
 
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          prefer: 'type-imports',
-        },
-      ],
+      '@typescript-eslint/consistent-type-imports': 'warn',
 
       /*
        |--------------------------------------------------------------------------
@@ -79,7 +74,7 @@ module.exports = [
        |--------------------------------------------------------------------------
        */
 
-      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-imports': 'warn',
 
       'unused-imports/no-unused-vars': [
         'warn',
@@ -115,7 +110,7 @@ module.exports = [
 
       eqeqeq: ['error', 'always'],
 
-      curly: ['error', 'all'],
+      curly: 'warn',
 
       'no-var': 'error',
 

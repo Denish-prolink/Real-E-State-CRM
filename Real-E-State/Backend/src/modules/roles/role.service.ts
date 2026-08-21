@@ -1,6 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import type { IRole } from './role.types';
+
 import * as repository from './role.repository';
+import type { IRole } from './role.types';
 
 export const createRole = async (data: Partial<IRole>) => {
   return await repository.createRole(data);

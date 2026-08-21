@@ -1,6 +1,8 @@
 import { Router } from 'express';
+
 import { authenticate, authorizeRoles } from '../../middlewares/auth.middleware';
 import { validate } from '../../middlewares/validation.middleware';
+
 import * as controller from './agent.controller';
 import { createAgentSchema, updateAgentSchema } from './agent.validation';
 

@@ -392,7 +392,9 @@ export default function PropertyFormDrawer({
                 onValueChange={(val) => formik.setFieldValue("projectId", val)}
               >
                 <SelectTrigger className={cn("w-full h-9", inputCls("projectId"))}>
-                  <SelectValue placeholder="Select Project" />
+                  <SelectValue placeholder="Select Project">
+                    {projects?.find((p: any) => p._id === (typeof formik.values.projectId === "string" ? formik.values.projectId : (formik.values.projectId as any)?._id))?.name || "Select Project"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {projects?.map((proj: any) => (

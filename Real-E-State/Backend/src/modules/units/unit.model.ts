@@ -25,7 +25,11 @@ const unitSchema = new Schema<IUnit>(
     price: { type: Number },
     bedrooms: { type: Number },
     bathrooms: { type: Number },
-    status: { type: String, enum: ['Available', 'Reserved', 'Booked', 'Sold'], default: 'Available' },
+    status: {
+      type: String,
+      enum: ['Available', 'Reserved', 'Booked', 'Sold'],
+      default: 'Available',
+    },
     metadata: { type: Schema.Types.Mixed },
   },
   { timestamps: true },

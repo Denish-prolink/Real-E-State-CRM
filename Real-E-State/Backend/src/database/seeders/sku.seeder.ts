@@ -1,5 +1,5 @@
-import { Sku } from '../../modules/skus/sku.model';
 import logger from '../../config/logger';
+import { Sku } from '../../modules/skus/sku.model';
 
 export const seedSkus = async (companies: any[]) => {
   logger.info('Seeding SKUs...');

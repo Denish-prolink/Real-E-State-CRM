@@ -17,7 +17,11 @@ export const getSiteVisitByIdService = async (id: string, companyId: string) => 
   return visit;
 };
 
-export const updateSiteVisitService = async (id: string, companyId: string, data: Partial<ISiteVisit>) => {
+export const updateSiteVisitService = async (
+  id: string,
+  companyId: string,
+  data: Partial<ISiteVisit>,
+) => {
   const visit = await repository.updateSiteVisitById(id, companyId, data);
   if (!visit) {
     throw new Error('Site Visit not found');

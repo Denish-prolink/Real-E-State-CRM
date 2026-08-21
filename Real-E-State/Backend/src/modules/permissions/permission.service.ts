@@ -1,6 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import type { IPermission } from './permission.types';
+
 import * as repository from './permission.repository';
+import type { IPermission } from './permission.types';
 
 export const createPermission = async (data: Partial<IPermission>) => {
   return await repository.createPermission(data as IPermission);

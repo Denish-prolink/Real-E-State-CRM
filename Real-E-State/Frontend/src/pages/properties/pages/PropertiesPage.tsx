@@ -32,10 +32,10 @@ export default function PropertiesPage() {
   const updatePropertyMutation = useUpdateProperty();
   const deletePropertyMutation = useDeleteProperty();
 
-  const handleAddOrEdit = async (values: AddPropertyPayload) => {
+  const handleAddOrEdit = async (values: AddPropertyPayload | FormData) => {
     try {
       if (editTarget) {
-        await updatePropertyMutation.mutateAsync({ id: editTarget._id, payload: values });
+        await updatePropertyMutation.mutateAsync({ id: editTarget._id, payload: values as any });
         toast.success("Property updated successfully");
       } else {
         await addPropertyMutation.mutateAsync(values);

@@ -9,7 +9,7 @@ export const contactSchema = Yup.object().shape({
     .required('Name is required')
     .matches(/^[A-Za-z ]+$/, 'Only letters and spaces are allowed'),
   type: Yup.string()
-    .oneOf(['customer', 'supplier'], 'Invalid type')
+    .oneOf(['customer', 'supplier', 'vendor', 'seller', 'other', 'Buyer', 'Seller', 'Architect', 'Broker', 'Civil Engineer', 'Construction Contractor', 'Developer', 'Influencer', 'Interior Designer', 'Landscape Designer', 'Legal Advisor', 'Property Owner', 'Structure Designer'], 'Invalid type')
     .required('Type is required'),
   email: Yup.string()
     .email('Invalid email address')

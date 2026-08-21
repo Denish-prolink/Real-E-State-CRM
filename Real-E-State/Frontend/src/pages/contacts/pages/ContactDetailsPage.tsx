@@ -17,6 +17,8 @@ import ContactFormDrawer from "../components/ContactFormDrawer";
 import type { AddContactPayload } from "../types/contact.types";
 import { DeleteConfirmDialog } from "@/components/common/DeleteConfirmDialog";
 
+import EntityDocuments from "../../documents/components/EntityDocuments";
+
 export default function ContactDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -238,6 +240,8 @@ export default function ContactDetailsPage() {
           </div>
         </div>
       </div>
+
+      <EntityDocuments relatedType="Contact" relatedId={id as string} />
 
       {/* Edit Form Drawer */}
       <ContactFormDrawer

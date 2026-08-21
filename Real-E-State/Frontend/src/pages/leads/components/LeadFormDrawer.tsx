@@ -23,7 +23,7 @@ import { leadSchema } from "../schemas/lead.schema";
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useGetLeadById } from "../hooks/useGetLeadById";
-import { useGetEmployees } from "../../employees/hooks/useGetEmployees";
+
 
 interface Props {
   open: boolean;
@@ -63,8 +63,7 @@ export default function LeadFormDrawer({
     { enabled: open && !!leadToEdit?._id }
   );
 
-  const { data: employeesData } = useGetEmployees();
-  const employees = employeesData || [];
+
 
   const formik = useFormik<AddLeadPayload>({
     initialValues: EMPTY_VALUES,

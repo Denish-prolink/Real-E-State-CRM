@@ -5,7 +5,16 @@ export interface IProperty {
   propertyId?: string;
   title: string;
   description?: string;
-  propertyType: 'Apartment' | 'Villa' | 'House' | 'Plot' | 'Office' | 'Shop' | 'Warehouse' | 'Land' | 'Commercial';
+  propertyType:
+    | 'Apartment'
+    | 'Villa'
+    | 'House'
+    | 'Plot'
+    | 'Office'
+    | 'Shop'
+    | 'Warehouse'
+    | 'Land'
+    | 'Commercial';
   purpose: 'Sale' | 'Rent' | 'Lease';
   price: number;
   area: number;

@@ -1,6 +1,8 @@
 import type { Response } from 'express';
+
 import { successResponse } from '../../common/helpers/response.helper';
 import { type AuthenticatedRequest, getCompanyId } from '../../middlewares/auth.middleware';
+
 import * as service from './agent.service';
 
 export const createAgent = async (req: AuthenticatedRequest, res: Response) => {

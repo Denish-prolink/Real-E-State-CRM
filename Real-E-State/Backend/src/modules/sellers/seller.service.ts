@@ -1,7 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
 
-import type { ISeller } from './seller.types';
 import * as repository from './seller.repository';
+import type { ISeller } from './seller.types';
 
 export const createSeller = async (data: Partial<ISeller> & { companyId: string }) => {
   return await repository.createSeller(data);

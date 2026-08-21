@@ -11,7 +11,7 @@ export const ROLES = [
   ROLE_AGENCY,
   ROLE_AGENT,
   ROLE_USER,
-  ROLE_COMPANY
+  ROLE_COMPANY,
 ];
 
 export default ROLES;

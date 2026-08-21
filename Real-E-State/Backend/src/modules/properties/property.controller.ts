@@ -7,10 +7,14 @@ import * as service from './property.service';
 
 export const createProperty = async (req: AuthenticatedRequest, res: Response) => {
   const companyId = getCompanyId(req);
-  
+
   if (req.files && Array.isArray(req.files)) {
     const uploadedPhotos = req.files.map((file: any) => `/uploads/${file.filename}`);
-    req.body.photos = req.body.photos ? (Array.isArray(req.body.photos) ? [...req.body.photos, ...uploadedPhotos] : [req.body.photos, ...uploadedPhotos]) : uploadedPhotos;
+    req.body.photos = req.body.photos
+      ? Array.isArray(req.body.photos)
+        ? [...req.body.photos, ...uploadedPhotos]
+        : [req.body.photos, ...uploadedPhotos]
+      : uploadedPhotos;
   }
 
   const property = await service.createPropertyService(companyId, req.body);
@@ -34,10 +38,18 @@ export const updateProperty = async (req: AuthenticatedRequest, res: Response) =
 
   if (req.files && Array.isArray(req.files)) {
     const uploadedPhotos = req.files.map((file: any) => `/uploads/${file.filename}`);
-    req.body.photos = req.body.photos ? (Array.isArray(req.body.photos) ? [...req.body.photos, ...uploadedPhotos] : [req.body.photos, ...uploadedPhotos]) : uploadedPhotos;
+    req.body.photos = req.body.photos
+      ? Array.isArray(req.body.photos)
+        ? [...req.body.photos, ...uploadedPhotos]
+        : [req.body.photos, ...uploadedPhotos]
+      : uploadedPhotos;
   }
 
-  const property = await service.updatePropertyService(req.params.id as string, companyId, req.body);
+  const property = await service.updatePropertyService(
+    req.params.id as string,
+    companyId,
+    req.body,
+  );
   return successResponse(res, 'Property updated successfully', property);
 };
 

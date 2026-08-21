@@ -17,7 +17,11 @@ export const getPropertyByIdService = async (id: string, companyId: string) => {
   return property;
 };
 
-export const updatePropertyService = async (id: string, companyId: string, data: Partial<IProperty>) => {
+export const updatePropertyService = async (
+  id: string,
+  companyId: string,
+  data: Partial<IProperty>,
+) => {
   const property = await propertyRepository.updatePropertyById(id, companyId, data);
   if (!property) {
     throw new Error('Property not found');

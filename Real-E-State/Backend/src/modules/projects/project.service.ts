@@ -1,6 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import type { IProject } from './project.types';
+
 import * as repository from './project.repository';
+import type { IProject } from './project.types';
 
 export const createProject = async (data: Partial<IProject> & { companyId: string }) => {
   return await repository.createProject(data);

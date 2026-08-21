@@ -162,7 +162,9 @@ export default function UnitFormDrawer({
                 }}
               >
                 <SelectTrigger className={cn("w-full h-9", inputCls("projectId"))}>
-                  <SelectValue placeholder="Select Project" />
+                  <SelectValue placeholder="Select Project">
+                    {projects.find(p => p._id === (typeof formik.values.projectId === "string" ? formik.values.projectId : (formik.values.projectId as any)?._id))?.name || "Select Project"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {projects.map((proj) => (
@@ -183,7 +185,9 @@ export default function UnitFormDrawer({
                 disabled={!formik.values.projectId}
               >
                 <SelectTrigger className={cn("w-full h-9", inputCls("towerId"))}>
-                  <SelectValue placeholder={formik.values.projectId ? "Select Tower" : "Choose Project First"} />
+                  <SelectValue placeholder={formik.values.projectId ? "Select Tower" : "Choose Project First"}>
+                    {towers.find(t => t._id === (typeof formik.values.towerId === "string" ? formik.values.towerId : (formik.values.towerId as any)?._id))?.name || (formik.values.projectId ? "Select Tower" : "Choose Project First")}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {towers.map((tower) => (

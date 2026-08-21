@@ -1,6 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import type { ITower } from './tower.types';
+
 import * as repository from './tower.repository';
+import type { ITower } from './tower.types';
 
 export const createTower = async (data: Partial<ITower>) => {
   return await repository.createTower(data);

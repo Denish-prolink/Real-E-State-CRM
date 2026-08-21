@@ -20,7 +20,11 @@ export const findSiteVisitById = async (id: string, companyId: string) => {
     .populate('agentId', 'firstName lastName email');
 };
 
-export const updateSiteVisitById = async (id: string, companyId: string, data: Partial<ISiteVisit>) => {
+export const updateSiteVisitById = async (
+  id: string,
+  companyId: string,
+  data: Partial<ISiteVisit>,
+) => {
   return SiteVisit.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
 };
 

@@ -331,7 +331,7 @@ export default function OrderForm({
             >
               <SelectTrigger className={cn("w-full h-9", selectCls)}>
                 <SelectValue placeholder="Choose contact">
-                  {contacts.find((c: Contact) => c._id === formik.values.contact)?.name}
+                  {contacts.find((c: Contact) => c._id === formik.values.contact)?.name || "Choose contact"}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent className="min-w-max">
@@ -403,7 +403,7 @@ export default function OrderForm({
                 >
                   <SelectTrigger className={cn("w-full text-xs h-8", selectCls)}>
                     <SelectValue placeholder="Select">
-                      {warehouses.find((w: { _id: string; warehouseName: string }) => w._id === item.warehouse)?.warehouseName}
+                      {warehouses.find((w: { _id: string; warehouseName: string }) => w._id === item.warehouse)?.warehouseName || "Select"}
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent className="min-w-max">
@@ -440,7 +440,7 @@ export default function OrderForm({
                 >
                   <SelectTrigger className={cn("w-full text-xs h-8", selectCls)}>
                     <SelectValue placeholder="Select">
-                      {products.find((p: { _id: string; id?: string; title?: string }) => p._id === item.product || p.id === item.product)?.title}
+                      {products.find((p: { _id: string; id?: string; title?: string }) => p._id === item.product || p.id === item.product)?.title || "Select"}
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent className="min-w-max">
@@ -465,8 +465,9 @@ export default function OrderForm({
                   <SelectTrigger className={cn("w-full text-xs h-8", selectCls)}>
                     <SelectValue placeholder="Select SKU">
                       {(() => {
+                        if (!item.sku) return "Select SKU";
                         const s = skus.find((s: { _id: string; skuCode: string; name: string }) => s.skuCode === item.sku);
-                        return s ? `${s.skuCode} (${s.name})` : "";
+                        return s ? `${s.skuCode} (${s.name})` : "Select SKU";
                       })()}
                     </SelectValue>
                   </SelectTrigger>

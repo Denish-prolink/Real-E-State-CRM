@@ -1,6 +1,7 @@
 import { ApiError } from '../../common/exceptions/ApiError';
-import type { IAgent } from './agent.types';
+
 import * as repository from './agent.repository';
+import type { IAgent } from './agent.types';
 
 export const createAgent = async (data: Partial<IAgent> & { companyId: string }) => {
   return await repository.createAgent(data);

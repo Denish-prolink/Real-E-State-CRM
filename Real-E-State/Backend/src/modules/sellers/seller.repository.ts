@@ -26,7 +26,11 @@ export const getSellers = async (
     return Seller.find(filter).populate('contactId').sort({ createdAt: -1 });
   }
   const skip = (page - 1) * perPage;
-  return Seller.find(filter).populate('contactId').sort({ createdAt: -1 }).skip(skip).limit(perPage);
+  return Seller.find(filter)
+    .populate('contactId')
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(perPage);
 };
 
 export const countSellers = async (companyId: string, search?: string) => {

@@ -7,7 +7,8 @@ import {
   Users,
   Warehouse,
   Calendar,
-  CheckSquare
+  CheckSquare,
+  FileText
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -23,7 +24,6 @@ import {
 } from "@/components/ui/sidebar";
 import { useAppSelector } from "@/app/hooks";
 
-import { useState } from "react";
 
 export function AppSidebar() {
   const location = useLocation();
@@ -52,6 +52,12 @@ export function AppSidebar() {
       title: "Tasks",
       path: "/tasks",
       icon: CheckSquare,
+      roles: ["company", "employee"],
+    },
+    {
+      title: "Documents",
+      path: "/documents",
+      icon: FileText,
       roles: ["company", "employee"],
     },
     {

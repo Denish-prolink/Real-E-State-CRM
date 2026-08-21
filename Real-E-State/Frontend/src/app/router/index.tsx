@@ -47,6 +47,7 @@ import SellersPage from "../../pages/sellers/pages/SellersPage";
 import CalendarPage from "../../pages/calendar/pages/CalendarPage";
 import TasksPage from "../../pages/tasks/pages/TasksPage";
 import ViewTaskPage from "../../pages/tasks/pages/ViewTaskPage";
+import DocumentsPage from "../../pages/documents/DocumentsPage";
 
 // Placeholder Pages
 
@@ -399,6 +400,14 @@ const router = createBrowserRouter([
         element: (
           <RoleGuard allowedRoles={["company", "employee"]}>
             <ViewTaskPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: "/documents",
+        element: (
+          <RoleGuard allowedRoles={["company", "employee"]}>
+            <DocumentsPage />
           </RoleGuard>
         ),
       },

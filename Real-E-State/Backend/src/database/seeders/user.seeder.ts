@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
-import { User } from '../../modules/auth/auth.model';
+
 import logger from '../../config/logger';
+import { User } from '../../modules/auth/auth.model';
 
 export const seedUsers = async (companies: any[]) => {
   logger.info('Seeding Users...');

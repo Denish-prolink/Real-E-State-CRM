@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+
 import { IPropertyDocument } from './property.types';
 
 const propertySchema = new Schema<IPropertyDocument>(
@@ -9,7 +10,17 @@ const propertySchema = new Schema<IPropertyDocument>(
     description: { type: String },
     propertyType: {
       type: String,
-      enum: ['Apartment', 'Villa', 'House', 'Plot', 'Office', 'Shop', 'Warehouse', 'Land', 'Commercial'],
+      enum: [
+        'Apartment',
+        'Villa',
+        'House',
+        'Plot',
+        'Office',
+        'Shop',
+        'Warehouse',
+        'Land',
+        'Commercial',
+      ],
       required: true,
     },
     purpose: {
@@ -50,8 +61,7 @@ const propertySchema = new Schema<IPropertyDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 export const Property = model<IPropertyDocument>('Property', propertySchema);

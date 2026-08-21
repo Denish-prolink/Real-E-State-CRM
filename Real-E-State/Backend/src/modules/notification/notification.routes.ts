@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { authenticate } from '../../middlewares/auth.middleware';
 
-import { getLowStockNotification, markAsRead, markAllAsRead } from './notification.controller';
+import { getLowStockNotification, markAllAsRead, markAsRead } from './notification.controller';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
-import { Category } from '../../modules/categories/category.model';
 import logger from '../../config/logger';
+import { Category } from '../../modules/categories/category.model';
 
 export const seedCategories = async (companies: any[]) => {
   logger.info('Seeding Categories...');

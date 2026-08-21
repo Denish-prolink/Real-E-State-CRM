@@ -207,13 +207,13 @@ export default function WarehouseFormDrawer({
                 disabled={loadingEmployees}
               >
                 <SelectTrigger className={cn("w-full h-9", inputCls("manager"))}>
-                  {formik.values.manager ?
-                    <SelectValue placeholder="Select a manager">
-                      {(() => {
-                        const emp = employees?.find((e: Employee) => e._id === formik.values.manager);
-                        return emp ? `${emp.firstName} ${emp.lastName}` : "";
-                      })()}
-                    </SelectValue> : <SelectValue placeholder="Select a manager" />}
+                  <SelectValue placeholder="Select a manager">
+                    {(() => {
+                      if (!formik.values.manager) return "Select a manager";
+                      const emp = employees?.find((e: Employee) => e._id === formik.values.manager);
+                      return emp ? `${emp.firstName} ${emp.lastName}` : "Select a manager";
+                    })()}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {employees?.map((employee: Employee) => (

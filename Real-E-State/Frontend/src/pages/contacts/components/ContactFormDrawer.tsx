@@ -34,7 +34,7 @@ interface Props {
 
 const EMPTY_VALUES: AddContactPayload = {
   name: "",
-  type: "customer",
+  type: "Buyer",
   email: "",
   mobileNo: "",
   gender: "",
@@ -160,6 +160,17 @@ export default function ContactFormDrawer({
                 <SelectContent>
                   <SelectItem value="Buyer">Buyer</SelectItem>
                   <SelectItem value="Seller">Seller</SelectItem>
+                  <SelectItem value="Architect">Architect</SelectItem>
+                  <SelectItem value="Broker">Broker</SelectItem>
+                  <SelectItem value="Civil Engineer">Civil Engineer</SelectItem>
+                  <SelectItem value="Construction Contractor">Construction Contractor</SelectItem>
+                  <SelectItem value="Developer">Developer</SelectItem>
+                  <SelectItem value="Influencer">Influencer</SelectItem>
+                  <SelectItem value="Interior Designer">Interior Designer</SelectItem>
+                  <SelectItem value="Landscape Designer">Landscape Designer</SelectItem>
+                  <SelectItem value="Legal Advisor">Legal Advisor</SelectItem>
+                  <SelectItem value="Property Owner">Property Owner</SelectItem>
+                  <SelectItem value="Structure Designer">Structure Designer</SelectItem>
                 </SelectContent>
               </Select>
               <FieldError error={formik.errors.type} touched={formik.touched.type} submitCount={formik.submitCount} />

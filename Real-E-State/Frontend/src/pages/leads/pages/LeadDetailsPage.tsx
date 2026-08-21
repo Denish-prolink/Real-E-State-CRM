@@ -17,6 +17,8 @@ import LeadFormDrawer from "../components/LeadFormDrawer";
 import type { AddLeadPayload } from "../types/lead.types";
 import { DeleteConfirmDialog } from "@/components/common/DeleteConfirmDialog";
 
+import EntityDocuments from "../../documents/components/EntityDocuments";
+
 export default function LeadDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -289,6 +291,8 @@ export default function LeadDetailsPage() {
           </div>
         </div>
       </div>
+
+      <EntityDocuments relatedType="Lead" relatedId={id as string} />
 
       {/* Edit Form Drawer */}
       <LeadFormDrawer

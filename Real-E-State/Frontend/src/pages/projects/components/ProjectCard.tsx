@@ -68,8 +68,8 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
               <MoreVertical className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-32 rounded-lg">
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <Link to={`/projects/${project._id}`} className="flex items-center w-full">
+              <DropdownMenuItem className="cursor-pointer p-0">
+                <Link to={`/projects/${project._id}`} className="flex items-center w-full px-2 py-1.5">
                   <Eye className="mr-2 h-4 w-4" />
                   View Details
                 </Link>
