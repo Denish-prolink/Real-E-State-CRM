@@ -34,59 +34,59 @@ export function AppSidebar() {
       title: "Dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Leads",
       path: "/leads",
       icon: UserCheck,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Contact",
       path: "/contacts",
       icon: Users,
-      roles: ["company"],
+      roles: ["agency"],
     },
     {
       title: "Tasks",
       path: "/tasks",
       icon: CheckSquare,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Documents",
       path: "/documents",
       icon: FileText,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Calendar",
       path: "/calendar",
       icon: Calendar,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Projects",
       path: "/projects",
       icon: Building2,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Towers",
       path: "/towers",
       icon: Building,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
       title: "Properties",
       path: "/properties",
       icon: Home,
-      roles: ["company", "employee"],
+      roles: ["agency", "employee"],
     },
     {
-      title: "Company",
-      path: "/companies",
+      title: "Agency",
+      path: "/agencies",
       icon: Building2,
       roles: ["super_admin"],
     },
@@ -94,13 +94,13 @@ export function AppSidebar() {
     //   title: "Reports",
     //   path: "/reports",
     //   icon: TrendingUp,
-    //   roles: ["company"],
+    //   roles: ["agency"],
     // },
     // {
     //   title: "Profile page",
     //   path: "/profile",
     //   icon: Settings,
-    //   roles: ["company", "employee"],
+    //   roles: ["agency", "employee"],
     // },
   ];
 
@@ -150,7 +150,7 @@ export function AppSidebar() {
               })}
 
               {/* Order — Collapsible with sub-items */}
-              {/* {(userRole === "company") && (
+              {/* {(userRole === "agency") && (
                 <div className="flex flex-col gap-1">
                   <SidebarMenuItem>
                     <SidebarMenuButton

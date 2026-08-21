@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 
 export interface ILead {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   firstName: string;
   lastName?: string;
   email?: string;

@@ -9,7 +9,7 @@ import { createEmployeeSchema, updateEmployeeSchema } from './employee.validatio
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('agency'));
 
 router.post('/', validate(createEmployeeSchema), controller.createEmployee);
 router.get('/', controller.getEmployees);

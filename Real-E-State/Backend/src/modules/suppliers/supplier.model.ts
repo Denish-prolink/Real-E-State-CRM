@@ -32,9 +32,9 @@ const supplierSchema = new mongoose.Schema(
 
     notes: { type: String, trim: true },
     status: { type: String, enum: ['active', 'inactive'], default: 'active' },
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Agency',
       required: true,
     },
   },
@@ -43,6 +43,6 @@ const supplierSchema = new mongoose.Schema(
   },
 );
 
-supplierSchema.index({ supplierCode: 1, companyId: 1 }, { unique: true });
+supplierSchema.index({ supplierCode: 1, agencyId: 1 }, { unique: true });
 
 export const Supplier = mongoose.model('Supplier', supplierSchema);

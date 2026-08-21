@@ -14,7 +14,7 @@ export interface PropertyMedia {
 
 export interface Property {
   _id: string;
-  companyId: string;
+  agencyId: string;
   propertyId?: string;
   title: string;
   description?: string;
@@ -41,5 +41,5 @@ export interface Property {
   updatedAt: string;
 }
 
-export type AddPropertyPayload = Omit<Property, '_id' | 'companyId' | 'createdAt' | 'updatedAt'>;
+export type AddPropertyPayload = Omit<Property, '_id' | 'agencyId' | 'createdAt' | 'updatedAt'>;
 export type UpdatePropertyPayload = Partial<AddPropertyPayload>;

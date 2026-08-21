@@ -1,7 +1,7 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IProject extends Document {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   name: string;
   description?: string;
   startDate?: Date;
@@ -15,7 +15,7 @@ export interface IProject extends Document {
 
 const projectSchema = new Schema<IProject>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     name: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     startDate: { type: Date },
@@ -31,6 +31,6 @@ const projectSchema = new Schema<IProject>(
   { timestamps: true },
 );
 
-projectSchema.index({ name: 1, companyId: 1 }, { unique: true });
+projectSchema.index({ name: 1, agencyId: 1 }, { unique: true });
 
 export const Project = model<IProject>('Project', projectSchema);

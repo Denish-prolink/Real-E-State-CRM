@@ -2,7 +2,7 @@ import { connectDatabase } from '../config/database';
 import logger from '../config/logger';
 
 import { seedCategories } from './seeders/category.seeder';
-import { seedCompanies } from './seeders/company.seeder';
+import { seedAgencies } from './seeders/agency.seeder';
 import { seedContacts } from './seeders/contact.seeder';
 import { seedEmployees } from './seeders/employee.seeder';
 import { seedOrders } from './seeders/order.seeder';
@@ -25,22 +25,22 @@ const seedDatabase = async () => {
     await seedRoles();
     await seedPermissions();
 
-    const companies = await seedCompanies();
+    const agencies = await seedAgencies();
 
-    // 2. Entities dependent on Companies
-    await seedUsers(companies);
-    await seedCategories(companies);
-    const contacts = await seedContacts(companies);
-    const employees = await seedEmployees(companies);
-    await seedSkus(companies);
-    await seedSuppliers(companies);
-    const products = await seedProducts(companies);
+    // 2. Entities dependent on Agencies
+    await seedUsers(agencies);
+    await seedCategories(agencies);
+    const contacts = await seedContacts(agencies);
+    const employees = await seedEmployees(agencies);
+    await seedSkus(agencies);
+    await seedSuppliers(agencies);
+    const products = await seedProducts(agencies);
 
-    // 3. Entities dependent on Companies and Employees
-    const warehouses = await seedWarehouses(companies, employees);
+    // 3. Entities dependent on Agencies and Employees
+    const warehouses = await seedWarehouses(agencies, employees);
 
     // 4. Entities dependent on multiple previous entities
-    await seedOrders(companies, contacts, products, warehouses);
+    await seedOrders(agencies, contacts, products, warehouses);
 
     logger.info('Database seeded successfully with all mock data!');
     process.exit(0);

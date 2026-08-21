@@ -9,7 +9,7 @@ import { createDocumentSchema, updateDocumentSchema } from './document.validatio
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company', 'super_admin'));
+router.use(authorizeRoles('agency', 'super_admin'));
 
 router.post('/', validate(createDocumentSchema), controller.createDocument);
 router.get('/', controller.getDocuments);

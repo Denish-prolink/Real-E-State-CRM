@@ -1,6 +1,6 @@
 import { type Document, model, Schema } from 'mongoose';
 
-export interface ICompany extends Document {
+export interface IAgency extends Document {
   name: string;
   gst?: string;
   sences?: string;
@@ -20,7 +20,7 @@ export interface ICompany extends Document {
   updatedAt: Date;
 }
 
-const companySchema = new Schema<ICompany>(
+const agencySchema = new Schema<IAgency>(
   {
     name: {
       type: String,
@@ -87,4 +87,4 @@ const companySchema = new Schema<ICompany>(
   },
 );
 
-export const Company = model<ICompany>('Company', companySchema);
+export const Agency = model<IAgency>('Agency', agencySchema);

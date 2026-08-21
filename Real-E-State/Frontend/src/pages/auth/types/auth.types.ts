@@ -24,7 +24,7 @@ export interface LoginResponse {
       lastName: string;
       email: string;
       role?: string;
-      companyId?: {
+      agencyId?: {
         _id: string;
         name: string;
         gst?: string;

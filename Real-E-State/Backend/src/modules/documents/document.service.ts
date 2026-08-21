@@ -2,19 +2,19 @@ import * as documentRepository from './document.repository';
 import type { IDocument } from './document.types';
 
 export const createDocumentService = async (
-  companyId: string,
+  agencyId: string,
   userId: string,
   data: Partial<IDocument>,
 ) => {
   return documentRepository.createDocument({
     ...data,
-    companyId: companyId as any,
+    agencyId: agencyId as any,
     uploadedBy: userId as any,
   });
 };
 
 export const getDocumentsService = async (
-  companyId: string,
+  agencyId: string,
   page: number | undefined,
   perPage: number | undefined,
   search?: string,
@@ -22,15 +22,15 @@ export const getDocumentsService = async (
   relatedId?: string,
 ) => {
   const [documents, total] = await Promise.all([
-    documentRepository.findDocumentsByCompany(
-      companyId,
+    documentRepository.findDocumentsByAgency(
+      agencyId,
       page,
       perPage,
       search,
       relatedType,
       relatedId,
     ),
-    documentRepository.countDocumentsByCompany(companyId, search, relatedType, relatedId),
+    documentRepository.countDocumentsByAgency(agencyId, search, relatedType, relatedId),
   ]);
 
   return {
@@ -41,8 +41,8 @@ export const getDocumentsService = async (
   };
 };
 
-export const getDocumentByIdService = async (id: string, companyId: string) => {
-  const document = await documentRepository.findDocumentById(id, companyId);
+export const getDocumentByIdService = async (id: string, agencyId: string) => {
+  const document = await documentRepository.findDocumentById(id, agencyId);
   if (!document) {
     throw new Error('Document not found');
   }
@@ -51,18 +51,18 @@ export const getDocumentByIdService = async (id: string, companyId: string) => {
 
 export const updateDocumentService = async (
   id: string,
-  companyId: string,
+  agencyId: string,
   data: Partial<IDocument>,
 ) => {
-  const document = await documentRepository.updateDocumentById(id, companyId, data);
+  const document = await documentRepository.updateDocumentById(id, agencyId, data);
   if (!document) {
     throw new Error('Document not found');
   }
   return document;
 };
 
-export const deleteDocumentService = async (id: string, companyId: string) => {
-  const document = await documentRepository.deleteDocumentById(id, companyId);
+export const deleteDocumentService = async (id: string, agencyId: string) => {
+  const document = await documentRepository.deleteDocumentById(id, agencyId);
   if (!document) {
     throw new Error('Document not found');
   }

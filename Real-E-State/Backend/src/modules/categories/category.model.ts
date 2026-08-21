@@ -12,9 +12,9 @@ const categorySchema = new mongoose.Schema(
       default: '',
       trim: true,
     },
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Agency',
       required: true,
     },
   },
@@ -23,6 +23,6 @@ const categorySchema = new mongoose.Schema(
   },
 );
 
-categorySchema.index({ name: 1, companyId: 1 }, { unique: true });
+categorySchema.index({ name: 1, agencyId: 1 }, { unique: true });
 
 export const Category = mongoose.model('Category', categorySchema);

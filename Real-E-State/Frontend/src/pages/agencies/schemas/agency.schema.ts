@@ -8,7 +8,7 @@ const baseSchemaFields = {
   name: Yup.string()
     .min(2, "Name must be at least 2 characters")
     .max(50, "Name must be less than 50 characters")
-    .required("Company name is required")
+    .required("Agency name is required")
     .matches(/^[A-Za-z ]+$/, "Only letters and spaces are allowed"),
   gst: Yup.string()
     .transform(value => (value ? value.toUpperCase() : value))
@@ -57,14 +57,14 @@ const baseSchemaFields = {
     .required("Status is required"),
 };
 
-export const companySchema = Yup.object().shape({
+export const agencySchema = Yup.object().shape({
   ...baseSchemaFields,
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
 });
 
-export const companyUpdateSchema = Yup.object().shape({
+export const agencyUpdateSchema = Yup.object().shape({
   ...baseSchemaFields,
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")

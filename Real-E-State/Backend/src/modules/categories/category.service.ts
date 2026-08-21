@@ -11,8 +11,8 @@ import {
 } from './category.repository';
 import type { ICategoryPayload } from './category.types';
 
-export const addCategory = async (payload: ICategoryPayload & { companyId: string }) => {
-  const existingCategory = await findCategoryByName(payload.name, payload.companyId);
+export const addCategory = async (payload: ICategoryPayload & { agencyId: string }) => {
+  const existingCategory = await findCategoryByName(payload.name, payload.agencyId);
   if (existingCategory) {
     throw new ApiError('Category with this name already exists', 409);
   }
@@ -21,14 +21,14 @@ export const addCategory = async (payload: ICategoryPayload & { companyId: strin
 };
 
 export const getCategoriesList = async (
-  companyId: string,
+  agencyId: string,
   page?: number,
   perPage?: number,
   search?: string,
 ) => {
   const [categories, total] = await Promise.all([
-    findCategories(companyId, page, perPage, search),
-    countCategories(companyId, search),
+    findCategories(agencyId, page, perPage, search),
+    countCategories(agencyId, search),
   ]);
   return {
     categories,
@@ -39,8 +39,8 @@ export const getCategoriesList = async (
   };
 };
 
-export const getCategoryById = async (id: string, companyId: string) => {
-  const category = await findCategoryById(id, companyId);
+export const getCategoryById = async (id: string, agencyId: string) => {
+  const category = await findCategoryById(id, agencyId);
   if (!category) {
     throw new ApiError('Category not found', 404);
   }
@@ -50,27 +50,27 @@ export const getCategoryById = async (id: string, companyId: string) => {
 export const updateCategoryDetails = async (
   id: string,
   payload: Partial<ICategoryPayload>,
-  companyId: string,
+  agencyId: string,
 ) => {
-  const category = await findCategoryById(id, companyId);
+  const category = await findCategoryById(id, agencyId);
   if (!category) {
     throw new ApiError('Category not found', 404);
   }
 
   if (payload.name) {
-    const existingCategory = await findCategoryByName(payload.name, companyId);
+    const existingCategory = await findCategoryByName(payload.name, agencyId);
     if (existingCategory && existingCategory._id.toString() !== id) {
       throw new ApiError('Category with this name already exists', 409);
     }
   }
 
-  return updateCategory(id, payload, companyId);
+  return updateCategory(id, payload, agencyId);
 };
 
-export const removeCategory = async (id: string, companyId: string) => {
-  const category = await findCategoryById(id, companyId);
+export const removeCategory = async (id: string, agencyId: string) => {
+  const category = await findCategoryById(id, agencyId);
   if (!category) {
     throw new ApiError('Category not found', 404);
   }
-  return deleteCategory(id, companyId);
+  return deleteCategory(id, agencyId);
 };

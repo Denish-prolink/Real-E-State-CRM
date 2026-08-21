@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCompanyApi } from "../api/company.api";
+import { addAgencyApi } from "../api/agency.api";
 import { toast } from "sonner";
 
 interface ApiError {
@@ -10,18 +10,18 @@ interface ApiError {
   };
 }
 
-export const useDeleteCompany = () => {
+export const useAddAgency = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteCompanyApi,
+    mutationFn: addAgencyApi,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["companies"] });
-      toast.success("Company deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["agencies"] });
+      toast.success("Agency added successfully");
     },
     onError: (error) => {
       const err = error as ApiError;
-      toast.error(err.response?.data?.message || "Failed to delete company");
+      toast.error(err.response?.data?.message || "Failed to add agency");
     },
   });
 };

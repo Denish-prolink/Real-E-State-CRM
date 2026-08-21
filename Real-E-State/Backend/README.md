@@ -11,4 +11,4 @@ pnpm install
 pnpm run seed
 ```
 
-The seeder is implemented at `src/database/seed.ts` and will create sample companies, users, categories, contacts, employees, SKUs, suppliers, warehouses, products and orders.
+The seeder is implemented at `src/database/seed.ts` and will create sample agencies, users, categories, contacts, employees, SKUs, suppliers, warehouses, products and orders.

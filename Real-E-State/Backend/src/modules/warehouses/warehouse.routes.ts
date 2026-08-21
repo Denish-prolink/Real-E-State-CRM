@@ -9,7 +9,7 @@ import { createWarehouseSchema, updateWarehouseSchema } from './warehouse.valida
 const router = Router();
 
 router.use(authenticate);
-router.use(authorizeRoles('company'));
+router.use(authorizeRoles('agency'));
 
 router.post('/', validate(createWarehouseSchema), controller.createWarehouse);
 router.get('/', controller.getWarehouses);

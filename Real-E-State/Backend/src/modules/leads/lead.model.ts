@@ -4,7 +4,7 @@ import { ILeadDocument } from './lead.types';
 
 const leadSchema = new Schema<ILeadDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     firstName: { type: String, required: true },
     lastName: { type: String },
     phone: { type: String, required: true },

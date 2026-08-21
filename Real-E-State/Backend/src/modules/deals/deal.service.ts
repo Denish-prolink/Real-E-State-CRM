@@ -1,32 +1,32 @@
 import * as dealRepository from './deal.repository';
 import type { IDeal } from './deal.types';
 
-export const createDealService = async (companyId: string, data: Partial<IDeal>) => {
-  return dealRepository.createDeal({ ...data, companyId: companyId as any });
+export const createDealService = async (agencyId: string, data: Partial<IDeal>) => {
+  return dealRepository.createDeal({ ...data, agencyId: agencyId as any });
 };
 
-export const getDealsService = async (companyId: string, filters: any = {}) => {
-  return dealRepository.findDealsByCompany(companyId, filters);
+export const getDealsService = async (agencyId: string, filters: any = {}) => {
+  return dealRepository.findDealsByAgency(agencyId, filters);
 };
 
-export const getDealByIdService = async (id: string, companyId: string) => {
-  const deal = await dealRepository.findDealById(id, companyId);
+export const getDealByIdService = async (id: string, agencyId: string) => {
+  const deal = await dealRepository.findDealById(id, agencyId);
   if (!deal) {
     throw new Error('Deal not found');
   }
   return deal;
 };
 
-export const updateDealService = async (id: string, companyId: string, data: Partial<IDeal>) => {
-  const deal = await dealRepository.updateDealById(id, companyId, data);
+export const updateDealService = async (id: string, agencyId: string, data: Partial<IDeal>) => {
+  const deal = await dealRepository.updateDealById(id, agencyId, data);
   if (!deal) {
     throw new Error('Deal not found');
   }
   return deal;
 };
 
-export const deleteDealService = async (id: string, companyId: string) => {
-  const deal = await dealRepository.deleteDealById(id, companyId);
+export const deleteDealService = async (id: string, agencyId: string) => {
+  const deal = await dealRepository.deleteDealById(id, agencyId);
   if (!deal) {
     throw new Error('Deal not found');
   }

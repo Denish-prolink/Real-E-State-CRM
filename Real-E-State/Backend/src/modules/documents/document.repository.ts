@@ -6,12 +6,12 @@ export const createDocument = async (data: Partial<IDocument>) => {
 };
 
 const buildFilter = (
-  companyId: string,
+  agencyId: string,
   search?: string,
   relatedType?: string,
   relatedId?: string,
 ) => {
-  const filter: any = { companyId };
+  const filter: any = { agencyId };
   if (search) {
     filter.$or = [
       { title: { $regex: search, $options: 'i' } },
@@ -27,15 +27,15 @@ const buildFilter = (
   return filter;
 };
 
-export const findDocumentsByCompany = async (
-  companyId: string,
+export const findDocumentsByAgency = async (
+  agencyId: string,
   page: number | undefined,
   perPage: number | undefined,
   search?: string,
   relatedType?: string,
   relatedId?: string,
 ) => {
-  const filter = buildFilter(companyId, search, relatedType, relatedId);
+  const filter = buildFilter(agencyId, search, relatedType, relatedId);
   const query = DocumentModel.find(filter)
     .populate('uploadedBy', 'firstName lastName email')
     .sort({ createdAt: -1 });
@@ -48,17 +48,17 @@ export const findDocumentsByCompany = async (
   return query.skip(skip).limit(perPage);
 };
 
-export const countDocumentsByCompany = async (
-  companyId: string,
+export const countDocumentsByAgency = async (
+  agencyId: string,
   search?: string,
   relatedType?: string,
   relatedId?: string,
 ) => {
-  return DocumentModel.countDocuments(buildFilter(companyId, search, relatedType, relatedId));
+  return DocumentModel.countDocuments(buildFilter(agencyId, search, relatedType, relatedId));
 };
 
-export const findDocumentById = async (id: string, companyId: string) => {
-  return DocumentModel.findOne({ _id: id, companyId }).populate(
+export const findDocumentById = async (id: string, agencyId: string) => {
+  return DocumentModel.findOne({ _id: id, agencyId }).populate(
     'uploadedBy',
     'firstName lastName email',
   );
@@ -66,12 +66,12 @@ export const findDocumentById = async (id: string, companyId: string) => {
 
 export const updateDocumentById = async (
   id: string,
-  companyId: string,
+  agencyId: string,
   data: Partial<IDocument>,
 ) => {
-  return DocumentModel.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
+  return DocumentModel.findOneAndUpdate({ _id: id, agencyId }, data, { new: true });
 };
 
-export const deleteDocumentById = async (id: string, companyId: string) => {
-  return DocumentModel.findOneAndDelete({ _id: id, companyId });
+export const deleteDocumentById = async (id: string, agencyId: string) => {
+  return DocumentModel.findOneAndDelete({ _id: id, agencyId });
 };

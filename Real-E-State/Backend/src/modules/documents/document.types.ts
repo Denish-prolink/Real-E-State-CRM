@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 
 export interface IDocument {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   title: string;
   description?: string;
   fileUrl: string;

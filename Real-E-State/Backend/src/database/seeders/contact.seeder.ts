@@ -1,11 +1,11 @@
 import logger from '../../config/logger';
 import { Contact } from '../../modules/contacts/contact.model';
 
-export const seedContacts = async (companies: any[]) => {
+export const seedContacts = async (agencies: any[]) => {
   logger.info('Seeding Contacts...');
   await Contact.deleteMany({});
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const agency1 = agencies[0];
+  const agency2 = agencies[1];
 
   const contacts = await Contact.create([
     {
@@ -15,7 +15,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '1112223333',
       gender: 'male',
       address: '123 Customer Ave',
-      companyId: company1._id,
+      agencyId: agency1._id,
     },
     {
       name: 'Jane Smith',
@@ -24,7 +24,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '4445556666',
       gender: 'female',
       address: '456 Supplier Blvd',
-      companyId: company1._id,
+      agencyId: agency1._id,
     },
     {
       name: 'Pepper Potts',
@@ -33,7 +33,7 @@ export const seedContacts = async (companies: any[]) => {
       mobileNo: '9998887777',
       gender: 'female',
       address: '1000 Stark Way',
-      companyId: company2._id,
+      agencyId: agency2._id,
     },
   ]);
 

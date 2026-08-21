@@ -150,8 +150,8 @@ export default function DashboardLayout() {
     if (path === "/skus") return "SKUs";
     if (path === "/warehouses") return "Warehouse Management";
     if (path === "/sales") return "Sales Management";
-    if (path === "/companies") return "Company";
-    if (path.startsWith("/companies/")) return "Company View";
+    if (path === "/agencies") return "Agency";
+    if (path.startsWith("/agencies/")) return "Agency View";
     if (path === "/contacts") return "Contact";
     if (path.startsWith("/contacts/")) return "Contact View";
     if (path === "/employees") return "Employee";

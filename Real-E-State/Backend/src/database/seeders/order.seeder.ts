@@ -2,7 +2,7 @@ import logger from '../../config/logger';
 import { Order } from '../../modules/orders/order.model';
 
 export const seedOrders = async (
-  companies: any[],
+  agencies: any[],
   contacts: any[],
   products: any[],
   warehouses: any[],
@@ -10,22 +10,22 @@ export const seedOrders = async (
   logger.info('Seeding Orders...');
   await Order.deleteMany({});
 
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const agency1 = agencies[0];
+  const agency2 = agencies[1];
 
   // Find corresponding records
   const customer1 = contacts.find(
-    (c) => c.companyId.toString() === company1._id.toString() && c.type === 'customer',
+    (c) => c.agencyId.toString() === agency1._id.toString() && c.type === 'customer',
   );
   const supplier1 = contacts.find(
-    (c) => c.companyId.toString() === company1._id.toString() && c.type === 'supplier',
+    (c) => c.agencyId.toString() === agency1._id.toString() && c.type === 'supplier',
   );
-  const product1 = products.find((p) => p.companyId.toString() === company1._id.toString());
-  const warehouse1 = warehouses.find((w) => w.companyId.toString() === company1._id.toString());
+  const product1 = products.find((p) => p.agencyId.toString() === agency1._id.toString());
+  const warehouse1 = warehouses.find((w) => w.agencyId.toString() === agency1._id.toString());
 
-  const customer2 = contacts.find((c) => c.companyId.toString() === company2._id.toString());
-  const product2 = products.find((p) => p.companyId.toString() === company2._id.toString());
-  const warehouse2 = warehouses.find((w) => w.companyId.toString() === company2._id.toString());
+  const customer2 = contacts.find((c) => c.agencyId.toString() === agency2._id.toString());
+  const product2 = products.find((p) => p.agencyId.toString() === agency2._id.toString());
+  const warehouse2 = warehouses.find((w) => w.agencyId.toString() === agency2._id.toString());
 
   const orders = await Order.create([
     {
@@ -45,9 +45,9 @@ export const seedOrders = async (
       discountType: 'amount',
       discountValue: 0,
       finalPrice: 20 * product1.rawPrice + 50,
-      deliveryAddress: '123 Company Warehouse Address',
+      deliveryAddress: '123 Agency Warehouse Address',
       status: 'completed',
-      companyId: company1._id,
+      agencyId: agency1._id,
     },
     {
       orderType: 'sell',
@@ -68,7 +68,7 @@ export const seedOrders = async (
       finalPrice: 2 * product1.salePrice * 0.9 + 100,
       deliveryAddress: customer1.address || 'Customer Addr',
       status: 'pending',
-      companyId: company1._id,
+      agencyId: agency1._id,
     },
     {
       orderType: 'sell',
@@ -89,7 +89,7 @@ export const seedOrders = async (
       finalPrice: product2.salePrice,
       deliveryAddress: customer2.address || 'Stark Tower',
       status: 'confirmed',
-      companyId: company2._id,
+      agencyId: agency2._id,
     },
   ]);
 

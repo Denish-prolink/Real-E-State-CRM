@@ -3,12 +3,12 @@ import bcrypt from 'bcrypt';
 import logger from '../../config/logger';
 import { User } from '../../modules/auth/auth.model';
 
-export const seedUsers = async (companies: any[]) => {
+export const seedUsers = async (agencies: any[]) => {
   logger.info('Seeding Users...');
   await User.deleteMany({});
   const hashedPassword = await bcrypt.hash('password123', 10);
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const agency1 = agencies[0];
+  const agency2 = agencies[1];
 
   const users = await User.create([
     {
@@ -23,16 +23,16 @@ export const seedUsers = async (companies: any[]) => {
       lastName: 'Admin',
       email: 'admin@acme.com',
       password: hashedPassword,
-      role: 'company',
-      companyId: company1._id,
+      role: 'agency',
+      agencyId: agency1._id,
     },
     {
       firstName: 'Stark',
       lastName: 'Admin',
       email: 'admin@stark.com',
       password: hashedPassword,
-      role: 'company',
-      companyId: company2._id,
+      role: 'agency',
+      agencyId: agency2._id,
     },
   ]);
 

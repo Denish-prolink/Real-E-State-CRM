@@ -6,15 +6,15 @@ export const createRole = async (data: Partial<IRole>) => {
   return await r.save();
 };
 
-const buildFilter = (companyId?: string, search?: string) => {
+const buildFilter = (agencyId?: string, search?: string) => {
   const base: any = {};
-  if (companyId) base.companyId = companyId;
+  if (agencyId) base.agencyId = agencyId;
   if (search) base.name = { $regex: search, $options: 'i' };
   return base;
 };
 
-export const getRoles = async (companyId?: string, search?: string) => {
-  return Role.find(buildFilter(companyId, search)).populate('permissions').sort({ name: 1 });
+export const getRoles = async (agencyId?: string, search?: string) => {
+  return Role.find(buildFilter(agencyId, search)).populate('permissions').sort({ name: 1 });
 };
 
 export const getRoleById = async (id: string) => {

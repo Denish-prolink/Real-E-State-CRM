@@ -22,22 +22,22 @@ import {
 import { cn, getImageUrl } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-import type { AddCompanyPayload } from "../types/company.types";
+import type { AddAgencyPayload } from "../types/agency.types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { companySchema, companyUpdateSchema } from "../schemas/company.schema";
-import { uploadCompanyLogoApi } from "../api/company.api";
+import { agencySchema, agencyUpdateSchema } from "../schemas/agency.schema";
+import { uploadAgencyLogoApi } from "../api/agency.api";
 import { useFormik } from "formik";
-import { useGetCompany } from "../hooks/useGetCompany";
+import { useGetAgency } from "../hooks/useGetAgency";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: AddCompanyPayload) => void | Promise<void>;
-  editCompanyId?: string | null;
+  onSubmit: (values: AddAgencyPayload) => void | Promise<void>;
+  editAgencyId?: string | null;
 }
 
-const EMPTY_VALUES: AddCompanyPayload = {
+const EMPTY_VALUES: AddAgencyPayload = {
   name: "",
   gst: "",
   sences: "",
@@ -57,25 +57,25 @@ const EMPTY_VALUES: AddCompanyPayload = {
   password: "",
 };
 
-export default function CompanyFormDrawer({
+export default function AgencyFormDrawer({
   open,
   onClose,
   onSubmit,
-  editCompanyId,
+  editAgencyId,
 }: Props) {
-  const { data: company, isLoading: isCompanyLoading } = useGetCompany(
-    editCompanyId || null,
+  const { data: agency, isLoading: isAgencyLoading } = useGetAgency(
+    editAgencyId || null,
   );
   const [showPassword, setShowPassword] = useState(false);
 
-  const formik = useFormik<AddCompanyPayload>({
+  const formik = useFormik<AddAgencyPayload>({
     initialValues: EMPTY_VALUES,
-    validationSchema: editCompanyId ? companyUpdateSchema : companySchema,
+    validationSchema: editAgencyId ? agencyUpdateSchema : agencySchema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values, helpers) => {
       try {
-        if (editCompanyId && !formik.dirty) {
+        if (editAgencyId && !formik.dirty) {
           // toast.info("No changes made");
           onClose();
           return;
@@ -85,7 +85,7 @@ export default function CompanyFormDrawer({
         if (values.logoFile) {
           const formData = new FormData();
           formData.append("logo", values.logoFile);
-          const uploadRes = await uploadCompanyLogoApi(formData);
+          const uploadRes = await uploadAgencyLogoApi(formData);
           if (uploadRes.success) {
             finalLogoUrl = uploadRes.data.url;
           }
@@ -103,25 +103,25 @@ export default function CompanyFormDrawer({
 
   useEffect(() => {
     if (open) {
-      if (editCompanyId) {
-        if (company) {
+      if (editAgencyId) {
+        if (agency) {
           formik.resetForm({
             values: {
-              name: company.name,
-              gst: company.gst || "",
-              sences: company.sences || "",
-              pan: company.pan || "",
-              members: company.members || 0,
-              addressLine1: company.addressLine1 || "",
-              addressLine2: company.addressLine2 || "",
-              city: company.city || "",
-              state: company.state || "",
-              country: company.country || "",
-              pincode: company.pincode || "",
-              contactNumber: company.contactNumber || "",
-              email: company.email || "",
-              logo: company.logo || "",
-              status: company.status || "active",
+              name: agency.name,
+              gst: agency.gst || "",
+              sences: agency.sences || "",
+              pan: agency.pan || "",
+              members: agency.members || 0,
+              addressLine1: agency.addressLine1 || "",
+              addressLine2: agency.addressLine2 || "",
+              city: agency.city || "",
+              state: agency.state || "",
+              country: agency.country || "",
+              pincode: agency.pincode || "",
+              contactNumber: agency.contactNumber || "",
+              email: agency.email || "",
+              logo: agency.logo || "",
+              status: agency.status || "active",
               logoFile: null,
               password: "",
             },
@@ -135,9 +135,9 @@ export default function CompanyFormDrawer({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, editCompanyId, company]);
+  }, [open, editAgencyId, agency]);
 
-  const inputCls = (field: keyof AddCompanyPayload) =>
+  const inputCls = (field: keyof AddAgencyPayload) =>
     getInputClassName(formik.errors, formik.touched, formik.submitCount, field);
 
   return (
@@ -150,12 +150,12 @@ export default function CompanyFormDrawer({
           <div className="flex items-center justify-between">
             <div>
               <SheetTitle className="text-lg font-semibold">
-                {editCompanyId ? "Edit Company" : "Add Company"}
+                {editAgencyId ? "Edit Agency" : "Add Agency"}
               </SheetTitle>
               <SheetDescription className="text-xs text-muted-foreground mt-0.5">
-                {editCompanyId
-                  ? "Update the details of the company below."
-                  : "Create a new company in your system."}
+                {editAgencyId
+                  ? "Update the details of the agency below."
+                  : "Create a new agency in your system."}
               </SheetDescription>
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function CompanyFormDrawer({
           noValidate
         >
           {/* ── LOGO ── */}
-          <SectionTitle>Company Logo</SectionTitle>
+          <SectionTitle>Agency Logo</SectionTitle>
           <div className="flex flex-col gap-4">
             <div>
               <FormLabel htmlFor="logo">Logo Image</FormLabel>
@@ -210,7 +210,7 @@ export default function CompanyFormDrawer({
                           ? formik.values.logo
                           : getImageUrl(formik.values.logo || "")
                       }
-                      alt="Company Logo"
+                      alt="Agency Logo"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).style.display =
@@ -385,7 +385,7 @@ export default function CompanyFormDrawer({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 className={inputCls("email")}
-                disabled={!!editCompanyId}
+                disabled={!!editAgencyId}
                 autoComplete="off"
               />
               <FieldError
@@ -395,8 +395,8 @@ export default function CompanyFormDrawer({
               />
             </div>
             <div>
-              <FormLabel htmlFor="password" required={!editCompanyId}>
-                {editCompanyId ? "Change Password" : "Login Password"}
+              <FormLabel htmlFor="password" required={!editAgencyId}>
+                {editAgencyId ? "Change Password" : "Login Password"}
               </FormLabel>
               <div className="relative">
                 <Input
@@ -404,7 +404,7 @@ export default function CompanyFormDrawer({
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder={
-                    editCompanyId
+                    editAgencyId
                       ? "Leave blank to keep same"
                       : "Set a password for login"
                   }
@@ -432,9 +432,9 @@ export default function CompanyFormDrawer({
                 submitCount={formik.submitCount}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                {editCompanyId
+                {editAgencyId
                   ? "Type a new password to change it."
-                  : "Fill this to allow company login."}
+                  : "Fill this to allow agency login."}
               </p>
             </div>
           </div>
@@ -562,7 +562,7 @@ export default function CompanyFormDrawer({
               </div>
             </div>
 
-            {editCompanyId && (
+            {editAgencyId && (
               <div>
                 <FormLabel htmlFor="status" required>
                   Status
@@ -603,14 +603,14 @@ export default function CompanyFormDrawer({
             </Button>
             <Button
               type="submit"
-              disabled={formik.isSubmitting || isCompanyLoading}
+              disabled={formik.isSubmitting || isAgencyLoading}
               className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-30"
             >
-              {formik.isSubmitting || isCompanyLoading
+              {formik.isSubmitting || isAgencyLoading
                 ? "Saving..."
-                : editCompanyId
-                  ? "Update Company"
-                  : "Add Company"}
+                : editAgencyId
+                  ? "Update Agency"
+                  : "Add Agency"}
             </Button>
           </div>
         </form>

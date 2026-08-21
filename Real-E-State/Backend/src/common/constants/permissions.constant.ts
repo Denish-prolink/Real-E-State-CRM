@@ -1,7 +1,7 @@
 // Sample permission keys used across modules. Not persisted currently.
 export const PERMISSIONS = [
-  'companies:read',
-  'companies:write',
+  'agencies:read',
+  'agencies:write',
   'users:read',
   'users:write',
   'products:read',

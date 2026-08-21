@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 
 import { successResponse } from '../../common/helpers/response.helper';
-import { type AuthenticatedRequest, getCompanyId } from '../../middlewares/auth.middleware';
+import { type AuthenticatedRequest, getAgencyId } from '../../middlewares/auth.middleware';
 
 import * as service from './tower.service';
 

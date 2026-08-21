@@ -1,11 +1,11 @@
 import logger from '../../config/logger';
 import { Product } from '../../modules/products/product.model';
 
-export const seedProducts = async (companies: any[]) => {
+export const seedProducts = async (agencies: any[]) => {
   logger.info('Seeding Products...');
   await Product.deleteMany({});
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const agency1 = agencies[0];
+  const agency2 = agencies[1];
 
   const products = await Product.create([
     {
@@ -16,7 +16,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 1500,
       category: 'Electronics',
       supplier: ['Global Tech Suppliers'],
-      companyId: company1._id,
+      agencyId: agency1._id,
       status: 'Active',
     },
     {
@@ -27,7 +27,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 200,
       category: 'Furniture',
       supplier: ['Furniture Co'],
-      companyId: company1._id,
+      agencyId: agency1._id,
       status: 'Active',
     },
     {
@@ -38,7 +38,7 @@ export const seedProducts = async (companies: any[]) => {
       salePrice: 999999,
       category: 'Weapons',
       supplier: ['Stark Labs'],
-      companyId: company2._id,
+      agencyId: agency2._id,
       status: 'Active',
     },
   ]);

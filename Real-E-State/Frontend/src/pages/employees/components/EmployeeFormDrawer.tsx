@@ -208,7 +208,7 @@ export default function EmployeeFormDrawer({
                 id="email"
                 name="email"
                 type="email"
-                placeholder="e.g. employee@company.com"
+                placeholder="e.g. employee@agency.com"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

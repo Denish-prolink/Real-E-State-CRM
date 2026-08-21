@@ -3,19 +3,19 @@ import { ApiError } from '../../common/exceptions/ApiError';
 import type { IContact } from './contact.model';
 import * as repository from './contact.repository';
 
-export const createContact = async (data: Partial<IContact> & { companyId: string }) => {
+export const createContact = async (data: Partial<IContact> & { agencyId: string }) => {
   return await repository.createContact(data);
 };
 
 export const getContacts = async (
-  companyId: string,
+  agencyId: string,
   page: number | undefined,
   perPage: number | undefined,
   search?: string,
 ) => {
   const [contacts, total] = await Promise.all([
-    repository.getContacts(companyId, page, perPage, search),
-    repository.countContacts(companyId, search),
+    repository.getContacts(agencyId, page, perPage, search),
+    repository.countContacts(agencyId, search),
   ]);
 
   return {
@@ -26,24 +26,24 @@ export const getContacts = async (
   };
 };
 
-export const getContactById = async (id: string, companyId: string) => {
-  const contact = await repository.getContactById(id, companyId);
+export const getContactById = async (id: string, agencyId: string) => {
+  const contact = await repository.getContactById(id, agencyId);
   if (!contact) {
     throw new ApiError('Contact not found', 404);
   }
   return contact;
 };
 
-export const updateContact = async (id: string, data: Partial<IContact>, companyId: string) => {
-  const contact = await repository.updateContact(id, data, companyId);
+export const updateContact = async (id: string, data: Partial<IContact>, agencyId: string) => {
+  const contact = await repository.updateContact(id, data, agencyId);
   if (!contact) {
     throw new ApiError('Contact not found', 404);
   }
   return contact;
 };
 
-export const deleteContact = async (id: string, companyId: string) => {
-  const contact = await repository.deleteContact(id, companyId);
+export const deleteContact = async (id: string, agencyId: string) => {
+  const contact = await repository.deleteContact(id, agencyId);
   if (!contact) {
     throw new ApiError('Contact not found', 404);
   }

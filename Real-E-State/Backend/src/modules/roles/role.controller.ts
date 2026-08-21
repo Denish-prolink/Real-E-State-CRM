@@ -1,21 +1,21 @@
 import type { Response } from 'express';
 
 import { successResponse } from '../../common/helpers/response.helper';
-import { type AuthenticatedRequest, getCompanyId } from '../../middlewares/auth.middleware';
+import { type AuthenticatedRequest, getAgencyId } from '../../middlewares/auth.middleware';
 
 import * as service from './role.service';
 
 export const createRole = async (req: AuthenticatedRequest, res: Response) => {
-  const companyId = getCompanyId(req);
-  const payload = { ...req.body, companyId };
+  const agencyId = getAgencyId(req);
+  const payload = { ...req.body, agencyId };
   const role = await service.createRole(payload);
   return successResponse(res, 'Role created successfully', role, 201);
 };
 
 export const getRoles = async (req: AuthenticatedRequest, res: Response) => {
-  const companyId = getCompanyId(req);
+  const agencyId = getAgencyId(req);
   const search = (req.query.search as string) || undefined;
-  const roles = await service.getRoles(companyId, search);
+  const roles = await service.getRoles(agencyId, search);
   return successResponse(res, 'Roles retrieved successfully', roles);
 };
 

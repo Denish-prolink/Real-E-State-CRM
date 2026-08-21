@@ -1,11 +1,11 @@
 import logger from '../../config/logger';
 import { Supplier } from '../../modules/suppliers/supplier.model';
 
-export const seedSuppliers = async (companies: any[]) => {
+export const seedSuppliers = async (agencies: any[]) => {
   logger.info('Seeding Suppliers...');
   await Supplier.deleteMany({});
-  const company1 = companies[0];
-  const company2 = companies[1];
+  const agency1 = agencies[0];
+  const agency2 = agencies[1];
 
   const suppliers = await Supplier.create([
     {
@@ -32,7 +32,7 @@ export const seedSuppliers = async (companies: any[]) => {
         accountNumber: 'ACC123456',
         ifscCode: 'IFSC0001',
       },
-      companyId: company1._id,
+      agencyId: agency1._id,
     },
     {
       supplierCode: 'SUP002',
@@ -58,7 +58,7 @@ export const seedSuppliers = async (companies: any[]) => {
         accountNumber: 'VIB123456',
         ifscCode: 'WAK0001',
       },
-      companyId: company2._id,
+      agencyId: agency2._id,
     },
   ]);
 

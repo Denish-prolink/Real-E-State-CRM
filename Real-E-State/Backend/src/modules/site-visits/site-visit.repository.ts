@@ -5,16 +5,16 @@ export const createSiteVisit = async (data: Partial<ISiteVisit>) => {
   return SiteVisit.create(data);
 };
 
-export const findSiteVisitsByCompany = async (companyId: string, filters: any = {}) => {
-  return SiteVisit.find({ companyId, ...filters })
+export const findSiteVisitsByAgency = async (agencyId: string, filters: any = {}) => {
+  return SiteVisit.find({ agencyId, ...filters })
     .populate('leadId', 'firstName lastName email phone')
     .populate('propertyId', 'title propertyId price area')
     .populate('agentId', 'firstName lastName email')
     .sort({ visitDate: -1 });
 };
 
-export const findSiteVisitById = async (id: string, companyId: string) => {
-  return SiteVisit.findOne({ _id: id, companyId })
+export const findSiteVisitById = async (id: string, agencyId: string) => {
+  return SiteVisit.findOne({ _id: id, agencyId })
     .populate('leadId', 'firstName lastName email phone')
     .populate('propertyId', 'title propertyId price area')
     .populate('agentId', 'firstName lastName email');
@@ -22,12 +22,12 @@ export const findSiteVisitById = async (id: string, companyId: string) => {
 
 export const updateSiteVisitById = async (
   id: string,
-  companyId: string,
+  agencyId: string,
   data: Partial<ISiteVisit>,
 ) => {
-  return SiteVisit.findOneAndUpdate({ _id: id, companyId }, data, { new: true });
+  return SiteVisit.findOneAndUpdate({ _id: id, agencyId }, data, { new: true });
 };
 
-export const deleteSiteVisitById = async (id: string, companyId: string) => {
-  return SiteVisit.findOneAndDelete({ _id: id, companyId });
+export const deleteSiteVisitById = async (id: string, agencyId: string) => {
+  return SiteVisit.findOneAndDelete({ _id: id, agencyId });
 };

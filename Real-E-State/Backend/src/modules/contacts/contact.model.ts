@@ -1,7 +1,7 @@
 import { type Document, model, Schema, type Types } from 'mongoose';
 
 export interface IContact extends Document {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   name: string;
   type:
     | 'customer'
@@ -91,9 +91,9 @@ const contactSchema = new Schema<IContact>(
       type: String,
       trim: true,
     },
-    companyId: {
+    agencyId: {
       type: Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Agency',
       required: true,
     },
   },

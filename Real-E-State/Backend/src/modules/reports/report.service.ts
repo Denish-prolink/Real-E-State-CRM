@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 import { Order } from '../orders/order.model';
 import { Product } from '../products/product.model';
 
-export const getProfitLossData = async (companyId: string) => {
-  const companyObjectId = new mongoose.Types.ObjectId(companyId);
+export const getProfitLossData = async (agencyId: string) => {
+  const agencyObjectId = new mongoose.Types.ObjectId(agencyId);
 
   // Aggregate sell orders
   const sellResult = await Order.aggregate([
-    { $match: { companyId: companyObjectId, orderType: 'sell', status: { $ne: 'cancelled' } } },
+    { $match: { agencyId: agencyObjectId, orderType: 'sell', status: { $ne: 'cancelled' } } },
     {
       $group: {
         _id: null,
@@ -20,7 +20,7 @@ export const getProfitLossData = async (companyId: string) => {
 
   // Aggregate purchase orders
   const buyResult = await Order.aggregate([
-    { $match: { companyId: companyObjectId, orderType: 'purchase', status: { $ne: 'cancelled' } } },
+    { $match: { agencyId: agencyObjectId, orderType: 'purchase', status: { $ne: 'cancelled' } } },
     {
       $group: {
         _id: null,
@@ -43,11 +43,11 @@ export const getProfitLossData = async (companyId: string) => {
   };
 };
 
-export const getProductsReportData = async (companyId: string) => {
-  const companyObjectId = new mongoose.Types.ObjectId(companyId);
+export const getProductsReportData = async (agencyId: string) => {
+  const agencyObjectId = new mongoose.Types.ObjectId(agencyId);
 
   const result = await Product.aggregate([
-    { $match: { companyId: companyObjectId } },
+    { $match: { agencyId: agencyObjectId } },
     {
       $group: {
         _id: null,
@@ -62,7 +62,7 @@ export const getProductsReportData = async (companyId: string) => {
   ]);
 
   const categoriesResult = await Product.aggregate([
-    { $match: { companyId: companyObjectId } },
+    { $match: { agencyId: agencyObjectId } },
     {
       $group: {
         _id: '$category',
@@ -84,11 +84,11 @@ export const getProductsReportData = async (companyId: string) => {
   };
 };
 
-export const getSellReportData = async (companyId: string) => {
-  const companyObjectId = new mongoose.Types.ObjectId(companyId);
+export const getSellReportData = async (agencyId: string) => {
+  const agencyObjectId = new mongoose.Types.ObjectId(agencyId);
 
   const result = await Order.aggregate([
-    { $match: { companyId: companyObjectId, orderType: 'sell' } },
+    { $match: { agencyId: agencyObjectId, orderType: 'sell' } },
     {
       $group: {
         _id: {
@@ -105,11 +105,11 @@ export const getSellReportData = async (companyId: string) => {
   return result;
 };
 
-export const getBuyReportData = async (companyId: string) => {
-  const companyObjectId = new mongoose.Types.ObjectId(companyId);
+export const getBuyReportData = async (agencyId: string) => {
+  const agencyObjectId = new mongoose.Types.ObjectId(agencyId);
 
   const result = await Order.aggregate([
-    { $match: { companyId: companyObjectId, orderType: 'purchase' } },
+    { $match: { agencyId: agencyObjectId, orderType: 'purchase' } },
     {
       $group: {
         _id: {

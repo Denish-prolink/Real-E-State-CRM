@@ -10,64 +10,64 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useGetCompany } from "../hooks/useGetCompany";
-import { useUpdateCompany } from "../hooks/useUpdateCompany";
-import { useDeleteCompany } from "../hooks/useDeleteCompany";
-import CompanyFormDrawer from "../components/CompanyFormDrawer";
-import type { AddCompanyPayload } from "../types/company.types";
+import { useGetAgency } from "../hooks/useGetAgency";
+import { useUpdateAgency } from "../hooks/useUpdateAgency";
+import { useDeleteAgency } from "../hooks/useDeleteAgency";
+import AgencyFormDrawer from "../components/AgencyFormDrawer";
+import type { AddAgencyPayload } from "../types/agency.types";
 import { Badge } from "@/components/ui/badge";
 import { getImageUrl } from "@/lib/utils";
 import { DeleteConfirmDialog } from "@/components/common/DeleteConfirmDialog";
 
-export default function CompanyDetailsPage() {
+export default function AgencyDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const { data: company, isLoading, error, refetch } = useGetCompany(id || null);
+  const { data: agency, isLoading, error, refetch } = useGetAgency(id || null);
 
-  const updateCompanyMutation = useUpdateCompany();
-  const deleteCompanyMutation = useDeleteCompany();
+  const updateAgencyMutation = useUpdateAgency();
+  const deleteAgencyMutation = useDeleteAgency();
 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-6 p-6 min-h-full items-center justify-center">
         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-indigo-600"></div>
-        <p className="text-muted-foreground text-sm">Loading company details...</p>
+        <p className="text-muted-foreground text-sm">Loading agency details...</p>
       </div>
     );
   }
 
-  if (error || !company) {
+  if (error || !agency) {
     return (
       <div className="flex flex-col gap-4 p-6 min-h-full items-center justify-center">
-        <p className="text-red-500 font-medium">Failed to load company or company not found.</p>
-        <Button onClick={() => navigate("/companies")} variant="outline" className="gap-2">
-          <ArrowLeft className="h-4 w-4" /> Back to Companies
+        <p className="text-red-500 font-medium">Failed to load agency or agency not found.</p>
+        <Button onClick={() => navigate("/agencies")} variant="outline" className="gap-2">
+          <ArrowLeft className="h-4 w-4" /> Back to Agencies
         </Button>
       </div>
     );
   }
 
-  const handleEditSubmit = async (values: AddCompanyPayload) => {
+  const handleEditSubmit = async (values: AddAgencyPayload) => {
     try {
-      await updateCompanyMutation.mutateAsync({ id: company._id, payload: values });
+      await updateAgencyMutation.mutateAsync({ id: agency._id, payload: values });
       setDrawerOpen(false);
       refetch();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to update company");
+      toast.error(err instanceof Error ? err.message : "Failed to update agency");
     }
   };
 
   const handleDelete = async () => {
     try {
-      await deleteCompanyMutation.mutateAsync(company._id);
-      toast.success("Company deleted successfully");
+      await deleteAgencyMutation.mutateAsync(agency._id);
+      toast.success("Agency deleted successfully");
       setShowDeleteConfirm(false);
-      navigate("/companies");
+      navigate("/agencies");
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to delete company");
+      toast.error(err instanceof Error ? err.message : "Failed to delete agency");
     }
   };
 
@@ -76,11 +76,11 @@ export default function CompanyDetailsPage() {
       {/* Back button and Action Header */}
       <div className="flex items-center justify-between">
         <Button
-          onClick={() => navigate("/companies")}
+          onClick={() => navigate("/agencies")}
           variant="ghost"
           className="gap-2 text-muted-foreground hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to Companies
+          <ArrowLeft className="h-4 w-4" /> Back to Agencies
         </Button>
         <div className="flex items-center gap-2">
           <DropdownMenu>
@@ -104,22 +104,22 @@ export default function CompanyDetailsPage() {
 
       {/* Main Profile Header Card */}
       <div className="bg-card border border-border rounded-xl shadow-sm p-4 flex flex-col sm:flex-row items-center gap-4">
-        {company.logo ? (
+        {agency.logo ? (
           <img
-            src={getImageUrl(company.logo)}
-            alt={company.name || "Company"}
+            src={getImageUrl(agency.logo)}
+            alt={agency.name || "Agency"}
             className="h-12 w-12 rounded-xl object-cover border border-border shadow-sm shrink-0"
           />
         ) : (
           <div className="h-12 w-12 text-xl rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 flex items-center justify-center font-bold shrink-0 border border-indigo-100 dark:border-indigo-800">
-            {company.name.substring(0, 2).toUpperCase()}
+            {agency.name.substring(0, 2).toUpperCase()}
           </div>
         )}
         <div className="text-center sm:text-left flex-1 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 justify-center sm:justify-start">
-            <h1 className="text-xl font-bold tracking-tight text-foreground truncate">{company.name}</h1>
-            <Badge variant={company.status === "active" ? "default" : "secondary"} className={company.status === "active" ? "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400" : ""}>
-              {company.status}
+            <h1 className="text-xl font-bold tracking-tight text-foreground truncate">{agency.name}</h1>
+            <Badge variant={agency.status === "active" ? "default" : "secondary"} className={agency.status === "active" ? "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400" : ""}>
+              {agency.status}
             </Badge>
           </div>
         </div>
@@ -137,14 +137,14 @@ export default function CompanyDetailsPage() {
               <Phone className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs text-muted-foreground">Contact Number</p>
-                <p className="font-semibold text-foreground mt-0.5 text-sm">{company.contactNumber || "-"}</p>
+                <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.contactNumber || "-"}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Mail className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs text-muted-foreground">Email Address</p>
-                <p className="font-semibold text-foreground mt-0.5 text-sm">{company.email || "-"}</p>
+                <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.email || "-"}</p>
               </div>
             </div>
           </div>
@@ -158,21 +158,21 @@ export default function CompanyDetailsPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-xs text-muted-foreground">GST Number</p>
-              <p className="font-semibold text-foreground mt-0.5 text-sm">{company.gst || "-"}</p>
+              <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.gst || "-"}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">PAN Number</p>
-              <p className="font-semibold text-foreground mt-0.5 text-sm">{company.pan || "-"}</p>
+              <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.pan || "-"}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">Licenses/Sences</p>
-              <p className="font-semibold text-foreground mt-0.5 text-sm">{company.sences || "-"}</p>
+              <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.sences || "-"}</p>
             </div>
             <div className="flex items-start gap-2">
               <Users className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs text-muted-foreground">Members</p>
-                <p className="font-semibold text-foreground mt-0.5 text-sm">{company.members ?? 0}</p>
+                <p className="font-semibold text-foreground mt-0.5 text-sm">{agency.members ?? 0}</p>
               </div>
             </div>
           </div>
@@ -186,22 +186,22 @@ export default function CompanyDetailsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
               <p className="text-xs text-muted-foreground">Address Line 1</p>
-              <p className="font-medium text-foreground mt-0.5">{company.addressLine1 || "-"}</p>
+              <p className="font-medium text-foreground mt-0.5">{agency.addressLine1 || "-"}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">Address Line 2</p>
-              <p className="font-medium text-foreground mt-0.5">{company.addressLine2 || "-"}</p>
+              <p className="font-medium text-foreground mt-0.5">{agency.addressLine2 || "-"}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">City & State</p>
               <p className="font-medium text-foreground mt-0.5">
-                {company.city ? `${company.city}, ` : ""}{company.state || "-"}
+                {agency.city ? `${agency.city}, ` : ""}{agency.state || "-"}
               </p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">Country & Pincode</p>
               <p className="font-medium text-foreground mt-0.5">
-                {company.country || "-"} - {company.pincode || "-"}
+                {agency.country || "-"} - {agency.pincode || "-"}
               </p>
             </div>
           </div>
@@ -209,21 +209,21 @@ export default function CompanyDetailsPage() {
       </div>
 
       {/* Edit Form Drawer */}
-      <CompanyFormDrawer
+      <AgencyFormDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         onSubmit={handleEditSubmit}
-        editCompanyId={company._id}
+        editAgencyId={agency._id}
       />
 
       {/* Delete Confirmation Alert Dialog */}
       <DeleteConfirmDialog
         open={showDeleteConfirm}
-        onOpenChange={(val) => !val && !deleteCompanyMutation.isPending && setShowDeleteConfirm(false)}
+        onOpenChange={(val) => !val && !deleteAgencyMutation.isPending && setShowDeleteConfirm(false)}
         onConfirm={handleDelete}
-        isPending={deleteCompanyMutation.isPending}
-        title="Delete Company"
-        itemName={company.name}
+        isPending={deleteAgencyMutation.isPending}
+        title="Delete Agency"
+        itemName={agency.name}
       />
     </div>
   );

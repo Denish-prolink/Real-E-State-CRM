@@ -1,6 +1,6 @@
 export interface Lead {
   _id: string;
-  companyId: string;
+  agencyId: string;
   firstName: string;
   lastName?: string;
   email?: string;
@@ -25,7 +25,7 @@ export interface Lead {
   updatedAt: string;
 }
 
-export type AddLeadPayload = Omit<Lead, '_id' | 'companyId' | 'assignedAgent' | 'createdAt' | 'updatedAt'> & {
+export type AddLeadPayload = Omit<Lead, '_id' | 'agencyId' | 'assignedAgent' | 'createdAt' | 'updatedAt'> & {
   assignedAgent?: string;
 };
 export type UpdateLeadPayload = Partial<AddLeadPayload>;

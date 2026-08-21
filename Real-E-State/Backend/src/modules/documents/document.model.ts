@@ -4,7 +4,7 @@ import { IDocumentDocument } from './document.types';
 
 const documentSchema = new Schema<IDocumentDocument>(
   {
-    companyId: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+    agencyId: { type: Schema.Types.ObjectId, ref: 'Agency', required: true },
     title: { type: String, required: true },
     description: { type: String },
     fileUrl: { type: String, required: true },

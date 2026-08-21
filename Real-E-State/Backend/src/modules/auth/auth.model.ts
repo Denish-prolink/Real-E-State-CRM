@@ -25,13 +25,13 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ['super_admin', 'company'],
-      default: 'company',
+      enum: ['super_admin', 'agency'],
+      default: 'agency',
     },
 
-    companyId: {
+    agencyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Agency',
     },
 
     resetPasswordToken: {

@@ -4,7 +4,7 @@ const GST_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/i;
 const PAN_REGEX = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i;
 const PHONE_REGEX = /^\d{10}$/;
 
-export const createCompanySchema = z.object({
+export const createAgencySchema = z.object({
   name: z
     .string()
     .min(2, 'Name must be at least 2 characters')
@@ -31,7 +31,7 @@ export const createCompanySchema = z.object({
   status: z.enum(['active', 'inactive']).optional().default('active'),
 });
 
-export const updateCompanySchema = z.object({
+export const updateAgencySchema = z.object({
   name: z
     .string()
     .min(2)

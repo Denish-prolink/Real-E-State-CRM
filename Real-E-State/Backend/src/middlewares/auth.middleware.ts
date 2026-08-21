@@ -8,11 +8,11 @@ export interface AuthenticatedRequest extends Request {
   user?: CustomJwtPayload;
 }
 
-export const getCompanyId = (req: AuthenticatedRequest): string => {
-  if (req.user?.role === 'company' && req.user.companyId) {
-    return req.user.companyId;
+export const getAgencyId = (req: AuthenticatedRequest): string => {
+  if (req.user?.role === 'agency' && req.user.agencyId) {
+    return req.user.agencyId;
   }
-  throw new ApiError('Forbidden: Company ID required', 403);
+  throw new ApiError('Forbidden: Agency ID required', 403);
 };
 
 export const authenticate = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {

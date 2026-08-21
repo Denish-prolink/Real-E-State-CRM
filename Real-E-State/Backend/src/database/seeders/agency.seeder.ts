@@ -1,10 +1,10 @@
 import logger from '../../config/logger';
-import { Company } from '../../modules/companies/company.model';
+import { Agency } from '../../modules/agencies/agency.model';
 
-export const seedCompanies = async () => {
-  logger.info('Seeding Companies...');
-  await Company.deleteMany({});
-  const company1 = await Company.create({
+export const seedAgencies = async () => {
+  logger.info('Seeding Agencies...');
+  await Agency.deleteMany({});
+  const agency1 = await Agency.create({
     name: 'Acme Corp',
     addressLine1: '123 Acme Street',
     city: 'Metropolis',
@@ -16,7 +16,7 @@ export const seedCompanies = async () => {
     status: 'active',
   });
 
-  const company2 = await Company.create({
+  const agency2 = await Agency.create({
     name: 'Stark Industries',
     addressLine1: '456 Stark Tower',
     city: 'New York',
@@ -28,5 +28,5 @@ export const seedCompanies = async () => {
     status: 'active',
   });
 
-  return [company1, company2];
+  return [agency1, agency2];
 };

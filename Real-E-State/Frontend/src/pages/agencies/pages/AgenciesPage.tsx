@@ -1,22 +1,22 @@
-import type { AddCompanyPayload, Company } from "../types/company.types";
+import type { AddAgencyPayload, Agency } from "../types/agency.types";
 import { Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import CompanyFormDrawer from "../components/CompanyFormDrawer";
-import CompanyTable from "../components/CompanyTable";
+import AgencyFormDrawer from "../components/AgencyFormDrawer";
+import AgencyTable from "../components/AgencyTable";
 import { DeleteConfirmDialog } from "@/components/common/DeleteConfirmDialog";
 import TablePagination from "@/components/common/TablePagination";
-import { useAddCompany } from "../hooks/useAddCompany";
+import { useAddAgency } from "../hooks/useAddAgency";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useDeleteCompany } from "../hooks/useDeleteCompany";
-import { useGetCompanies } from "../hooks/useGetCompanies";
+import { useDeleteAgency } from "../hooks/useDeleteAgency";
+import { useGetAgencies } from "../hooks/useGetAgencies";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useUpdateCompany } from "../hooks/useUpdateCompany";
+import { useUpdateAgency } from "../hooks/useUpdateAgency";
 
 const PAGE_SIZE = 10;
 
-export default function CompaniesPage() {
+export default function AgenciesPage() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -25,21 +25,21 @@ export default function CompaniesPage() {
   const [editTargetId, setEditTargetId] = useState<string | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: paginationData, isLoading, isFetching } = useGetCompanies({
+  const { data: paginationData, isLoading, isFetching } = useGetAgencies({
     page: currentPage,
     limit: PAGE_SIZE,
     search: debouncedSearch || undefined,
   });
 
-  const companies: Company[] = paginationData?.data || [];
+  const agencies: Agency[] = paginationData?.data || [];
   const total = paginationData?.meta.total || 0;
   const page = paginationData?.meta.page || 1;
 
-  const addMutation = useAddCompany();
-  const updateMutation = useUpdateCompany();
-  const deleteMutation = useDeleteCompany();
+  const addMutation = useAddAgency();
+  const updateMutation = useUpdateAgency();
+  const deleteMutation = useDeleteAgency();
 
-  const handleAddOrEdit = async (values: AddCompanyPayload) => {
+  const handleAddOrEdit = async (values: AddAgencyPayload) => {
     if (editTargetId) {
       await updateMutation.mutateAsync({ id: editTargetId, payload: values });
     } else {
@@ -49,8 +49,8 @@ export default function CompaniesPage() {
     setDrawerOpen(false);
   };
 
-  const openEdit = (company: Company) => {
-    setEditTargetId(company._id);
+  const openEdit = (agency: Agency) => {
+    setEditTargetId(agency._id);
     setDrawerOpen(true);
   };
 
@@ -70,8 +70,8 @@ export default function CompaniesPage() {
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Companies</h1>
-          <p className="text-muted-foreground text-sm mt-0.5">{total} total companies</p>
+          <h1 className="text-3xl font-bold tracking-tight">Agencies</h1>
+          <p className="text-muted-foreground text-sm mt-0.5">{total} total agencies</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button
@@ -83,7 +83,7 @@ export default function CompaniesPage() {
             }}
           >
             <Plus className="h-4 w-4" />
-            Add Company
+            Add Agency
           </Button>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function CompaniesPage() {
             type="text"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-            placeholder="Search companies by name, GST or PAN..."
+            placeholder="Search agencies by name, GST or PAN..."
             className="w-full h-9 rounded-lg border border-border pl-9 pr-4 text-sm bg-muted/20 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
@@ -105,12 +105,12 @@ export default function CompaniesPage() {
       {/* Table */}
       <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <CompanyTable
-            companies={companies}
+          <AgencyTable
+            agencies={agencies}
             isLoading={isLoading || isFetching}
             onEdit={openEdit}
             onDelete={setDeleteId}
-            onView={(company) => navigate(`/companies/${company._id}`)}
+            onView={(agency) => navigate(`/agencies/${agency._id}`)}
             startIndex={(page - 1) * PAGE_SIZE}
           />
         </div>
@@ -122,20 +122,20 @@ export default function CompaniesPage() {
             totalItems={total}
             pageSize={PAGE_SIZE}
             onPageChange={setCurrentPage}
-            itemLabel="companies"
+            itemLabel="agencies"
           />
         )}
       </div>
 
       {/* Form Drawer */}
-      <CompanyFormDrawer
+      <AgencyFormDrawer
         open={drawerOpen}
         onClose={() => {
           setDrawerOpen(false);
           setEditTargetId(null);
         }}
         onSubmit={handleAddOrEdit}
-        editCompanyId={editTargetId}
+        editAgencyId={editTargetId}
       />
 
       {/* Delete Confirmation */}
@@ -144,8 +144,8 @@ export default function CompaniesPage() {
         onOpenChange={(val) => !val && setDeleteId(null)}
         onConfirm={handleDelete}
         isPending={deleteMutation.isPending}
-        title="Delete Company"
-        description="Are you sure you want to permanently delete this company? This action cannot be undone."
+        title="Delete Agency"
+        description="Are you sure you want to permanently delete this agency? This action cannot be undone."
       />
     </div>
   );

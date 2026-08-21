@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 
 export interface IDeal {
-  companyId: Types.ObjectId;
+  agencyId: Types.ObjectId;
   dealNumber?: string;
   leadId: Types.ObjectId;
   propertyId?: Types.ObjectId;

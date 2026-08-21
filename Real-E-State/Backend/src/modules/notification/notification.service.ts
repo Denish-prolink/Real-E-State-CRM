@@ -1,8 +1,8 @@
 import { Product } from '../products/product.model';
 
-export const getLowStockProducts = async (companyId: string, userId: string) => {
+export const getLowStockProducts = async (agencyId: string, userId: string) => {
   const products = await Product.find({
-    companyId,
+    agencyId,
     quantity: { $lte: 10 },
     status: 'Active',
   })
@@ -30,19 +30,19 @@ export const getLowStockProducts = async (companyId: string, userId: string) => 
 };
 
 export const markNotificationAsRead = async (
-  companyId: string,
+  agencyId: string,
   userId: string,
   productId: string,
 ) => {
   return Product.findOneAndUpdate(
-    { _id: productId, companyId, quantity: { $lte: 10 } },
+    { _id: productId, agencyId, quantity: { $lte: 10 } },
     { $addToSet: { lowStockReadBy: userId } },
   );
 };
 
-export const markAllNotificationsAsRead = async (companyId: string, userId: string) => {
+export const markAllNotificationsAsRead = async (agencyId: string, userId: string) => {
   return Product.updateMany(
-    { companyId, quantity: { $lte: 10 } },
+    { agencyId, quantity: { $lte: 10 } },
     { $addToSet: { lowStockReadBy: userId } },
   );
 };

@@ -1,4 +1,4 @@
-export interface Company {
+export interface Agency {
   _id: string;
   name: string;
   gst?: string;
@@ -19,8 +19,8 @@ export interface Company {
   updatedAt: string;
 }
 
-export interface GetCompaniesResponse {
-  data: Company[];
+export interface GetAgenciesResponse {
+  data: Agency[];
   meta: {
     total: number;
     page: number;
@@ -29,8 +29,8 @@ export interface GetCompaniesResponse {
   };
 }
 
-export interface AddCompanyPayload extends Omit<Company, '_id' | 'createdAt' | 'updatedAt'> {
+export interface AddAgencyPayload extends Omit<Agency, '_id' | 'createdAt' | 'updatedAt'> {
   logoFile?: File | null;
   password?: string;
 }
-export type UpdateCompanyPayload = Partial<AddCompanyPayload>;
+export type UpdateAgencyPayload = Partial<AddAgencyPayload>;

@@ -5,12 +5,12 @@ import { Warehouse } from '../warehouses/warehouse.model';
 import type { IOrder } from './order.model';
 import * as repository from './order.repository';
 
-export const createOrder = async (data: Partial<IOrder> & { companyId: string }) => {
-  const companyId = data.companyId;
+export const createOrder = async (data: Partial<IOrder> & { agencyId: string }) => {
+  const agencyId = data.agencyId;
   if (data.items && data.items.length > 0) {
     if (data.orderType === 'sell') {
       for (const item of data.items) {
-        const product = await Product.findOne({ _id: item.product, companyId });
+        const product = await Product.findOne({ _id: item.product, agencyId });
         if (!product) {
           throw new ApiError('Product not found', 404);
         }
@@ -31,7 +31,7 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
       }
 
       for (const [whId, addedQty] of Object.entries(warehouseQtys)) {
-        const warehouse = await Warehouse.findOne({ _id: whId, companyId });
+        const warehouse = await Warehouse.findOne({ _id: whId, agencyId });
         if (!warehouse) {
           throw new ApiError('Warehouse not found', 404);
         }
@@ -51,7 +51,7 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
     for (const item of order.items) {
       const adjustment = order.orderType === 'sell' ? -item.quantity : item.quantity;
       await Product.findOneAndUpdate(
-        { _id: item.product, companyId },
+        { _id: item.product, agencyId },
         {
           $inc: { quantity: adjustment },
           $set: { lowStockReadBy: [] },
@@ -60,7 +60,7 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
       );
 
       await Warehouse.findOneAndUpdate(
-        { _id: item.warehouse, companyId },
+        { _id: item.warehouse, agencyId },
         { $inc: { usedCapacity: adjustment } },
         { new: true },
       );
@@ -70,15 +70,15 @@ export const createOrder = async (data: Partial<IOrder> & { companyId: string })
 };
 
 export const getOrders = async (
-  companyId: string,
+  agencyId: string,
   page: number,
   perPage: number,
   orderType?: string,
   search?: string,
 ) => {
   const [orders, total] = await Promise.all([
-    repository.getOrders(companyId, page, perPage, orderType, search),
-    repository.countOrders(companyId, orderType, search),
+    repository.getOrders(agencyId, page, perPage, orderType, search),
+    repository.countOrders(agencyId, orderType, search),
   ]);
 
   return {
@@ -89,24 +89,24 @@ export const getOrders = async (
   };
 };
 
-export const getOrderById = async (id: string, companyId: string) => {
-  const order = await repository.getOrderById(id, companyId);
+export const getOrderById = async (id: string, agencyId: string) => {
+  const order = await repository.getOrderById(id, agencyId);
   if (!order) {
     throw new ApiError('Order not found', 404);
   }
   return order;
 };
 
-export const updateOrder = async (id: string, data: Partial<IOrder>, companyId: string) => {
-  const order = await repository.updateOrder(id, data, companyId);
+export const updateOrder = async (id: string, data: Partial<IOrder>, agencyId: string) => {
+  const order = await repository.updateOrder(id, data, agencyId);
   if (!order) {
     throw new ApiError('Order not found', 404);
   }
   return order;
 };
 
-export const deleteOrder = async (id: string, companyId: string) => {
-  const order = await repository.getOrderById(id, companyId);
+export const deleteOrder = async (id: string, agencyId: string) => {
+  const order = await repository.getOrderById(id, agencyId);
   if (!order) {
     throw new ApiError('Order not found', 404);
   }
@@ -116,7 +116,7 @@ export const deleteOrder = async (id: string, companyId: string) => {
     for (const item of order.items) {
       const adjustment = order.orderType === 'sell' ? item.quantity : -item.quantity;
       await Product.findOneAndUpdate(
-        { _id: item.product, companyId },
+        { _id: item.product, agencyId },
         {
           $inc: { quantity: adjustment },
           $set: { lowStockReadBy: [] },
@@ -125,13 +125,13 @@ export const deleteOrder = async (id: string, companyId: string) => {
       );
 
       await Warehouse.findOneAndUpdate(
-        { _id: item.warehouse, companyId },
+        { _id: item.warehouse, agencyId },
         { $inc: { usedCapacity: adjustment } },
         { new: true },
       );
     }
   }
 
-  await repository.deleteOrder(id, companyId);
+  await repository.deleteOrder(id, agencyId);
   return order;
 };
