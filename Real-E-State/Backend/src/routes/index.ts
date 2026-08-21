@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import agencyRoutes from '../modules/agencies/agency.routes';
 import agentRoutes from '../modules/agents/agent.routes';
 import auditLogsRoutes from '../modules/audit-logs/audit-logs.routes';
 import authRoutes from '../modules/auth/auth.routes';
@@ -7,7 +8,6 @@ import bookingsRoutes from '../modules/bookings/bookings.routes';
 import buyerRoutes from '../modules/buyers/buyer.routes';
 import callsRoutes from '../modules/calls/calls.routes';
 import categoryRoutes from '../modules/categories/category.routes';
-import agencyRoutes from '../modules/agencies/agency.routes';
 import contactRoutes from '../modules/contacts/contact.routes';
 import dealRoutes from '../modules/deals/deal.routes';
 import documentsRoutes from '../modules/documents/documents.routes';

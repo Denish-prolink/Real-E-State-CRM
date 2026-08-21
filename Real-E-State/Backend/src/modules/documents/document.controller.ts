@@ -41,11 +41,7 @@ export const getDocumentById = async (req: AuthenticatedRequest, res: Response) 
 
 export const updateDocument = async (req: AuthenticatedRequest, res: Response) => {
   const agencyId = getAgencyId(req);
-  const document = await service.updateDocumentService(
-    req.params.id as string,
-    agencyId,
-    req.body,
-  );
+  const document = await service.updateDocumentService(req.params.id as string, agencyId, req.body);
   return successResponse(res, 'Document updated successfully', document);
 };
 

@@ -45,11 +45,7 @@ export const updateProperty = async (req: AuthenticatedRequest, res: Response) =
       : uploadedPhotos;
   }
 
-  const property = await service.updatePropertyService(
-    req.params.id as string,
-    agencyId,
-    req.body,
-  );
+  const property = await service.updatePropertyService(req.params.id as string, agencyId, req.body);
   return successResponse(res, 'Property updated successfully', property);
 };
 

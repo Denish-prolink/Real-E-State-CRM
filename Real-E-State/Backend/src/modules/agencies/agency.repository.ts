@@ -4,11 +4,7 @@ export const createAgency = async (payload: Partial<IAgency>) => {
   return Agency.create(payload);
 };
 
-export const findAgencies = async (
-  query: Record<string, unknown>,
-  skip: number,
-  limit: number,
-) => {
+export const findAgencies = async (query: Record<string, unknown>, skip: number, limit: number) => {
   return Agency.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
 };
 

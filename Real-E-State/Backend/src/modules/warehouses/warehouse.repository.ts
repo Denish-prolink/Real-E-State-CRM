@@ -43,9 +43,6 @@ export const updateWarehouse = async (
   );
 };
 
-export const deleteWarehouse = async (
-  id: string,
-  agencyId: string,
-): Promise<IWarehouse | null> => {
+export const deleteWarehouse = async (id: string, agencyId: string): Promise<IWarehouse | null> => {
   return await Warehouse.findOneAndDelete({ _id: id, agencyId });
 };

@@ -1,8 +1,8 @@
 import { connectDatabase } from '../config/database';
 import logger from '../config/logger';
 
-import { seedCategories } from './seeders/category.seeder';
 import { seedAgencies } from './seeders/agency.seeder';
+import { seedCategories } from './seeders/category.seeder';
 import { seedContacts } from './seeders/contact.seeder';
 import { seedEmployees } from './seeders/employee.seeder';
 import { seedOrders } from './seeders/order.seeder';
