@@ -67,12 +67,6 @@ export function AppSidebar() {
       roles: ["company", "employee"],
     },
     {
-      title: "Properties",
-      path: "/properties",
-      icon: Home,
-      roles: ["company", "employee"],
-    },
-    {
       title: "Projects",
       path: "/projects",
       icon: Building2,
@@ -82,6 +76,12 @@ export function AppSidebar() {
       title: "Towers",
       path: "/towers",
       icon: Building,
+      roles: ["company", "employee"],
+    },
+    {
+      title: "Properties",
+      path: "/properties",
+      icon: Home,
       roles: ["company", "employee"],
     },
     {
