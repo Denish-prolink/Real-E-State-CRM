@@ -7,7 +7,6 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from '../../common/helpers/token.helper';
-import type { IAgency } from '../agencies/agency.model';
 
 import {
   createRefreshToken,
@@ -73,7 +72,7 @@ export const loginUser = async (email: string, password: string) => {
     throw new ApiError('Invalid credentials', 401);
   }
 
-  const agency = user.agencyId as unknown as IAgency | null;
+  const agency = user.agencyId as unknown as { status: string } | null;
   if (user.role === 'agency' && agency && agency.status === 'inactive') {
     throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }
@@ -131,7 +130,7 @@ export const refreshAccessToken = async (refreshToken: string) => {
     throw new ApiError('User not found', 404);
   }
 
-  const agency = user.agencyId as unknown as IAgency | null;
+  const agency = user.agencyId as unknown as { status: string } | null;
   if (user.role === 'agency' && agency && agency.status === 'inactive') {
     throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }
@@ -178,7 +177,7 @@ export const loginOrCreateGoogleUser = async (payload: {
     });
   }
 
-  const agency = user.agencyId as unknown as IAgency | null;
+  const agency = user.agencyId as unknown as { status: string } | null;
   if (user.role === 'agency' && agency && agency.status === 'inactive') {
     throw new ApiError('Your agency account is inactive. Please contact support.', 403);
   }

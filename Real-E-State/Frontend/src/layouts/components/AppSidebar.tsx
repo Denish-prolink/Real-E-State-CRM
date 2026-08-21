@@ -1,14 +1,6 @@
 import {
-  Building,
-  Building2,
-  Home,
   LayoutDashboard,
-  UserCheck,
-  Users,
-  Warehouse,
-  Calendar,
-  CheckSquare,
-  FileText
+  Warehouse
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -36,72 +28,6 @@ export function AppSidebar() {
       icon: LayoutDashboard,
       roles: ["agency", "employee"],
     },
-    {
-      title: "Leads",
-      path: "/leads",
-      icon: UserCheck,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Contact",
-      path: "/contacts",
-      icon: Users,
-      roles: ["agency"],
-    },
-    {
-      title: "Tasks",
-      path: "/tasks",
-      icon: CheckSquare,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Documents",
-      path: "/documents",
-      icon: FileText,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Calendar",
-      path: "/calendar",
-      icon: Calendar,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Projects",
-      path: "/projects",
-      icon: Building2,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Towers",
-      path: "/towers",
-      icon: Building,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Properties",
-      path: "/properties",
-      icon: Home,
-      roles: ["agency", "employee"],
-    },
-    {
-      title: "Agency",
-      path: "/agencies",
-      icon: Building2,
-      roles: ["super_admin"],
-    },
-    // {
-    //   title: "Reports",
-    //   path: "/reports",
-    //   icon: TrendingUp,
-    //   roles: ["agency"],
-    // },
-    // {
-    //   title: "Profile page",
-    //   path: "/profile",
-    //   icon: Settings,
-    //   roles: ["agency", "employee"],
-    // },
   ];
 
   const userRole = user?.role || "employee";

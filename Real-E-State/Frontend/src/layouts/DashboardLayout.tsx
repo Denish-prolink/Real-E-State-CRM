@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
@@ -16,7 +15,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { logout } from "@/pages/auth/slices/auth.slice";
 import { ModeToggle } from "@/components/mode-toggle";
 export default function DashboardLayout() {
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -28,30 +26,6 @@ export default function DashboardLayout() {
   };
 
   const getBreadcrumbName = () => {
-    const path = location.pathname;
-
-    if (path === "/dashboard") return "Dashboard";
-    if (path === "/properties") return "Properties";
-    if (path === "/projects") return "Projects";
-    if (path === "/towers") return "Towers";
-    if (path === "/units") return "Units";
-    if (path === "/inventory") return "Inventory";
-    if (path === "/products") return "Products";
-    if (path.startsWith("/products/")) return "Product View";
-    if (path === "/categories") return "Category";
-    if (path === "/skus") return "SKUs";
-    if (path === "/warehouses") return "Warehouse Management";
-    if (path === "/sales") return "Sales Management";
-    if (path === "/agencies") return "Agency";
-    if (path.startsWith("/agencies/")) return "Agency View";
-    if (path === "/contacts") return "Contact";
-    if (path.startsWith("/contacts/")) return "Contact View";
-    if (path === "/employees") return "Employee";
-    if (path === "/reports") return "Reports";
-    if (path.startsWith("/orders")) return "Order";
-    if (path === "/profile") return "Profile";
-    if (path === "/settings") return "Settings";
-
     return "Dashboard";
   };
 
