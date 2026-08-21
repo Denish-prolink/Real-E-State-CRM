@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 import { useGetProductsReport } from '../hooks/useGetReports';
-import { Loader2, Package, AlertTriangle, IndianRupee } from 'lucide-react';
+import { Loader2, Package, IndianRupee } from 'lucide-react';
 
 interface ProductsReportSummary {
   totalProducts: number;
   totalQuantity: number;
   totalInventoryValue: number;
-  lowStockItems: number;
 }
 interface ProductsReportByCategory {
   _id: string;
@@ -24,7 +23,7 @@ export default function ProductsTab() {
   const { summary, categories } = useMemo(() => {
     const reportData = data as ProductsReportData | undefined;
     return {
-      summary: reportData?.summary || { totalProducts: 0, totalQuantity: 0, totalInventoryValue: 0, lowStockItems: 0 },
+      summary: reportData?.summary || { totalProducts: 0, totalQuantity: 0, totalInventoryValue: 0 },
       categories: reportData?.byCategory || []
     };
   }, [data]);
@@ -49,14 +48,6 @@ export default function ProductsTab() {
           <p className="text-xs text-muted-foreground mt-2">{summary.totalQuantity} items in stock</p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-950 border border-border rounded-xl p-6 shadow-sm flex flex-col items-center text-center">
-          <div className="h-12 w-12 rounded-full bg-amber-100 dark:bg-amber-950/50 flex items-center justify-center mb-4">
-            <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-400" />
-          </div>
-          <p className="text-sm font-medium text-muted-foreground">Low Stock Items</p>
-          <p className="text-2xl font-bold mt-1">{summary.lowStockItems}</p>
-          <p className="text-xs text-muted-foreground mt-2">Quantity &le; 10</p>
-        </div>
 
         <div className="bg-white dark:bg-zinc-950 border border-border rounded-xl p-6 shadow-sm flex flex-col items-center text-center">
           <div className="h-12 w-12 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center mb-4">

@@ -54,9 +54,7 @@ export const getProductsReportData = async (agencyId: string) => {
         totalProducts: { $sum: 1 },
         totalQuantity: { $sum: '$quantity' },
         totalInventoryValue: { $sum: { $multiply: ['$quantity', '$rawPrice'] } },
-        lowStockItems: {
-          $sum: { $cond: [{ $lte: ['$quantity', 10] }, 1, 0] },
-        },
+
       },
     },
   ]);
@@ -78,7 +76,6 @@ export const getProductsReportData = async (agencyId: string) => {
       totalProducts: 0,
       totalQuantity: 0,
       totalInventoryValue: 0,
-      lowStockItems: 0,
     },
     byCategory: categoriesResult,
   };

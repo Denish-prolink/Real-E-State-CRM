@@ -56,12 +56,7 @@ const productSchema = new mongoose.Schema(
       ref: 'Agency',
       required: true,
     },
-    lowStockReadBy: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
+
   },
   {
     timestamps: true,

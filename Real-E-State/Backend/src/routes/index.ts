@@ -16,7 +16,7 @@ import employeeRoutes from '../modules/employees/employee.routes';
 import followUpsRoutes from '../modules/follow-ups/follow-ups.routes';
 import installmentsRoutes from '../modules/installments/installments.routes';
 import leadRoutes from '../modules/leads/lead.routes';
-import notificationRoutes from '../modules/notification/notification.routes';
+
 import orderRoutes from '../modules/orders/order.routes';
 import paymentsRoutes from '../modules/payments/payments.routes';
 import permissionRoutes from '../modules/permissions/permission.routes';
@@ -60,7 +60,7 @@ router.use('/projects', projectRoutes);
 router.use('/towers', towerRoutes);
 router.use('/units', unitRoutes);
 router.use('/agents', agentRoutes);
-router.use('/notifications', notificationRoutes);
+
 
 // New Modules
 router.use('/follow-ups', followUpsRoutes);

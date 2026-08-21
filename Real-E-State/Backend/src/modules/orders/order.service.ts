@@ -54,7 +54,6 @@ export const createOrder = async (data: Partial<IOrder> & { agencyId: string }) 
         { _id: item.product, agencyId },
         {
           $inc: { quantity: adjustment },
-          $set: { lowStockReadBy: [] },
         },
         { new: true },
       );
@@ -119,7 +118,6 @@ export const deleteOrder = async (id: string, agencyId: string) => {
         { _id: item.product, agencyId },
         {
           $inc: { quantity: adjustment },
-          $set: { lowStockReadBy: [] },
         },
         { new: true },
       );
